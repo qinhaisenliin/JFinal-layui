@@ -1,0 +1,106 @@
+#include("_layui.html")
+#include("dictionary.html")
+
+<!-- 默认主题 -->
+#define layout()
+   #@layoutT(projectName)
+#end
+
+<!-- 添加引用页标题 -->
+#define layoutT(title)
+<!DOCTYPE html>
+<html>
+<head>
+<title>#(title??projectName)</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
+#@header()
+#@css()
+</head>
+<body>
+	<div class="layui-container-fluid">
+		#@message()
+		#@main()
+	</div>
+	#@footer()
+	#@getOption()
+	#@js()
+	#@layui()
+</body>
+</html>
+#end
+
+<!-- 引入css文件 -->
+#define header()
+	<link rel="icon" href="#(path)/favicon.ico" type="image/x-icon"/>
+	<link rel="stylesheet" href="#(path)/static/libs/layui/css/layui.css?t=#now()" media="all" />
+	<link rel="stylesheet" href="#(path)/static/css/publice.css?t=#now()" media="all" />
+	<link rel="stylesheet" href="#(path)/static/css/main/global.css?t=#now()" media="all">
+	<link rel="stylesheet" href="#(path)/static/libs/font-awesome/css/font-awesome.min.css?t=#now()">
+	<link rel="stylesheet" href="#(path)/static/libs/dwallslider/css/lightbox.min.css?t=#now()">
+	<script src="#(path)/static/libs/jquery/jquery-2.1.4.min.js?t=#now()" type="text/javascript" ></script>
+	<script src="#(path)/static/libs/jquery/jquery.form.js?t=#now()" type="text/javascript" ></script>
+#end
+
+<!-- 引入js文件 -->
+#define footer()
+	<script src="#(path)/static/libs/layui/pinyin/pinyin.js?t=#now()" type="text/javascript" ></script>
+	<script src="#(path)/static/libs/layui/pinyin/initials.js?t=#now()" type="text/javascript" ></script>
+	<script src="#(path)/static/libs/layui/layui.js?t=#now()" type="text/javascript" ></script>
+	<script src="#(path)/static/libs/common/alert.js?t=#now()" type="text/javascript" ></script>
+	<script src="#(path)/static/libs/common/common.js?t=#now()" type="text/javascript" ></script>
+	<script src="#(path)/static/libs/common/form-functions.js?t=#now()" type="text/javascript" ></script>
+	<script src="#(path)/static/libs/common/ui.tool.js?t=#now()" type="text/javascript" ></script>
+	<script src="#(path)/static/libs/common/grid-init.js?t=#now()" type="text/javascript" ></script>
+	<script src="#(path)/static/libs/dwallslider/js/lightbox.min.js?t=#now()" type="text/javascript"></script>
+	<script src="#(path)/static/libs/xtree/layui_xtree.js?t=#now()" type="text/javascript"></script>
+#end
+
+<!-- 输出异常信息 -->
+#define message()
+  #if(e||msg)
+   <div id="showmsg" style=";margin:5px 0;background-color: #if(e) #FF5722 #else #009688 #end">
+	   <span style="color:#FFF;margin-left:10px">#(e.message??msg)</span>
+	   <i style="float: right" class="layui-icon layui-icon-close" onclick="closedMsg()"></i>
+   </div>
+   <script type="text/javascript">
+		function closedMsg(){			
+			$("#showmsg").hide();
+		}
+     </script>
+  #end
+#end
+
+<!-- layui函数模块 -->
+#define layui()
+<script>
+	layui.use([ 'table', 'form', 'jquery'], function() {
+		var table = layui.table;
+		var form = layui.form;
+		var layer = layui.layer;
+		var $ = layui.$;	
+		#@layuiFunc()
+		form.render();
+	});
+</script>
+#end
+
+<!--表单token-->
+#define token()
+   	 <input type="hidden" name="tokenKey" value="#(tokenKey)">
+   	 <input type="hidden" name="tokenValue" value="#(tokenValue)">
+#end
+<!-- layui相关语法函数-->
+#define layuiFunc()
+#end
+<!-- 业务css -->
+#define css()
+#end
+<!-- 业务js -->
+#define js()
+#end
+

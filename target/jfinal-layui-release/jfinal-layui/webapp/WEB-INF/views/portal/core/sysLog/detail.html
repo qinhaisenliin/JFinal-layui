@@ -1,0 +1,55 @@
+#@layout()
+#define main()
+<form action="javascript:" class="layui-form layui-form-pane f-form" method="post" autocomplete="off">
+			<div class="layui-row layui-col-space1 task-row">	
+				#@colStart("操作用户",6)
+					<div  class='layui-input' id='user_code' >#(sysLog.user_code??)</div>
+				#@colEnd()
+				#@colStart("操作时间",6)			
+					<div  class='layui-input  show-text' id='create_time'  >#date(sysLog.create_time??,"yyyy-MM-dd HH:mm:ss")</div>
+				#@colEnd()
+				</div>
+
+			<div class="layui-row layui-col-space1 task-row">
+				#@colStart("资源类型",6)					
+					<div  class='layui-input  show-text' id='meth_name'  >#(sysLog.method_name??)</div>
+				#@colEnd()
+				#@colStart("资源路径",6)
+					<div  class='layui-input  show-text' id='url'  >#(sysLog.url??)</div>
+				#@colEnd()		
+			</div>
+			<div class="layui-row layui-col-space1 task-row">
+				#@colStart("日志类型",6)
+					<div  class='layui-input  show-text' id='remark'  >#(sysLog.remark??)</div>
+				#@colEnd()		
+				#@colStart("ip地址",6)					
+					<div  class='layui-input  show-text' id='ip'  >#(sysLog.ip??)</div>
+				#@colEnd()
+			</div>
+			<div class="layui-row layui-col-space1 task-row">			
+				#@colStart("资源数据",12)
+					<textarea  class='layui-input  show-text' id='data'  readonly="readonly" style="height:100px">#(sysLog.data??)</textarea>
+				#@colEnd()					
+			</div>
+			<div class="layui-row layui-col-space1 task-row">
+				<div class="layui-col-xs4">
+					<div class="layui-input-block"></div>	
+				</div>
+				<div class="layui-col-xs8">
+					<div class="layui-input-block">
+							<div class="layui-btn-container" style="margin-top: 10px">
+								<!-- <button id='1cdfb502t_589' type="submit" lay-submit	 class='layui-btn  layui-btn-normal '  value="Submit">
+									<i class="layui-icon">&#xe605;</i>	提交
+								</button> -->
+								<button id='closeWinBtn' type="button" 	 class='layui-btn  layui-btn-normal  layui-btn-radius' value="Close">
+									<i class="layui-icon">&#x1006;</i>	关闭
+								</button>
+							</div>
+					</div>
+				</div>
+			</div>
+</form>
+#end
+
+
+

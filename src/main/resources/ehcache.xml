@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="false" monitoring="autodetect"
+         dynamicConfig="true">
+         
+    <diskStore path="java.io.tmpdir"/>
+    
+    <!-- 用户权限--> 
+    <cache name="userFunc"
+           maxEntriesLocalHeap="90000"
+           eternal="false"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+            />
+            
+    <!-- 业务字典--> 
+    <cache name="dictionary"
+           maxEntriesLocalHeap="90000"
+           eternal="false"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+            />
+   
+</ehcache>

@@ -1,0 +1,42 @@
+
+	<input type="hidden" name="sysRole.id" value="#(sysRole.id??)" />
+	<input type="hidden" name="sysRole.parentId" value="#(sysRole.parentId??parentId)" />
+	#@colStart('角色编号',6)
+		<input type="text" class="layui-input #if(sysRole.roleCode??&&!e)layui-disabled#end" name="sysRole.roleCode" value="#(sysRole.role_code??)" 
+		lay-verType='tips'lay-verify="required|" required maxlength="50" placeHolder="必填"
+		 #if(sysRole.roleCode??&&!e)readonly="readonly"#end />
+	#@colEnd()
+	#@colStart('上级角色',6)
+		<input type="text" class="layui-input layui-disabled" name="sysRole.parentName" value="#(sysRole.parentName??parentName)" readonly="readonly"/>
+	#@colEnd()
+	#@colStart('角色名称',6)
+		<input type="text" class="layui-input" name="sysRole.roleName" value="#(sysRole.role_name??)" 
+		lay-verType='tips'lay-verify="required|" required maxlength="50" placeHolder="必填" />
+	#@colEnd()
+	#@colStart('是否停用',6)
+		<input name="sysRole.isStop" type="radio" value="0" class="layui-input" title="是"
+		#if(sysRole.is_stop??==0)checked="checked"#end/>
+		<input name="sysRole.isStop" type="radio" value="1" class="layui-input" title="否"
+		#if(sysRole==null||sysRole.is_stop??==1)checked="checked"#end/>
+	#@colEnd()
+	#@colStart('备注',12)
+		<input type="text" class="layui-input" name="sysRole.descript" value="#(sysRole.descript??)"/>
+	#@colEnd()
+	
+	<div class="layui-row layui-col-space1 task-row">
+		<div class="layui-col-xs2">
+			<div class="layui-input-block"></div>	
+		</div>
+		<div class="layui-col-xs8">
+			<div class="layui-input-block">
+					<div class="layui-btn-container" style="margin-top: 10px">
+						<button id='1cdfb502t_589' type="submit" lay-submit	 class='layui-btn  layui-btn-normal '  value="Submit">
+							<i class="layui-icon">&#xe605;</i>	提交
+						</button>
+						<button id='closeWinBtn' type="button" onclick="parent.closeIndex()"	 class='layui-btn  layui-btn-normal  layui-btn-radius' value="Close">
+							<i class="layui-icon">&#x1006;</i>	关闭
+						</button>
+					</div>
+			</div>
+		</div>
+	</div>

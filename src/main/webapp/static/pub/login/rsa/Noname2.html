@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+<script language="JavaScript" src="BigInt.js"></script>
+
+<script language="JavaScript" src="Barrett.js"></script>
+
+<script language="JavaScript" src="RSA_Stripped.js"></script>
+ </head>
+
+ <body>
+  <script>
+  var rsa_n = "aa045e4b8408b4119fdd65bc888e6ac373d37223890ea3b3bdf472dc8f349661b244ca97af46002f77e2e03fd485947735e07297ac033f96905b084d11087b2db3fb20018a8f12fed20ce24cf1dad6b550e19a4aa965f8b6c03cd8feeda3dce18b1e583d1e3b4103fd669223c3efc4dece0792c9af09e651b480a891ec44bf8f";
+  setMaxDigits(131); //131 => n的十六进制位数/2+3  
+    var key      = new RSAKeyPair("10001", '', rsa_n); //10001 => e的十六进制  
+    var password = "qhl123456";  
+    password = encryptedString(key, password); //不支持汉字  
+	document.write(password);
+  </script>
+ </body>
+</html>
+ 

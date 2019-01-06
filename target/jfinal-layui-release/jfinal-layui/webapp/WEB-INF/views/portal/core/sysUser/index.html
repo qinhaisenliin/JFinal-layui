@@ -1,0 +1,153 @@
+#@layoutT("用户管理")
+#define main()
+	#@formStart()
+		#@queryStart('用户')
+		   <input type="search" name="userName" autocomplete="off" class="layui-input" placeholder="用户名/姓名"/>
+		#@queryEnd()
+		#@queryStart('部门')
+		   <select name="orgId" class="layui-input" lay-search>
+		   		<option value="">---请选择部门---</option>
+		   		#for(data:orgList)
+       			<option value="#(data.value??)">#(data.text??)</option>
+       			#end
+		   </select>
+		#@queryEnd()
+		
+		#@queryStart('性别')
+			<select name="sex" class="layui-input" lay-search>
+				<option value="">---请选择性别---</option>
+				<option value="1">男</option>
+				<option value="0">女</option>
+			</select>
+		#@queryEnd()
+
+	#@formEnd()
+	
+	 	<div class='layui-row f-index-toolbar'>
+		<div class='layui-col-xs12'>
+			<div class="layui-btn-group">
+				#if(vs.funcMap.get('sys_user_add'))
+				<button id='addBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe608;</i> 新增
+				</button>
+				#end
+				#if(vs.funcMap.get('sys_user_reset'))
+				<button id='resetBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe673;</i> 重置密码
+				</button>
+				#end
+				<button id='refreshBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe669;</i> 刷新
+				</button>
+				#if(vs.funcMap.get('sys_user_delete'))					
+				<button id='deleteBtn_' class="layui-btn  layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe640;</i> 删除
+				</button>		
+				#end	
+			</div>
+		</div>
+	</div>
+	<div class="layui-row  f-index-toolbar">
+			<div class="layui-col-xs12">
+   				<table id="maingrid" lay-filter="maingrid"></table>
+   			</div>
+   	</div>
+   	
+   	<!-- 	每行的操作按钮 -->
+	<script type="text/html" id="bar_maingrid">
+	#if(vs.funcMap.get('sys_user_update'))
+  		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+	#end
+
+	#if(vs.funcMap.get('sys_user_role'))
+		<a class="layui-btn layui-btn-xs" lay-event="role">角色</a>
+	#end
+
+	#if(vs.funcMap.get('sys_user_delete'))
+  		<a class="layui-btn layui-btn-xs layui-btn-danger 
+		{{(d.id=='admin'||d.id=='superadmin')? 'layui-disabled':''}}" 
+		lay-event="{{(d.id=='admin'||d.id=='superadmin')? '':'del'}}" 	 
+		>删除</a>
+	#end
+	</script>
+#end
+
+#define js()
+<!-- 分页表格 -->
+<script>
+	 function userRole(obj){
+		 var data=obj.data;
+		var userCode=data.user_code;
+		var userName=data.user_name;
+		var url="#(path)/portal/core/sysUser/userRole?userCode="+userCode+"&userName="+userName;
+		openDialog("配置用户角色",url,false,null,null);
+	 }
+	 
+
+	gridArgs.title='功能';
+	gridArgs.dataId='id';
+	gridArgs.deleteUrl='#(path)/portal/core/sysUser/delete';
+	gridArgs.updateUrl='#(path)/portal/core/sysUser/edit/';
+	gridArgs.addUrl='#(path)/portal/core/sysUser/add';
+	gridArgs.resetUrl='#(path)/portal/core/sysUser/resetPassword';
+	gridArgs.gridDivId ='maingrid';
+	initGrid({id : 'maingrid'
+			,elem : '#maingrid'
+			,cellMinWidth: 80
+			,cols : [ [
+					{title: '主键',field : 'id',width : 35,checkbox : true},						
+					{title:'序号',type:'numbers',width:35},
+					{title: '用户名', field: 'user_code' },
+        			{title: '姓名', field: 'user_name'},
+	        		{title: '所属部门', field: 'org_name'},
+        			//{title: '职务', field: 'post' },
+        			//{title: '项目管理组', field: 'pmt', width: '100' },
+	        		{title: '性别', field: 'sex',templet:'#sexStr'},
+        			{title: '电话', field: 'tel'},
+        			{title: '手机号码', field: 'mobile'},
+        			{title: '邮箱', field: 'email'},
+        			{title: '允许登录', field: 'allow_login',templet:'#numToStr' },																		
+					{fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
+			] ]
+			,url:"#(path)/portal/core/sysUser/list"
+			,searchForm : 'searchForm'
+		},{role:userRole});
+	
+</script>
+<script type="text/html" id="sexStr">
+    {{ d.sex == 1 ? '男' : '女' }}             
+</script>
+<script type="text/html" id="numToStr">
+    <input type="checkbox" name="isStop" {{(d.id=='admin'||d.id=='superadmin')?'disabled':''}} value="{{d.id}}" 
+		lay-skin="switch" lay-text="是|否" lay-filter="allowLoginFilter" {{ d.allow_login == 0 ? 'checked' : '' }}>               
+</script>
+#end
+
+#define layuiFunc()
+ 	//监听开关操作
+	  form.on('switch(allowLoginFilter)', function(obj){
+		 var id = obj.value;
+		 var checked=obj.elem.checked;
+		 var state=0;
+		 if(!checked){
+		    state=1
+		 }
+		
+        $.post(
+        "#(path)/portal/core/sysUser/isAllowLogin?isJson=true"
+        ,param({
+			'id' : id
+			,'state':state
+		}),function(feedback) {
+			if (feedback.success) {
+				layer.tips("修改成功", obj.othis);
+			} else {
+				$(".layui-laypage-btn").click();
+				layer.alert(feedback.msg);
+			}
+		});
+	  });	  
+	  
+ #end
+ 
+ 

@@ -1,0 +1,158 @@
+#@layoutT("公共上传")
+#define main()
+</h1>
+<div class="form_box">
+
+	<fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 10px;">
+  		<legend>多文件上传&nbsp;<span id="fileNumber" style="font-size: 18px;color:#424041"></span></legend>
+	</fieldset> 
+ 	<div class="layui-progress layui-hide" lay-showpercent="true" lay-filter="upload" style="margin-bottom:5px">
+ 	 	<div class="layui-progress-bar" lay-percent="0%"></div>
+	</div>
+
+	<div class="layui-upload">
+	  <button type="button" class="layui-btn layui-btn-normal" id="fileList">选择文件</button> 
+	  <button type="button" class="layui-btn" id="fileListAction">开始上传</button>
+	  <div class="layui-upload-list" style="overflow-y:auto">
+	    <table class="layui-table">
+	      <thead>
+	      	<tr>
+	      		<th>序号</th>
+		      	<th>文件名</th>
+		        <th>大小</th>
+		        <th>状态</th>
+		        <th>操作</th>
+	      	</tr>
+	      </thead>
+	      <tbody id="uploadList"></tbody>
+	    </table>
+	  </div>
+	</div> 
+
+</div>
+#end
+
+#define js()
+<script type="text/javascript">
+layui.use(['upload','element'], function(){
+	  var $ = layui.jquery
+	  ,element = layui.element
+	  ,upload = layui.upload;
+	  var allowUploadFile='.jpg .png .ico .gif .jpeg .xls .xlsx .doc .html .pdf ';
+	  var allNum=0,fished=0;
+	  var start=false;
+	 //进度条触发事件
+	  var active = {
+	   loading: function(othis){
+	      //模拟loading
+	      var timer = setInterval(function(){  		    
+	        if(allNum!=0){
+			    var n=(fished/allNum*100).toFixed(0);
+			    element.progress('upload', n+'%');
+			    if(n==100){
+				    clearInterval(timer);
+				}
+		    }
+	      }, 100);
+	    }
+	//计算触发事件
+	  ,fileNum:function(othis){
+			var timer = setInterval(function(){
+				$('#fileNumber').html('('+fished+'/'+allNum+')');
+				if(fished==allNum&&allNum!=0){
+					 clearInterval(timer);
+					 start=false;
+				}
+			},200);
+		}
+	  };
+
+	 //监听上传按钮
+	  $('#fileListAction').on('click', function(){
+		 if(allNum>0){
+		  	$('.layui-progress').removeClass('layui-hide');
+		    active['loading'].call(this, $(this));
+		}
+	});
+	  
+	//多文件列表示例
+	var demoListView = $('#uploadList')
+	,uploadListIns = upload.render({
+	  elem: '#fileList'
+	  ,url: '#(path)/portal/upload/#(objectId??)'
+	  ,accept: 'file'
+	  ,multiple: true
+	  ,auto: false
+	  ,bindAction: '#fileListAction'
+	  ,choose: function(obj){   
+	    var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+	    //读取本地文件
+	    obj.preview(function(index, file, result){
+	   		allNum++;
+	   		if(fished>0){
+	   			active['loading'].call(this, $(this));
+		   	}
+		  var type=file.name.substring(file.name.lastIndexOf("."),file.name.length);
+	      var tr = $(['<tr id="upload-'+ index +'">'
+            ,'<td>'+ allNum +'</td>'
+	        ,'<td>'+ file.name +'</td>'
+	        ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
+	        ,'<td>等待上传</td>'
+	        ,'<td>'
+	          ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+	          ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+	        ,'</td>'
+	      ,'</tr>'].join(''));
+	      
+	      //单个重传
+	      tr.find('.demo-reload').on('click', function(){
+	        obj.upload(index, file);
+	      });
+	      
+	      //删除
+	      tr.find('.demo-delete').on('click', function(){
+			allNum--;
+	        delete files[index]; //删除对应的文件
+	        tr.remove();
+	        uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+	      });
+
+	      demoListView.append(tr);
+
+	      //校验文件类型
+	      if(allowUploadFile.indexOf(type)==-1 ){ 
+		      var tr = demoListView.find('tr#upload-'+ index)
+		      ,tds = tr.children();
+		      tds.eq(3).html('<span style="color: #FF5722;">'+type+' 类型不允许上传</span>');
+		      delete files[index]; //删除文件队列不合法的文件
+		    }
+	    });
+	    //激活计数函数
+	    if(!start){
+		    active['fileNum'].call(this, $(this));
+		    start=true;
+		}
+	  }
+	  ,done: function(res, index, upload){
+	    if(res.state == 'ok'){ //上传成功
+		  fished++;
+	      var tr = demoListView.find('tr#upload-'+ index)
+	      ,tds = tr.children();
+	      tds.eq(3).html('<span style="color: #5FB878;">上传成功</span>');
+	      tds.eq(4).html(''); //清空操作
+	      return delete this.files[index]; //删除文件队列已经上传成功的文件
+	    }
+	    this.error(index, upload);
+	  }
+	  ,error: function(index, upload){
+	    var tr = demoListView.find('tr#upload-'+ index)
+	    ,tds = tr.children();
+	    tds.eq(3).html('<span style="color: #FF5722;">上传失败</span>');
+	    tds.eq(4).find('.demo-reload').removeClass('layui-hide'); //显示重传
+	  }
+	});
+
+});
+</script>
+
+#end

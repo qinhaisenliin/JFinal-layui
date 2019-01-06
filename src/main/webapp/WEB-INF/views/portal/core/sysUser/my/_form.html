@@ -1,0 +1,57 @@
+
+	<input type="hidden" class="layui-input" name="sysUser.id" value="#(sysUser.id??)"/>
+
+	<div class="layui-row layui-col-space1 task-row">
+		#@colStart('用户编号',6)		
+		<input type="text" class="layui-input layui-disabled" 
+		name="sysUser.userCode" value="#(sysUser.user_code??)" 
+		lay-verify="required|" required maxlength="50"  placeHolder="长度最大50"
+		#if(sysUser.user_code??&&!e)readonly="readonly"#end/>
+		#@colEnd()
+		
+		#@colStart('部门',6)
+		<input type="hidden" class="layui-input layui-disabled" name="sysUser.orgId" value="#(sysUser.org_id)" 
+		lay-verify="required|" required maxlength="50"  placeHolder="长度最大50"readonly="readonly"
+		/>
+		<input type="text" class="layui-input layui-disabled" name="orgName" value="#(orgName)" 
+		lay-verify="required|" required maxlength="50"  placeHolder="长度最大50" readonly="readonly"
+		/>
+		#@colEnd()
+	</div>
+	
+	<div class="layui-row layui-col-space1 task-row">	
+		#@colStart('用户名称',6)
+		<input type="text" class="layui-input" name="sysUser.userName" value="#(sysUser.user_name??' ')" 
+		lay-verify="required|" required maxlength="50"  placeHolder="长度最大50"
+		/>		
+		#@colEnd()
+		
+		#@colStart('性别',6)
+		<input name="sysUser.sex" type="radio" value="1" title="男"
+		#if(sysUser.sex??==1||sysUser==null)checked="checked"#end/>
+		<input name="sysUser.sex" type="radio" value="0"  title="女" 
+		#if(sysUser.sex??==0)checked="checked"#end/>
+		#@colEnd()
+	</div>
+	
+	<div class="layui-row layui-col-spacel task-row">
+		
+		#@colStart('手机',6)
+		<input type="text" class="layui-input" name="sysUser.mobile" value="#(sysUser.mobile??)"/>
+		#@colEnd()
+		#@colStart('电话',6)
+		<input type="text" class="layui-input" name="sysUser.tel" value="#(sysUser.tel??)"/>
+		#@colEnd()
+	</div>
+	
+	<div class="layui-row layui-col-spacel task-row">
+		#@colStart('邮箱',6)
+		<input type="text" class="layui-input" name="sysUser.email" value="#(sysUser.email??)"/>
+		#@colEnd()
+	
+		#@colStart('地址',6)
+		<input type="text" class="layui-input" name="sysUser.address" value="#(sysUser.address??)"/>
+		#@colEnd()
+	</div>
+	
+	#@submitButton2(3)

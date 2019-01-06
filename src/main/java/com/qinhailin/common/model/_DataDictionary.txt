@@ -1,0 +1,103 @@
+Table: file_uploaded
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | BIGINT(19)   | NO   | PRI |         |         
+ create_time | DATETIME(19) | YES  |     |         |         
+ file_name   | VARCHAR(200) | YES  |     |         |         
+ file_size   | BIGINT(19)   | YES  |     |         | KB      
+ save_path   | VARCHAR(300) | YES  |     |         |         
+ objectId    | VARCHAR(200) | YES  |     |         |         
+ url         | VARCHAR(255) | YES  |     |         |         
+-------------+--------------+------+-----+---------+---------
+
+Table: sys_function
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | VARCHAR(32)  | NO   | PRI |         | 主键      
+ func_name   | VARCHAR(80)  | NO   |     |         | 功能名称    
+ is_stop     | INT(10)      | YES  |     |         | 是否启用(0:是,1:否)
+ link_page   | TEXT(65535)  | YES  |     |         | 功能url   
+ parent_code | VARCHAR(40)  | YES  |     |         | 上级编号    
+ parent_name | VARCHAR(100) | YES  |     |         | 上级名称    
+ func_type   | INT(10)      | YES  |     |         | 功能类型(0:菜单,1:按钮)
+ icon        | VARCHAR(50)  | YES  |     |         | 图标      
+ order_no    | INT(10)      | YES  |     |         | 排序      
+ descript    | VARCHAR(255) | YES  |     |         | 注释      
+-------------+--------------+------+-----+---------+---------
+
+Table: sys_org
+---------------+-------------+------+-----+---------+---------
+ Field         | Type        | Null | Key | Default | Remarks 
+---------------+-------------+------+-----+---------+---------
+ id            | VARCHAR(32) | NO   | PRI |         | 主键      
+ org_code      | VARCHAR(50) | YES  |     |         | 部门编号和主键默认
+ parentid      | VARCHAR(40) | YES  |     |         | 上级部门编号  
+ parentid_name | VARCHAR(50) | YES  |     |         | 上级部门名称  
+ org_name      | VARCHAR(50) | NO   |     |         | 部门名称    
+ chief         | VARCHAR(30) | YES  |     |         | 部门负责人姓名 
+ phone         | VARCHAR(20) | YES  |     |         | 部门负责人电话 
+ mobile        | VARCHAR(20) | YES  |     |         | 部门负责人手机号
+ email         | VARCHAR(40) | YES  |     |         | 部门负责人邮件 
+ descript      | TEXT(65535) | YES  |     |         | 描述      
+ level         | DECIMAL(8)  | YES  |     |         | 级别      
+ isstop        | DECIMAL(8)  | YES  |     |         | 是否停用
+1：停用；
+0：启用；
+---------------+-------------+------+-----+---------+---------
+
+Table: sys_role
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | VARCHAR(32)  | NO   | PRI |         |         
+ descript   | VARCHAR(200) | YES  |     |         |         
+ is_stop    | INT(10)      | NO   |     |         |         
+ orgid      | VARCHAR(100) | YES  |     |         |         
+ parent_id  | VARCHAR(100) | YES  |     |         |         
+ role_code  | VARCHAR(100) | NO   |     |         |         
+ role_name  | VARCHAR(100) | NO   |     |         |         
+ user_code  | VARCHAR(100) | YES  |     |         |         
+ visit_view | VARCHAR(100) | YES  |     |         |         
+------------+--------------+------+-----+---------+---------
+
+Table: sys_role_function
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | VARCHAR(200) | NO   | PRI |         |         
+ function_id | VARCHAR(100) | NO   |     |         |         
+ role_code   | VARCHAR(50)  | NO   |     |         |         
+-------------+--------------+------+-----+---------+---------
+
+Table: sys_user
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | VARCHAR(20)  | NO   | PRI |         | 主键      
+ user_code        | VARCHAR(20)  | NO   |     |         | 用户编号默认跟ID一样
+ user_name        | VARCHAR(20)  | NO   |     |         | 用户名称    
+ passwd           | VARCHAR(100) | NO   |     |         | 密码      
+ org_id           | VARCHAR(50)  | YES  |     |         | 部门编号    
+ post             | VARCHAR(50)  | YES  |     |         | 职务      
+ sex              | INT(10)      | YES  |     |         | 1;男,0女  
+ tel              | VARCHAR(40)  | YES  |     |         | 电话      
+ mobile           | VARCHAR(30)  | YES  |     |         | 手机号码    
+ email            | VARCHAR(40)  | YES  |     |         | EMAIL   
+ address          | VARCHAR(100) | YES  |     |         | 家庭地址    
+ allow_login      | INT(10)      | YES  |     |         | 允许登录    
+ deleted          | INT(10)      | YES  |     | 0       | 删除操作（1：删除未审核）
+ allow_login_time | DATETIME(19) | YES  |     |         | 允许登录时间或最后登录时间
+ failure_number   | INT(10)      | YES  |     |         | 登录错误次数  
+------------------+--------------+------+-----+---------+---------
+
+Table: sys_user_role
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | VARCHAR(200) | NO   | PRI |         |         
+ role_code | VARCHAR(50)  | NO   |     |         |         
+ user_code | VARCHAR(100) | NO   |     |         |         
+-----------+--------------+------+-----+---------+---------
+

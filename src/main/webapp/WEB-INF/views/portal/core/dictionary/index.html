@@ -1,0 +1,287 @@
+#@layoutT("功能")
+#define css()
+<style type="text/css"> 
+
+/** 树图标样式 */
+body .layui-tree-skin-skin .layui-tree-branch{
+	color: #00C5CD;
+}
+/** 隐藏树图标 */
+.layui-tree-branch/*, .layui-tree-leaf ,.layui-xtree-icon-null  */{
+    display: none;
+}  
+#maingrid {
+	border: none;
+}
+
+.l-accordion-header{
+	display:none;
+}
+.div-scroll{
+	overflow:auto;
+	border:1px solid #DCDCDC;
+	min-height: 595px;
+	position: relative;
+	min-width:345px;
+}
+.l-layout-header {
+    position: relative;
+    padding-left: 10px;
+    color: #183152;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    background: #E5EFFE;
+    overflow: hidden;
+    cursor: pointer;
+}
+.cite{
+   color:#5FB878;
+}
+</style>
+#end
+#define main()
+<div id='container' class="layui-row">	
+	<div class="layui-col-xs3 div-scroll" position="left" id="accordion1"> 
+	     <div class="l-layout-header" onclick="reloadTree()">字典菜单
+	     	<div class="layui-btn-group"style="float: right">
+				#if(vs.funcMap.get('data_dictionary_add'))
+				<button id='addBtn_1' class="layui-btn layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe608;</i> 新增
+				</button>
+				#end
+				#if(vs.funcMap.get('data_dictionary_update'))
+				<button id='updateBtn_1' class="layui-btn layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe642;</i> 修改
+				</button>		
+				#end
+				#if(vs.funcMap.get('data_dictionary_delete'))
+				<button id='deleteBtn_1' class="layui-btn  layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe640;</i> 删除
+				</button>			
+				#end		
+			</div>
+	     </div>
+	     
+         <div title="字典列表" class="l-scroll"style="left: 0px;  top: 0px;">
+             <ul id="leftLayout" style="margin-top:0px;margin-bottom:10px;">
+             </ul>
+         </div>
+     </div>
+        
+	<div class="layui-col-xs9" position='center'  id="tablelist"
+		style="border:1px solid #DCDCDC;min-height: 595px;">
+		<form class="layui-form layui-form-pane f-form" id='searchForm' lay-filter='searchForm' action="javascript:;">
+		<div class='layui-row f-index-toolbar'>
+					<div class='layui-col-xs12'>
+						<div class="layui-btn-group">
+						  
+						  	#if(vs.funcMap.get('data_dictionary_value_add'))
+							<button style="margin-top: -2px" id='addBtn_2' class="layui-btn layui-btn-mini layui-btn-normal layui-btn-sm">
+								<i class="layui-icon">&#xe608;</i> 添加
+							</button>
+							#end
+							
+							#if(vs.funcMap.get('data_dictionary_value_delete'))
+							<button style="margin-top: -2px" id='deleteBtn_' class="layui-btn layui-btn-mini layui-btn-normal layui-btn-sm">
+								<i class="layui-icon">&#xe640;</i> 删除
+							</button>
+							#end
+					</div>
+				</div>
+			</div>
+		</form>
+      	<table id="maingrid" lay-filter="maingrid"></table>
+    </div>
+	
+ </div>
+#end
+#define js()
+<script type="text/html" id="bar_maingrid">
+	#if(vs.funcMap.get('data_dictionary_value_update'))
+  	<a class="layui-btn layui-btn-xs" lay-event="edit_">编辑</a>
+	#end
+	#if(vs.funcMap.get('data_dictionary_value_delete'))
+  	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+	#end
+</script>
+
+<script type="text/javascript">
+
+var leftOtions,leftNodes,code="",name="";
+
+function setHight(){
+	var contentHeight=$(window).height()-5;
+	var width =$('#container').width();
+	var col3=$('#accordion1').width();
+	if(col3<=345){
+		$("#tablelist").css("width",width-col3-2);	
+	}
+	$("#accordion1").css("height",contentHeight);
+	$("#tablelist").css("height",contentHeight);
+}
+
+//关闭弹窗的回调函数
+var option={
+	end : function() {
+		  reloadTree();
+	}
+}
+
+$(function(){
+	queryDictionaryTree();
+	setHight();
+	
+	
+	//添加字典 
+	$("#addBtn_1").click(function(){
+		var url="#(path)/portal/core/dictionary/add";
+		openDialog("添加字典",url,false,650,400,option);
+	});
+	
+	//修改字典 
+	$("#updateBtn_1").click(function(){
+		if(code=="frame"||code==""){
+			layer.msg("请选中要修改的字典数据")
+			return;
+		}		
+		var url="#(path)/portal/core/dictionary/edit/"+code;
+		openDialog("修改字典",url,false,650,400,option);
+	});
+	
+	//删除字典 
+	$("#deleteBtn_1").click(function(){
+		var url="#(path)/portal/core/dictionary/delete?ids[0]="+code;
+		if(code=="frame"||code==""){
+			layer.msg("请选中要删除的字典数据");
+			return
+		}
+		layer.confirm('确定要删除 '+name+' 吗？', function(index) {
+			$.ajax({
+				url:url,
+				type:"POST",
+				success:function(data){
+					code="";
+					name="";
+					reloadTree();
+				}
+			});
+			layer.close(index);
+		});
+	});
+	
+});
+
+function getDictionaryValueList(){
+
+	gridArgs.title='-'+name+'-数据';
+	gridArgs.dataId='id';
+	gridArgs.deleteUrl='#(path)/portal/core/dictionary/value/delete';
+	gridArgs.updateUrl='#(path)/portal/core/dictionary/value/edit/';
+	gridArgs.addUrl='#(path)/portal/core/dictionary/value/add?code='+code;
+	gridArgs.gridDivId ='maingrid';
+	gridArgs.heightDiff=40;
+	initGrid({id : 'maingrid',
+			elem : '#maingrid',
+			cols : [ [
+				{title: '主键',field : 'id',width : 35,checkbox : true},
+				{title: '序号',type:'numbers',width:35},
+	   			{title: '数据值', field: 'value'},
+	   			{title: '数据名称', field: 'name'},
+	   			{title: '排序', field: 'order_num'},
+	   			{title: '备注', field: 'remark'},       			
+				{title: '',fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
+			] ],
+			url:"#(path)/portal/core/dictionary/value/list?code="+code,
+			searchForm : 'searchForm'
+		});
+}
+
+//查询所有功能菜单并生成树
+function queryDictionaryTree(){
+	leftNodes="";
+	$.ajax({
+		url:"#(path)/portal/core/dictionary/tree",  
+	    type:"POST", 
+	    data: {
+	    },
+	    success:function(data){
+	    	if(data.length>0){
+	    		for(var i=0;i<data.length;i++){
+		    		showLeftTree(data[i],i,true);
+		    	}
+	    		leftTree();
+	    	}
+	    }	
+	});
+}
+
+var nodeNum=0;
+/**
+ * spred：true-展开，false-不展开
+ */
+function showLeftTree(treeNode,num,spred){
+  	var id=treeNode.id;
+	var text=treeNode.text;
+	if(num>0){
+		leftNodes+=",";
+	}
+	nodeNum++;
+	if(nodeNum>2){
+		spred=false;
+	}
+	leftNodes+="{name:'"+text+"',spread:"+spred+",id:'"+id+"',children:[";
+	var children=treeNode.children;
+	if(children.length>0){
+		for(var i=0;i<children.length;i++){			
+			showLeftTree(children[i],i,spred);
+		}
+	}
+	leftNodes+="]}";
+}
+
+    
+function strToJson(str){
+    var json = (new Function("return " + str ))();
+    return json;
+  }
+
+function reloadTree(){
+	nodeNum=0;
+	queryDictionaryTree();	
+}
+
+//数据字典树
+function leftTree(){
+	layui.use('tree',function(){
+		var node=[strToJson(leftNodes.replace("undefined",""))];
+		leftOtions={
+				elem: '#leftLayout' //传入元素选择器
+				,skin: 'skin'			
+				,click: function(item){ //点击节点回调
+				      treeClick(item);	
+				      $("#addBtn_2").off("click");//去掉添加按钮重复绑定事件	      			     
+				      getDictionaryValueList();	
+				 }
+				,nodes: node				
+		}	
+		$('ul li').remove();
+		layui.tree(leftOtions);
+	});
+}
+function treeClick(item){
+	name=item.name;
+    code=item.id;
+	var cite=document.getElementsByTagName('cite');
+    for(var i=0;i<cite.length;i++){
+  	  if(cite[i].innerText==item.name){
+		 document.getElementsByTagName('cite')[i].classList.add("cite")
+  	  }else{
+	     document.getElementsByTagName('cite')[i].classList.remove("cite")  
+  	  }
+    }
+
+}
+</script>
+#end
+

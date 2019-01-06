@@ -1,0 +1,105 @@
+body{
+	padding-left:1px;
+	padding-right:1px;
+}
+.task-head-row{
+	background:#ededed;color:black;
+	padding:3px;
+	margin:0px 0px;
+}
+.task-row{
+	margin-top:0px;
+	margin-left:0px;
+	margin-right:0px;
+	margin-bottom:0px;
+	border-bottom:1px solid #f8f8f8;
+	padding:0px 0px 1px 0px;
+}
+.task-col{
+	font-size:18px;
+	padding-left:0px;
+}
+.task-col-time{
+	text-align:right;
+}
+.show-text{
+	padding-top:5px;
+	background:#fdfdfd;
+}
+.flow-step{
+	background:url('../images/circle-blue20.png') no-repeat;
+	float:left;
+	padding-right:1px;
+	padding-top:2px;
+	margin-left:0px;
+	width:20px;
+	height:20px;
+	margin-right:5px;
+	margin-top:1px;
+	text-align:center;
+	font-size:11px;
+}
+.flow-form .task-time{
+	float:left;
+	width:220px;
+}
+.flow-form .task-name{
+	float:left;
+	margin-left:22px;
+}
+.image-container{
+	padding-left: 3px;
+	width: 100%;
+	padding: 1px 4px;
+	font-size: 13px;
+	color: #555;
+	background-color: #fff;
+  background-image: none;
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow:none;
+  -webkit-transition: none;
+  -o-transition:none;
+  transition: none;
+  display:flex;
+  flex-wrap:wrap;
+}
+.photo-image{
+	min-width:30px;
+	min-height:25px;
+	height: 80px;
+	width: 80px;
+	border:1px solid #999999;
+}
+.input-group-addon input{
+	max-height:20px;
+}
+
+
+
+.file {
+	position: relative;
+	display: inline-block;
+	background: deepskyblue;
+	border: 1px solid #99D3F5;
+	border-radius: 4px;
+	padding: 4px 12px;
+	overflow: hidden;
+	color: white;
+	text-decoration: none;
+	text-indent: 0;
+	line-height: 20px;
+}
+.file input {
+	position: absolute;
+	font-size: 100px;
+	right: 0;
+	top: 0;
+	opacity: 0;
+}
+.file:hover {
+	background: #AADFFD;
+	border-color: #78C3F3;
+	color: #004974;
+	text-decoration: none;
+}

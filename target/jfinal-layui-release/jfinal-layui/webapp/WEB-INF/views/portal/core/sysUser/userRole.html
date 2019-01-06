@@ -1,0 +1,236 @@
+#@layoutT("功能")
+#define css()
+<style type="text/css"> 
+
+/** 树图标样式 */
+body .layui-tree-skin-skin .layui-tree-branch{
+	color: #00C5CD;
+}
+/** 隐藏树图标 */
+.layui-tree-branch/*, .layui-tree-leaf ,.layui-xtree-icon-null  */{
+    display: none;
+}  
+#maingrid {
+	border: none;
+}
+
+.l-accordion-header{
+	display:none;
+}
+.div-scroll{
+	overflow:auto;
+	border:1px solid #DCDCDC;
+	height: 595px;
+	position: relative;
+	min-width:280px;
+	display: none;
+}
+	
+.function_content{
+	border:1px solid #DCDCDC;
+	height: 595px;
+	overflow: auto;
+	position: relative;
+}
+.func_tree{
+	height:563px; 
+	overflow: auto;
+	border:1px solid #DCDCDC;
+	margin:0px 1px;
+}
+.l-layout-header {
+    position: relative;
+    padding-left: 10px;
+    color: #183152;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    background: #E5EFFE;
+    overflow: hidden;
+    cursor: pointer;
+}
+.cite{
+   color:#5FB878;
+}
+.disabled{
+	color:#BDBDBD;
+}
+
+.disabled[lay-skin="primary"] span {
+    color: 	#BDBDBD;
+}
+
+</style>
+#end
+#define main()
+
+	<div id='container' class="layui-row">		
+        
+	<div class="layui-col-xs12 function_content" id="maingrid" position='center'>
+      <form class="layui-form" action="">
+      
+        <div class="l-layout-header" style="margin:0px;height:30px">
+         <div class="layui-col-xs3">
+            <span id="roleName" style="color:#5FB878">#(userName)</span>
+           <label>用户角色：</label>
+         </div>
+         <div class="layui-col-xs9  layui-btn-group">
+           <button id='saveUserRole'type="button" lay-submit class='layui-btn layui-btn-green layui-btn-xs' value="Submit">
+			<i class="layui-icon">&#xe605;</i>	保存
+		  </button>		  
+		  </div>
+        </div>
+        <div id="layui-xtree-demo1" class="func_tree"></div>
+
+      </form>
+    </div>
+	
+  </div>
+  
+#end
+<script src="#(path)/static/libs/xtree/layui_xtree2.js?t=#now()" type="text/javascript"></script><!-- 此树文件的树菜单不会连锁选择效应 -->
+<script type="text/javascript">
+var rightOption,rightNodes,treeNodes;
+var userCode="#(userCode)";
+
+$(function(){
+	queryRoleTree();
+	setHeight();		
+	setTimeout(function(){
+		queryUserRole();
+	},150);
+	
+});
+
+function setHeight(){
+	var height=$(window).height()-5;
+	$("#maingrid").css("height",height);
+	$(".func_tree").css("height",height-32);
+}
+
+
+//查询所有角色菜单并生成树
+function queryRoleTree(){
+	rightNodes="";
+	$.ajax({
+		url:"#(path)/portal/core/sysRole/userRoleTree", 
+	    type:"POST", 
+	    data: {
+	    },
+	    success:function(data){
+	    	if(data.length>0){
+	    		var treeNode=data[0];
+	    		treeNodes=treeNode;
+	    		showRightTree(treeNode,0);
+	    		rightTree();  	
+	    	}
+	    }	
+	});
+}
+
+//构造角色树节点
+function showRightTree(treeNode,num){
+  	var a=0;
+  	var id=treeNode.id;
+	var text=treeNode.text;
+	if(a!=0||num!=0){
+		rightNodes+=",";
+	}
+	rightNodes+="{title:'"+text+"',value:'"+id+"',data:[";
+	var children=treeNode.children;
+	if(children!=null&&children.length>0){
+		for(var i=0;i<children.length;i++){
+			showRightTree(children[i],i);
+		}
+	}
+	a++;
+	rightNodes+="]}";
+}
+ 
+function strToJson(str){
+    var json = (new Function("return " + str ))();
+    return json;
+  }  
+
+//角色树
+function rightTree(){
+	layui.use('form',function(){
+		var form = layui.form;
+
+        //创建tree
+		var node=[strToJson(rightNodes.replace("undefined",""))];
+        var xtree = new layuiXtree({
+            elem: 'layui-xtree-demo1' //放xtree的容器（必填）
+
+             , form: form              //layui form对象 （必填）
+
+             , data: node              //数据，结构请参照下面 （必填）
+
+             , isopen: true            //初次加载时全部展开，默认true （选填）
+
+             , color: "#000"           //图标颜色 （选填）
+
+             , icon: {                 //图标样式 （选填）
+
+                 open: "&#xe625;"      //节点打开的图标
+
+                 , close: "&#xe623;"   //节点关闭的图标
+
+                 , end: "&#xe621;"     //末尾节点的图标
+
+             }
+        });
+
+        document.getElementById('saveUserRole').onclick = function () {
+        	//获取全部选中的节点checkbox对象
+            var oCks = xtree.GetChecked(); 
+            var role=new Array();
+            for (var i = 0; i < oCks.length; i++) {
+            	role[i]=oCks[i].value;
+            }
+			
+            $.ajax({
+           	url:'#(path)/portal/core/sysUser/saveUserRole?role='+role,
+           	type:'POST',
+           	data:{
+           		"userCode":userCode
+           	},
+           	success:function(data){
+           		layer.msg(data.msg);
+           	},
+           });
+        } 
+	})
+}
+
+//查询角色功能，是否选中状态
+function queryUserRole(){	
+	$.ajax({
+		url:'#(path)/portal/core/sysUser/queryUserRole',
+		type:'POST',
+		data:{
+			"userCode":userCode
+		},
+		success:function(data){
+			//获取所有节点
+			var xtree_all = document.getElementsByClassName('layui-xtree-item');
+			var cks = document.getElementsByClassName('layui-xtree-checkbox');
+			//禁用sys角色
+			cks[0].disabled=true;		
+			xtree_all[0].getElementsByClassName('layui-unselect layui-form-checkbox')[0].classList.add('disabled');
+		     for (var i = 0; i < cks.length; i++) {
+		    	 var value=cks[i].value
+		    	 //添加选中状态
+	        	 for(var j=0;j<data.length;j++){
+	        		 var roleCode=data[j].role_code;
+	        		 if(value==roleCode){
+	        			 xtree_all[i].getElementsByClassName('layui-xtree-checkbox')[0].checked=true;
+			        	 xtree_all[i].getElementsByClassName('layui-unselect layui-form-checkbox')[0].classList.add('layui-form-checked');
+	        		 }
+	        	 }
+		     }
+
+		}
+	});
+}
+</script>

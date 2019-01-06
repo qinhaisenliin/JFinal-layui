@@ -1,0 +1,46 @@
+.f-form-detail .layui-input-block{
+	border-bottom:1px solid #f2f2f2;
+}
+.f-form-detail .layui-input-block .f-input-detail{
+	padding:10px 10px;
+}
+.layui-form .layui-form-item{
+	margin-bottom:2px;
+}
+.layui-form legend.layui-field-title{
+	margin-bottom:10px;
+}
+.f-form .layui-elem-field{
+}
+.f-form .layui-inline{
+	margin-top:0px;
+	margin-bottom:3px;
+}
+/**重写 layui**/
+.layui-form-pane .layui-form-label{
+	background-color:#f9faf9
+}
+.layui-form-pane .layui-form-label{
+	padding:8px 12px;
+}
+.layui-form-pane .layui-input-block .show-area{
+	padding:0px 5px;
+}
+.show-image-wrapper{
+	float:left;
+	margin-right:1px;
+}
+.show-image{
+}
+/**表单查询 重写**/
+.f-form .layui-inline {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.layui-form-item .layui-inline {
+    margin-bottom: 5px;
+    margin-right: 0px;
+}
+.layui-form .layui-form-item {
+    margin-bottom: 0px;
+}

@@ -1,0 +1,66 @@
+	#@token()
+	<input type="hidden" class="layui-input" name="sysFunction.parentCode" value="#(sysFunction.parent_code??parentId)"/>
+	<div class="layui-row layui-col-space1 task-row">
+	#@colStart("上级菜单",12)
+		<input type="text" class="layui-input layui-disabled" name="sysFunction.parentName" value="#(sysFunction.parentName??parentName)" readonly="readonly"/>
+	#@colEnd()
+	</div>
+	<div class="layui-row layui-col-space1 task-row">
+	#@colStart("功能编号",12)
+		<input type="text" lay-verType='tips'lay-verify="required|" required maxlength="30" placeHolder="必填" class="layui-input #if(sysFunction.id??&&!e) layui-disabled #end" name="sysFunction.id" value="#(sysFunction.id??)" #if(sysFunction.id??&&!e)readonly="readonly"#end/>
+	#@colEnd()
+	<div class="layui-row layui-col-space1 task-row">
+	</div>
+	#@colStart("功能名称",12)
+		<input type="text" lay-verType='tips'lay-verify="required|" required maxlength="30" placeHolder="必填" class="layui-input" name="sysFunction.funcName" value="#(sysFunction.func_name??)" />
+	#@colEnd()
+	</div>
+	
+	<div class="layui-row layui-col-spacel task-row">
+	#@colStart("url",12)
+		<input type="text" class="layui-input" name="sysFunction.linkPage" value="#(sysFunction.link_page??)"/>
+	#@colEnd()
+	</div>
+	
+	<div class="layui-row layui-col-space1 task-row">
+	#@colStart("排序",6)
+		<input type="number" class="layui-input" name="sysFunction.orderNo" value="#(sysFunction.order_no??1)"/>
+	#@colEnd()
+	
+	#@colStart('图标',6)
+		<input type="hidden" name="sysFunction.icon" value="#(sysFunction.icon??)" class="layui-input">
+		<div class="layui-input" id="icon"><i class="layui-icon #(sysFunction.icon??)"></i></div>
+	#@colEnd()
+	</div>
+	
+	<div class="layui-row layui-col-space1 task-row">
+	#@colStart("功能类型",6)
+		<input name="sysFunction.funcType" type="radio" value="0" class="layui-input" title="菜单"checked="checked"/>
+		<input name="sysFunction.funcType" type="radio" value="1" class="layui-input" title="按钮"
+		#if(sysFunction.func_type??==1) checked="checked" #end />
+	#@colEnd()
+	
+	#@colStart("是否启用",6)
+		<input name="sysFunction.isStop" type="radio" value="0" class="layui-input" title="是" checked="checked" />
+		<input name="sysFunction.isStop" type="radio" value="1" class="layui-input" title="否" 
+		#if(sysFunction.is_stop??==1) checked="checked" #end />
+	#@colEnd()
+	</div>
+	
+	#@submitButton2(3)
+	
+	#define js()
+	<script type="text/javascript">
+	$('#icon').click(function(){
+   		openDialog('图标',"#(path)/portal/go/portal/core/sysFunc/layui-icon",false,null,null,null);
+	});
+
+	function getIcon(iconClass,iconCode,iconName){
+		$('input[name="sysFunction.icon"]').val(iconClass);
+		$('#icon').html('<i class="layui-icon '+iconClass+'"></i>');
+	}
+   </script>
+   
+	#end
+	
+	

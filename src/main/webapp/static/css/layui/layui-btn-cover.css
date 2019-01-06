@@ -1,0 +1,23 @@
+.layui-btn-radius{
+	border-radius:0px;
+}
+.layui-btn-group .layui-btn:first-child {
+    border-left: none;
+    border-radius: 0px;
+}
+.layui-btn-group .layui-btn:last-child {
+    border-radius: 0px;
+}
+.layui-input-block {
+    min-height: 36px;
+    margin-top: 0px;
+}
+.layui-table-cell .layui-form-checkbox[lay-skin=primary] {
+    top: 2px;
+    vertical-align: middle;
+}
+
+.layui-disabled, .layui-disabled:hover {
+    color: #757575!important;
+    cursor: not-allowed!important;
+}

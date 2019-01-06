@@ -1,0 +1,64 @@
+<title>获取业务数据下拉、单选、多选函数</title>
+
+<!-- 业务字典下拉函数 ，code:字典编号，name:元素name属性,text:选项名称 -->
+#define getSelect(code,name,text)
+<select id="select_#(code)" name="#(name)" class="layui-input" lay-search>
+	<option value="">#(text)</option>
+</select>
+<script type="text/javascript">
+	$(function(){
+		getOption('#(code)','select');
+	});
+</script>
+#end
+
+<!-- 业务字典单选函数 ，code:字典编号，name:元素name属性,text:选项名称-->
+#define getRadio(code,name,text)
+<div id="radio_#(code)"></div>
+<script type="text/javascript">
+	$(function(){
+		getOption("#(code)","radio");
+	});
+</script>
+#end
+
+<!-- 业务字典多选函数，code:字典编号，name:元素name属性,text:选项名称 -->
+#define getCheckbox(code,name,text)
+<div id="checkbox_#(code)"></div>
+<script type="text/javascript">
+	$(function(){
+		getOption("#(code)","checkbox");
+	});
+</script>
+#end
+
+
+#define getOption()
+<script type="text/javascript">
+	//获取业务字典数据 
+	function getOption(code,type){
+		$.ajax({
+			url:'#(path)/portal/core/dictionary/value/getOption',
+			data:{
+				"code":code
+			},
+			type:"post",
+			success:function(data){
+				var option="";
+				for(var i=0;i<data.length;i++){
+					if(type=="radio"){
+						option+='<input type="radio" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+					}else if(type=="checkbox"){
+						option+='<input type="checkbox" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+					}else{
+						option+='<option value="'+data[i].value+'">'+data[i].name+'</option>';
+					}				
+				}					
+	
+				$('#'+type+"_"+code).append(option);
+			}			
+		});
+	}
+
+  </script>
+#end

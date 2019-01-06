@@ -1,0 +1,75 @@
+
+			<input class='layui-input' id='id_id' type="hidden" name='sysOrg.id' value='#(sysOrg.id??)' >
+			<input class='layui-input' id='id_parentId' type="hidden" name='sysOrg.parentid' value='#(sysOrg.parentid??parentid)' >
+			<div class="layui-row layui-col-space1 task-row">
+				#@colStart('部门名称',6)		
+						<input class='layui-input' id='orgName_id'  type="text" name='sysOrg.orgName' 
+						 value='#(sysOrg.org_name??)' lay-verType='tips'
+						 lay-verify="required|" required maxlength="30"  placeHolder="必填" />
+				#@colEnd()
+				#@colStart('上级部门',6)					
+					   	<input class='layui-input layui-disabled' id='chief_id'  type="text" name='sysOrg.parentidName' 
+						 value='#(sysOrg.parentid_name??parentIdName)' lay-verType='tips' readonly="readonly"/>
+				#@colEnd()
+				
+			</div>
+
+			<div class="layui-row layui-col-space1 task-row">				
+				#@colStart('负责人姓名',6)		
+						<input class='layui-input' id='chief_id'  type="text" name='sysOrg.chief' 
+						 value='#(sysOrg.chief??)' lay-verType='tips'
+						 lay-verify="" maxlength="30"  placeHolder="" />
+				#@colEnd()
+				#@colStart('负责人电话',6)		
+						<input class='layui-input' id='phone_id'  type="text" name='sysOrg.phone' 
+						 value='#(sysOrg.phone??)' lay-verType='tips'
+						 lay-verify="" maxlength="20"  placeHolder="" />
+				#@colEnd()
+			</div>
+			
+			<div class="layui-row layui-col-space1 task-row">	
+				#@colStart('负责人手机',6)		
+						<input class='layui-input' id='mobile_id'  type="text" name='sysOrg.mobile' 
+						 value='#(sysOrg.mobile??)' lay-verType='tips'
+						 lay-verify="" maxlength="20"  placeHolder="" />
+				#@colEnd()
+				#@colStart('负责人邮箱',6)
+						<input class='layui-input' id='email_id'  type="text" name='sysOrg.email' 
+						 value='#(sysOrg.email??)' lay-verType='tips'
+						 lay-verify="" maxlength="40"  placeHolder="" />
+				#@colEnd()
+			</div>
+
+			<div class="layui-row layui-col-space1 task-row">
+				#@colStart("描述",6)		
+					 	<input class='layui-input  show-text' id='descript_id'  name='sysOrg.descript' value="#(sysOrg.descript??)">
+				#@colEnd()
+				#@colStart("是否停用",6)	
+					<input  class='layui-input' type="radio" name="sysOrg.isstop" value="0" title="是"
+				       #if(sysOrg.isstop??==0)checked="checked"#end />
+			       <input  class='layui-input' type="radio" name="sysOrg.isstop" value="1" title="否"
+			       #if(sysOrg==null||sysOrg.isstop??==1)checked="checked"#end />    
+				#@colEnd()		
+			</div>
+  
+  		<div class="layui-row layui-col-space1 task-row">
+			<div class="layui-col-xs2">
+				<div class="layui-input-block"></div>	
+			</div>
+			<div class="layui-col-xs8">
+				<div class="layui-input-block">
+						<div class="layui-btn-container" style="margin-top: 10px">
+							<button id='1cdfb502t_589' type="submit" lay-submit	 class='layui-btn  layui-btn-normal '  value="Submit">
+								<i class="layui-icon">&#xe605;</i>	提交
+							</button>
+							<button id='closeWinBtn' type="button" onclick="parent.closeIndex()"	 class='layui-btn  layui-btn-normal  layui-btn-radius' value="Close">
+								<i class="layui-icon">&#x1006;</i>	关闭
+							</button>
+						</div>
+				</div>
+			</div>
+		</div>
+  
+
+
+

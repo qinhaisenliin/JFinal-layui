@@ -1,0 +1,86 @@
+.icon{ 
+	background:url(../images/markers-icon.png) no-repeat;
+	width:20px; 
+	line-height:25px;
+	display:inline-block;
+}  
+.dotMarker{
+	width: 20px;
+	height: 25px;				
+	opacity: 0.9;
+}
+.icon-a{
+	background-position:0px 0px;
+}
+.icon-b{
+	background-position:0px -25px;
+}
+.icon-c{
+	background-position:0px -50px;
+}
+.icon-d{
+	background-position:0px -75px;
+}
+.icon-e{
+	background-position:0px -100px;
+}
+.icon-f{
+	background-position:0px -125px;
+}
+.icon-g{
+	background-position:0px -150px;
+}
+.icon-h{
+	background-position:0px -175px;
+}
+.icon-i{
+	background-position:0px -200px;
+}
+.icon-j{
+	background-position:0px -225px;
+}
+.icon-1{
+	background-position:0px -250px;
+}
+.icon-2{
+	background-position:0px -275px;
+}
+.icon-3{
+	background-position:0px -300px;
+}
+.icon-a1{
+	background-position:-22px 0px;
+}
+.icon-b1{
+	background-position:-22px -25px;
+}
+.icon-c1{
+	background-position:-22px -50px;
+}
+.icon-d1{
+	background-position:-22px -75px;
+}
+.icon-e1{
+	background-position:-22px -100px;
+}
+.icon-f1{
+	background-position:-22px -125px;
+}
+.icon-g1{
+	background-position:-22px -150px;
+}
+.icon-h1{
+	background-position:-22px -175px;
+}
+.icon-i1{
+	background-position:-22px -200px;
+}
+.icon-j1{
+	background-position:-22px -225px;
+}
+.icon-11{
+	background-position:-22px -250px;
+}
+.icon-21{
+	background-position:-22px -275px;
+}

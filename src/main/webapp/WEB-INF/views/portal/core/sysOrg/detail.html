@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>查看详情-部门表</title>
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
+
+<style>
+</style>
+</head>
+<body>
+<div class="layui-container-fluid">
+	<form name="form1"  class='flow-form layui-form layui-form-pane f-form f-form-detail'>
+
+			<div class="layui-row layui-col-space1 task-row">
+				#@colStart("上级部门",6)
+					<div  class='layui-input  show-text' id='parentId_id'  >#(vo.parentid_name??)</div>
+				#@colEnd()		
+				#@colStart("部门名称",6)					
+					<div  class='layui-input  show-text' id='orgName_id'  >#(vo.orgname??'组织机构')</div>
+				#@colEnd()
+			</div>
+
+			<div class="layui-row layui-col-space1 task-row">			
+				#@colStart("负责人姓名",6)
+					<div  class='layui-input  show-text' id='chief_id'  >#(vo.chief??)</div>
+				#@colEnd()				
+				#@colStart("负责人电话",6)			
+					<div  class='layui-input  show-text' id='phone_id'  >#(vo.phone??)</div>
+				#@colEnd()
+			</div>
+
+			<div class="layui-row layui-col-space1 task-row">
+				#@colStart("负责人手机",6)
+					<div  class='layui-input  show-text' id='mobile_id'  >#(vo.mobile??)</div>
+				#@colEnd()
+				#@colStart("负责人邮箱",6)
+					<div  class='layui-input  show-text' id='email_id'  >#(vo.email??)</div>
+				#@colEnd()
+			</div>
+
+			<div class="layui-row layui-col-space1 task-row">
+				#@colStart("描述",6)		
+					 	<div class='layui-input  show-text' id='descript_id'  name='vo.descript' style=''>
+					#(vo.descript??)
+					</div>
+				#@colEnd()
+				#@colStart("是否停用",6)	
+					<div  class='layui-input  show-text' id='isStop_id'  >
+				       #if(vo.isstop??==0)是#else if(vo.isstop??==1)否#end
+					</div>
+				#@colEnd()
+				
+			</div>
+      
+         <div style="min-height: 2px;"></div>
+
+	</form>
+</div>
+</body>
+</html>
+
+
+

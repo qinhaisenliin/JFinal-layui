@@ -1,0 +1,43 @@
+@import url(layui/layui-btn-cover.css);
+@import url(layui/table.css);
+@import url(form.css);
+@import url(form-ext.css);
+@import url(page.css);
+.l-form-msg{
+	padding:5px 3px;
+	margin:0px;
+}
+
+body{
+	padding:2px;
+	padding-right:4px;
+}
+/* 侧边或底部普遍采用的颜色 */
+.toolbar-bg{
+	background:#2F4056;color:#fefefe;
+	padding-top:10px;padding-bottom:8px;
+	margin-bottom:3px;
+}
+body div.l-main{
+	padding:0px 3px;
+}
+body div.l-main .layui-form-item{
+	margin-bottom:2px;
+}
+
+.f-index-toolbar{
+	background:#eff6fe;
+	padding:1px 1px;
+	border:1px solid #e1e1e1;
+	
+}
+.button-height{
+	height:30px;
+}
+.block-center{
+	text-align:center;margin-left:-100px;
+}
+span.layui-breadcrumb a.item-this{
+	background:black;
+    color: rgb(255,255,255);
+}

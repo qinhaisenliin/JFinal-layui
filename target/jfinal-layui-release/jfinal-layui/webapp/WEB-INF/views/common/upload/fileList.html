@@ -1,0 +1,62 @@
+#@layoutT("附件列表")
+#define main()
+<div class="form_box">
+
+	<fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 10px;">
+  		<legend>附件列表</legend>
+	</fieldset> 
+ 
+	<div class="layui-upload">
+	  <div class="layui-upload-list" style="max-height:500px;overflow-y:auto;margin:0;">
+	    <table class="layui-table">
+	      <thead>
+	      	<tr>
+	      		<th>序号</th>
+		      	<th>文件名</th>
+		        <th>大小</th>
+		        <th>时间</th>
+		        <th>操作</th>
+	      	</tr>
+	      </thead>
+	      <tbody id="uploadList">
+	       #if(fileList)
+           #for(data:fileList)
+           <tr id="upload-#(for.index)">
+              <td>#(for.index+1)</td>
+              <td>#(data.file_name??)</td>
+              <td>#number(data.file_size/1024.0,"#.#")KB</td>
+              <td>#date(data.create_time??,"yyyy-MM-dd HH:mm:ss")</td>
+              <td>
+              	<a href="#(path)/portal/download/#(data.url??)"><button class="layui-btn layui-btn-xs">下载</button></a>
+              	<a href="javascript:deleteFile('#(data.url??)','#(data.file_name??)')"><button class="layui-btn layui-btn-xs layui-btn-danger .demo-delete">删除</button></a>
+              </td>
+           </tr>
+           #end
+       	   #end
+	      </tbody>
+	    </table>
+	  </div>
+
+	</div> 
+
+</div>
+#end
+
+#define js()
+<script type="text/javascript">
+	function deleteFile(url,fileName){
+		var url='#(path)/portal/delete/'+url;
+		layer.confirm('确定要删除 '+fileName+' 吗',{icon: 3, title:'提示'},function(index){
+			$.post(url,function(data){
+				setTimeout('window.location.reload()',500);
+				if(data.state=='ok'){
+				   layer.msg("删除成功",{icon:1});
+				}else{
+					layer.msg("附件不存在",{icon:2});
+				}
+			});
+		});
+	}
+</script>
+ 
+ #end
