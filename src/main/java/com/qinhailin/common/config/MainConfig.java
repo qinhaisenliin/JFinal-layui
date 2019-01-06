@@ -145,7 +145,7 @@ public class MainConfig extends JFinalConfig {
 	@Override
 	public void configEngine(Engine me) {
 		// 这里只有选择JFinal TPL的时候才用
-		me.setDevMode(p.getBoolean("devMode", false));
+		me.setDevMode(p.getBoolean("engineDevMode", false));
 		// 当前时间指令
 		me.addDirective("now", MyNowDirective.class);
 		// 项目根路径
