@@ -6,6 +6,7 @@ import java.io.Serializable;
 import com.qinhailin.common.entity.ILoginUser;
 
 public class LoginUserImpl implements ILoginUser,Serializable {
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String userCode;
 	private String userName;
