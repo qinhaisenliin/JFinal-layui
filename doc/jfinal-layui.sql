@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 80013
  Source Host           : localhost:3306
- Source Schema         : qhl-core
+ Source Schema         : jfinal-layui
 
  Target Server Type    : MySQL
  Target Server Version : 80013
@@ -14,21 +14,19 @@
  Date: 03/01/2019 18:14:10
 */
 
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for data_dictionary
 -- ----------------------------
 DROP TABLE IF EXISTS `data_dictionary`;
 CREATE TABLE `data_dictionary`  (
-  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_croatian_ci NOT NULL COMMENT '主键',
-  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NOT NULL COMMENT '字典编号',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NOT NULL COMMENT '字典名称',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL COMMENT '备注',
-  `order_num` int(11) NULL DEFAULT 1 COMMENT '排序',
+  `id` varchar(32)   COMMENT '主键',
+  `code` varchar(255)  COMMENT '字典编号',
+  `name` varchar(255)   COMMENT '字典名称',
+  `remark` varchar(255) COMMENT '备注',
+  `order_num` int(11)  DEFAULT 1 COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_croatian_ci COMMENT = '数据字典' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '数据字典' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of data_dictionary
@@ -40,14 +38,14 @@ INSERT INTO `data_dictionary` VALUES ('40288ae76812ae55016812bc5be9002c', 'logTy
 -- ----------------------------
 DROP TABLE IF EXISTS `data_dictionary_value`;
 CREATE TABLE `data_dictionary_value`  (
-  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_croatian_ci NOT NULL COMMENT '主键',
-  `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NOT NULL COMMENT '数据值',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NOT NULL COMMENT '数据名称',
-  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL COMMENT '备注',
-  `dictionary_code` varchar(32) CHARACTER SET utf8 COLLATE utf8_croatian_ci NOT NULL COMMENT '字典编号',
+  `id` varchar(32)    COMMENT '主键',
+  `value` varchar(255)  COMMENT '数据值',
+  `name` varchar(255)   COMMENT '数据名称',
+  `order_num` int(11) COMMENT '排序',
+  `remark` varchar(255) COMMENT '备注',
+  `dictionary_code` varchar(32)  COMMENT '字典编号',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_croatian_ci COMMENT = '字典数据表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8   COMMENT = '字典数据表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of data_dictionary_value
@@ -61,33 +59,33 @@ INSERT INTO `data_dictionary_value` VALUES ('40288ae76812ae55016812bd288b003b', 
 -- ----------------------------
 DROP TABLE IF EXISTS `file_uploaded`;
 CREATE TABLE `file_uploaded`  (
-  `id` bigint(20) NOT NULL,
-  `create_time` datetime(0) NULL DEFAULT NULL,
-  `file_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `file_size` bigint(20) NULL DEFAULT NULL COMMENT 'KB',
-  `save_path` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `objectId` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `id` bigint(20),
+  `create_time` datetime ,
+  `file_name` varchar(200) ,
+  `file_size` bigint(20) COMMENT 'KB',
+  `save_path` varchar(300),
+  `objectId` varchar(200),
+  `url` varchar(255),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '附件表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '附件表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_function
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_function`;
 CREATE TABLE `sys_function`  (
-  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键',
-  `func_name` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '功能名称',
-  `is_stop` int(11) NULL DEFAULT NULL COMMENT '是否启用(0:是,1:否)',
-  `link_page` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '功能url',
-  `parent_code` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上级编号',
-  `parent_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上级名称',
-  `func_type` int(11) NULL DEFAULT NULL COMMENT '功能类型(0:菜单,1:按钮)',
-  `icon` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
-  `order_no` int(11) NULL DEFAULT NULL COMMENT '排序',
-  `descript` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注释',
+  `id` varchar(32)   COMMENT '主键',
+  `func_name` varchar(80)   COMMENT '功能名称',
+  `is_stop` int(11) DEFAULT 0 COMMENT '是否启用(0:是,1:否)',
+  `link_page` text  COMMENT '功能url',
+  `parent_code` varchar(40)  COMMENT '上级编号',
+  `parent_name` varchar(100)   COMMENT '上级名称',
+  `func_type` int(11)  DEFAULT 0 COMMENT '功能类型(0:菜单,1:按钮)',
+  `icon` varchar(50)    COMMENT '图标',
+  `order_no` int(11)  COMMENT '排序',
+  `descript` varchar(255)  COMMENT '注释',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统功能表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '系统功能表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_function
@@ -132,16 +130,16 @@ INSERT INTO `sys_function` VALUES ('sys_user_update', '修改', 0, '/portal/core
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log`  (
-  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_croatian_ci NOT NULL,
-  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `method_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `data` text CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL,
-  `create_time` datetime(0) NULL DEFAULT NULL,
-  `user_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
-  `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_croatian_ci NULL DEFAULT NULL,
+  `id` varchar(32) ,
+  `url` varchar(255) ,
+  `method_name` varchar(255) ,
+  `data` text ,
+  `create_time` datetime ,
+  `user_code` varchar(255)  ,
+  `remark` varchar(500) ,
+  `ip` varchar(255)  ,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_croatian_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8   COMMENT = '系统日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_log
@@ -158,20 +156,20 @@ INSERT INTO `sys_log` VALUES ('40288ae768132a5401681333bd70000b', '/portal/core/
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_org`;
 CREATE TABLE `sys_org`  (
-  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键',
-  `org_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门编号和主键默认',
-  `parentid` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上级部门编号',
-  `parentid_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上级部门名称',
-  `org_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名称',
-  `chief` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门负责人姓名',
-  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门负责人电话',
-  `mobile` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门负责人手机号',
-  `email` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门负责人邮件',
-  `descript` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '描述',
-  `level` decimal(8, 0) NULL DEFAULT NULL COMMENT '级别',
-  `isstop` decimal(8, 0) NULL DEFAULT NULL COMMENT '是否停用\r\n1：停用；\r\n0：启用；',
+  `id` varchar(32)  COMMENT '主键',
+  `org_code` varchar(50)  COMMENT '部门编号和主键默认',
+  `parentid` varchar(40)   COMMENT '上级部门编号',
+  `parentid_name` varchar(50)  COMMENT '上级部门名称',
+  `org_name` varchar(50)   COMMENT '部门名称',
+  `chief` varchar(30)  COMMENT '部门负责人姓名',
+  `phone` varchar(20)  COMMENT '部门负责人电话',
+  `mobile` varchar(20)  COMMENT '部门负责人手机号',
+  `email` varchar(40)  COMMENT '部门负责人邮件',
+  `descript` text  COMMENT '描述',
+  `level` decimal(8, 0)   COMMENT '级别',
+  `isstop` decimal(8, 0)   COMMENT '是否停用\r\n1：停用；\r\n0：启用；',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_org
@@ -188,17 +186,17 @@ INSERT INTO `sys_org` VALUES ('ff80808161e4629f0161e49ac1d30001', 'ff80808161e46
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
-  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `descript` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `is_stop` int(11) NOT NULL,
-  `orgid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `parent_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `role_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `role_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `user_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `visit_view` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `id` varchar(32),
+  `descript` varchar(200) ,
+  `is_stop` int(11) ,
+  `orgid` varchar(100) ,
+  `parent_id` varchar(100) ,
+  `role_code` varchar(100),
+  `role_name` varchar(100),
+  `user_code` varchar(100) ,
+  `visit_view` varchar(100) ,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
@@ -221,11 +219,11 @@ INSERT INTO `sys_role` VALUES ('ff80808161f5012f0161f53666ef0000', '管理系统
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_function`;
 CREATE TABLE `sys_role_function`  (
-  `id` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `function_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `role_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` varchar(200) ,
+  `function_id` varchar(100),
+  `role_code` varchar(50),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色功能关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '角色功能关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_function
@@ -458,24 +456,24 @@ INSERT INTO `sys_role_function` VALUES ('zjl_sys_user_update', 'sys_user_update'
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
-  `id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键',
-  `user_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户编号默认跟ID一样',
-  `user_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名称',
-  `passwd` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `org_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门编号',
-  `post` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职务',
-  `sex` int(11) NULL DEFAULT NULL COMMENT '1;男,0女',
-  `tel` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电话',
-  `mobile` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号码',
-  `email` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'EMAIL',
-  `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '家庭地址',
-  `allow_login` int(11) NULL DEFAULT NULL COMMENT '允许登录',
-  `deleted` int(11) NULL DEFAULT 0 COMMENT '删除操作（1：删除未审核）',
-  `allow_login_time` datetime(0) NULL DEFAULT NULL COMMENT '允许登录时间或最后登录时间',
-  `failure_number` int(11) NULL DEFAULT NULL COMMENT '登录错误次数',
+  `id` varchar(20) COMMENT '主键',
+  `user_code` varchar(20)  COMMENT '用户编号默认跟ID一样',
+  `user_name` varchar(20)  COMMENT '用户名称',
+  `passwd` varchar(100)  COMMENT '密码',
+  `org_id` varchar(50)  COMMENT '部门编号',
+  `post` varchar(50)  COMMENT '职务',
+  `sex` int(11)   COMMENT '1;男,0女',
+  `tel` varchar(40)   COMMENT '电话',
+  `mobile` varchar(30)  COMMENT '手机号码',
+  `email` varchar(40)   COMMENT 'EMAIL',
+  `address` varchar(100)  COMMENT '家庭地址',
+  `allow_login` int(11)  COMMENT '允许登录',
+  `deleted` int(11)  DEFAULT 0 COMMENT '删除操作（1：删除未审核）',
+  `allow_login_time` datetime   COMMENT '允许登录时间或最后登录时间',
+  `failure_number` int(11)   COMMENT '登录错误次数',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_1_sys_user_orgid`(`org_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '用户' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
@@ -488,11 +486,11 @@ INSERT INTO `sys_user` VALUES ('superadmin', 'superadmin', '超级管理员', 'E
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`  (
-  `id` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `role_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `user_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` varchar(200),
+  `role_code` varchar(50) ,
+  `user_code` varchar(100),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '用户角色关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user_role
@@ -510,6 +508,6 @@ INSERT INTO `sys_user_role` VALUES ('xzb-linwei', 'xzb', 'linwei');
 INSERT INTO `sys_user_role` VALUES ('xzb-qweq', 'xzb', 'qweq');
 INSERT INTO `sys_user_role` VALUES ('yfb-admin', 'yfb', 'admin');
 INSERT INTO `sys_user_role` VALUES ('zjl-linwei', 'zjl', 'linwei');
-INSERT INTO `sys_user_role` VALUES ('zjl-qweq', 'zjl', 'qweq');
+INSERT INTO `sys_user_role` VALUES ('zjl-qweq', 'zjl', 'qweq');   
 
-SET FOREIGN_KEY_CHECKS = 1;
+
