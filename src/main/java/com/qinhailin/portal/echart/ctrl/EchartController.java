@@ -33,11 +33,11 @@ public class EchartController extends Controller {
 		//TODO 根据具体业务给下面的变量赋值即可
 		String title="";
 		String subtitle="";
-		String xAxis="";
-		String yAxis="";
+		String xAxis="";		//sql中的字段名
+		String yAxis="";		//sql中的字段名
 		String chartType="";	//bar,line,pie
-		String xName="";		//sql中的字段名
-		String yName="";		//sql中的字段名
+		String xName="";		
+		String yName="";		
 		String seriesName="";
 		String tooltipText="";
 		String sql="";			//统计数据的sql
