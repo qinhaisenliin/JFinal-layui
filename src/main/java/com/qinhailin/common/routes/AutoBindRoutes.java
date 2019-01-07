@@ -106,14 +106,15 @@ public class AutoBindRoutes extends Routes {
             		viewPath=actionkey;
             	}            	
             	this.add(actionkey, controller,viewPath );
-            }else{
-            	// 排除不是自动配置的类
-                if (!autoScan) {
-                    continue;
-                }
-            	//jar包中的controller
-            	this.add(controllerKey(controller), controller,controllerKey(controller));
             }
+//          else{
+//            	// 排除不是自动配置的类
+//                if (!autoScan) {
+//                    continue;
+//                }
+//           	//不是ControllerBind绑定的类，建议不处理，以便保留JFinal Rules原有特性
+//            	this.add(controllerKey(controller), controller,controllerKey(controller));
+//            }
         }
     }
 
