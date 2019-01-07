@@ -13,7 +13,7 @@ jfinal+layui极速开发企业应用管理系统，是以jfinal+layui为核心�
 #### 安装教程
 
 1. 下载项目代码
-2. 新建数据库,执行doc目录下的qhl-core.sql
+2. 新建数据库,执行doc目录下的jfinal-layui.sql
 3. 修改resources下面的config-dev.txt配置文件，启动项目即可
 4. 登录账号：admin/123456
 
