@@ -164,6 +164,23 @@ public class SysUserController extends BaseController {
 		lay-skin="switch" lay-text="是|否" lay-filter="allowLoginFilter" {{ d.allow_login == 0 ? 'checked' : '' }}>               
 </script>
 ```
+5、业务字典快速引用函数
+**#@getSelect(code,name,text)** ； **#@getRadio(code,name,text)** ；**#@getCheckbox(code,name,text)** 
+code:字典编号，name:元素name属性,text:选项名称 ，如：系统日志类型引用：
+```
+   #@queryStart('日志类型')					
+	#@getSelect('logType','remark','日志类型')			
+   #@queryEnd() 
+   #@queryStart('日志类型')					
+	#@getRadio('logType','remark','日志类型')			
+   #@queryEnd() 
+   #@queryStart('日志类型')					
+	#@getCheckbox('logType','remark','日志类型')			
+   #@queryEnd() 
+```
+![业务字典快速引用](https://images.gitee.com/uploads/images/2019/0107/190356_a4e5ac71_1692092.png "日志类型快速引用实例.png")
+
+
 #### 系统界面
 1、登录界面，第一次不显示验证码，输错一次密码，则需要验证码
 ![第一次登录界面](https://images.gitee.com/uploads/images/2019/0105/215040_a8a2fc5f_1692092.png "登录登录.png")
