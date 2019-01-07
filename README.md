@@ -5,7 +5,7 @@ jfinal+layui极速开发企业应用管理系统，是以jfinal+layui为核心�
 
 #### 软件架构
 软件架构说明：
-核心架构：jfinal，jfinal-undertow，layui，mysql，ehcach,rsa加密算法
+核心架构：[jfinal](http://www.jfinal.com)，[jfinal-undertow](http://www.jfinal.com/doc/1-4)，layui，mysql，ehcach,rsa加密算法
 系统权限:通过“用户-角色-功能”三者关系来实现系统的权限控制，操作简单明了，代码实现极其简单，这都是得益于jfinal架构的巧妙设计。
 前端页面：封装了layui常用模块代码，参照使用例子，就能快速上手，无需担心不懂layui。
 系统日志：操作日志、数据日志、登录日志，无需注解和手动添加，就能跟踪记录数据，不担心数据丢失
