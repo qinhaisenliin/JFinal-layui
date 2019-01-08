@@ -31,7 +31,10 @@ import com.jfinal.plugin.activerecord.SqlReporter;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 
 public class MainConfig extends JFinalConfig {
-	
+
+	/**
+	 *运行main方法启动项目
+	 */
 	public static void main(String[] args) {
 		UndertowServer.start(MainConfig.class);
 	}
@@ -53,11 +56,11 @@ public class MainConfig extends JFinalConfig {
 		// 读取数据库配置文件
 		loadConfig();		
 		// 设置当前是否为开发模式
-		me.setDevMode(p.getBoolean("devMode", false));
+		me.setDevMode(p.getBoolean("devMode"));
 		// 设置默认上传文件保存路径 getFile等使用
-		me.setBaseUploadPath(p.get("baseUploadPath","WEB-INF/temp/upload"));
+		me.setBaseUploadPath(p.get("baseUploadPath"));
 		// 设置默认下载文件路径 renderFile使用
-		me.setBaseDownloadPath(p.get("baseDownloadPath","WEB-INF/temp/download"));
+		me.setBaseDownloadPath(p.get("baseDownloadPath"));
 		// 设置error渲染视图
 		me.setError403View(WebContant.error403View);
 		me.setError404View(WebContant.error404View);
@@ -75,7 +78,7 @@ public class MainConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		// 配置ControllerBind注解路由
 		AutoBindRoutes autoBindRoutes = new AutoBindRoutes();
-		autoBindRoutes.includeAllJarsInLib(true);
+		autoBindRoutes.includeAllJarsInLib(!p.getBoolean("devMode"));
 		autoBindRoutes.setBaseViewPath(WebContant.baseViewPath);
 		me.add(autoBindRoutes);
 	}
@@ -100,8 +103,8 @@ public class MainConfig extends JFinalConfig {
 		arp.getEngine().setSourceFactory(new ClassPathSourceFactory());
 		arp.addSqlTemplate(WebContant.sqlTemplate);
 		// sql输出到日志
-		SqlReporter.setLog(!p.getBoolean("devMode", false));
-		arp.setShowSql(p.getBoolean("devMode", false));
+		SqlReporter.setLog(!p.getBoolean("devMode"));
+		arp.setShowSql(p.getBoolean("devMode"));
 
 		arp.setDialect(new MysqlDialect());
 		dbPlugin.setDriverClass(p.get("driverClass"));
@@ -145,15 +148,15 @@ public class MainConfig extends JFinalConfig {
 	@Override
 	public void configEngine(Engine me) {
 		// 这里只有选择JFinal TPL的时候才用
-		me.setDevMode(p.getBoolean("engineDevMode", false));
+		me.setDevMode(p.getBoolean("engineDevMode"));
 		// 当前时间指令
 		me.addDirective("now", MyNowDirective.class);
 		// 项目根路径
 		me.addSharedObject("path", JFinal.me().getContextPath());
 		// 项目名称
-		me.addSharedObject("projectName", p.get("projectName","JFinal极速开发世界"));
+		me.addSharedObject("projectName", p.get("projectName"));
 		// 项目版权
-		me.addSharedObject("copyright", p.get("copyright",""));
+		me.addSharedObject("copyright", p.get("copyright"));
 		// 配置共享函数模板
 		me.addSharedFunction(WebContant.functionTemp);
 		
