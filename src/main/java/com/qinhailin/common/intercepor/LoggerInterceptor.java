@@ -11,6 +11,7 @@ import com.jfinal.aop.Inject;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
+import com.jfinal.kit.JsonKit;
 import com.qinhailin.common.kit.IdKit;
 import com.qinhailin.common.kit.IpKit;
 import com.qinhailin.common.model.SysLog;
@@ -45,8 +46,8 @@ public class LoggerInterceptor implements Interceptor {
 				e.printStackTrace();
 			}
 		}
-		
-		SysLog sysLog=new SysLog(IdKit.createUUID(),actionKey,new Date(),controller.getParaMap().toString(),ip);
+		String data=JsonKit.toJson(controller.getParaMap()).toString();
+		SysLog sysLog=new SysLog(IdKit.createUUID(),actionKey,new Date(),data,ip);
 		if(vs!=null){
 			sysLog.setUserCode(vs.getCode()+"("+vs.getName()+")");							
 			Map<String,String> funcMap=sysLogService.getFuncMapForLog();
