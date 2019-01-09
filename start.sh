@@ -15,10 +15,11 @@
 #
 # 4: 脚本最后一部分给出了 4 种启动项目的命令行，根据注释中的提示自行选择合适的方式
 #
+# 5：注意，如果是用@controllerBind注解路由时，启动前要拷贝一份源码的jar到webapp\WEB-INF\lib目录，避免出现出现404
 # ---------------------------------------------------------------------------
 
 # 启动入口类，该脚本文件用于别的项目时要改这里
-MAIN_CLASS=com.jfinal.club.common.JFinalClubConfig
+MAIN_CLASS=com.qinhailin.common.config.MainConfig
 
 # Java 命令行参数，根据需要开启下面的配置，改成自己需要的，注意等号前后不能有空格
 # JAVA_OPTS="-Xms256m -Xmx1024m -Dundertow.port=80 -Dundertow.host=0.0.0.0"
@@ -26,7 +27,7 @@ MAIN_CLASS=com.jfinal.club.common.JFinalClubConfig
 
 # 生成 class path 值
 APP_BASE_PATH=$(cd `dirname $0`; pwd)
-CP=${APP_BASE_PATH}/config:${APP_BASE_PATH}/lib/*
+CP=${APP_BASE_PATH}/config:${APP_BASE_PATH}/lib/*:${APP_BASE_PATH}/webapp/WEB-INF/lib/*
 
 # 运行为后台进程，并在控制台输出信息
 java -Xverify:none ${JAVA_OPTS} -cp ${CP} ${MAIN_CLASS} &
