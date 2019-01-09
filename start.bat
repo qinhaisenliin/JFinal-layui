@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 
 rem -------------------------------------------------------------------------
 rem
@@ -12,7 +12,7 @@ rem    undertow.workerThreads 共五个参数可通过 -D 进行传入
 rem
 rem 3: JAVA_OPTS 可传入标准的 java 命令行参数,例如 -Xms256m -Xmx1024m 这类常用参数
 rem
-rem
+rem 4: 注意，如果是用@controllerBind注解路由时，启动前要拷贝一份源码的jar到webapp\WEB-INF\lib目录，避免出现出现404
 rem -------------------------------------------------------------------------
 
 setlocal & pushd
