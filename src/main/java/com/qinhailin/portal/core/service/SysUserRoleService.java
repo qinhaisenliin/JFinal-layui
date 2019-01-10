@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
+import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Record;
 import com.qinhailin.common.base.service.BaseService;
 import com.qinhailin.common.model.SysUserRole;
@@ -24,16 +25,13 @@ import com.qinhailin.common.vo.Grid;
 public class SysUserRoleService extends BaseService {
 
 	private SysUserRole dao = new SysUserRole().dao();
-	private final String table="sys_user_role";
 	
+	/* (non-Javadoc)
+	 * @see com.qinhailin.common.base.service.BaseService#getDao()
+	 */
 	@Override
-	public SysUserRole getDao(){
+	public Model<?> getDao() {
 		return dao;
-	}
-	
-	@Override
-	public String getTable(){
-		return table;
 	}
 
 

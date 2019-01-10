@@ -18,17 +18,14 @@ import com.qinhailin.common.vo.TreeNode;
 public class DataDictionaryService extends BaseService {
 
 	private DataDictionary dao=new DataDictionary().dao();
-	private final String table="data_dictionary";
+
+	/* (non-Javadoc)
+	 * @see com.qinhailin.common.base.service.BaseService#getDao()
+	 */
 	@Override
 	public Model<?> getDao() {
 		return dao;
 	}
-
-	@Override
-	public String getTable() {
-		return table;
-	}
-	
 
 	/**
 	 * 数据字典树
@@ -47,4 +44,5 @@ public class DataDictionaryService extends BaseService {
 		}
 		return nodes;
 	}
+	
 }

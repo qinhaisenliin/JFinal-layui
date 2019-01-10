@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Record;
 import com.qinhailin.common.base.service.BaseService;
 import com.qinhailin.common.kit.Md5Kit;
@@ -24,17 +25,15 @@ import com.qinhailin.common.vo.Grid;
 public class SysUserService extends BaseService {
 
 	private SysUser dao = new SysUser().dao();
-	private final String table="sys_user";
 	
+	/* (non-Javadoc)
+	 * @see com.qinhailin.common.base.service.BaseService#getDao()
+	 */
 	@Override
-	public SysUser getDao(){
+	public Model<?> getDao() {
 		return dao;
 	}
 	
-	@Override
-	public String getTable(){
-		return table;
-	}
 	public Grid page(int pageNumber, int pageSize, Record record) {
 		Record rd = new Record();
 		rd.set("a.user_code like '%" + record.getStr("userName") + "%' or a.user_name", record.getStr("userName"));
@@ -133,4 +132,6 @@ public class SysUserService extends BaseService {
 
 		return map;
 	}
+
+
 }

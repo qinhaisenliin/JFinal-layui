@@ -19,15 +19,13 @@ import com.qinhailin.common.model.SysLog;
 public class SysLogService extends BaseService {
 
 	private SysLog dao=new SysLog().dao();
-	private final String table="sys_log";
+
+	/* (non-Javadoc)
+	 * @see com.qinhailin.common.base.service.BaseService#getDao()
+	 */
 	@Override
 	public Model<?> getDao() {
 		return dao;
-	}
-
-	@Override
-	public String getTable() {
-		return table;
 	}
 	
 	public Map<String,String> getFuncMapForLog(){

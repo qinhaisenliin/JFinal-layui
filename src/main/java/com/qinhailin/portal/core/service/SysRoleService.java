@@ -12,6 +12,7 @@ import java.util.List;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
+import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Record;
 import com.qinhailin.common.base.service.BaseService;
 import com.qinhailin.common.model.SysRole;
@@ -28,16 +29,13 @@ import com.qinhailin.common.vo.TreeNode;
 public class SysRoleService extends BaseService {
 
 	private SysRole dao = new SysRole().dao();
-	private final String table="sys_role";
 	
+	/* (non-Javadoc)
+	 * @see com.qinhailin.common.base.service.BaseService#getDao()
+	 */
 	@Override
-	public SysRole getDao(){
+	public Model<?> getDao() {
 		return dao;
-	}
-	
-	@Override
-	public String getTable(){
-		return table;
 	}
 
 	public boolean saveEntity(SysRole entity,String userCode) {
