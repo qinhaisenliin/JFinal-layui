@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Record;
+import com.jfinal.plugin.activerecord.Table;
+import com.jfinal.plugin.activerecord.TableMapping;
 import com.qinhailin.common.kit.IdKit;
 import com.qinhailin.common.vo.Grid;
 
@@ -30,7 +32,24 @@ public abstract class BaseService {
 	 * 获取table名称
 	 * @return tableName
 	 */
-	public abstract String getTable();
+	public String getTable() {
+		return _getTable().getName();
+	};
+	
+	/**
+	  *  获取表主键（单键表）
+	 * @return
+	 */
+	public String getPK() {
+		return _getTable().getPrimaryKey()[0];		
+	}
+	
+	protected Table _getTable() {
+		if(getDao()==null){
+			logger.error("请实现getDao()方法,且不能返回null");
+		}
+		return TableMapping.me().getTable(getDao().getClass());
+	}
 	
 	
 	/**
@@ -62,8 +81,9 @@ public abstract class BaseService {
 	 * @return
 	 */
 	public boolean save(Model<?> entity){
-		if(entity.get("id")==null){
-			entity.set("id", IdKit.createUUID());		
+		//主键赋值uuid
+		if(entity.get(getPK())==null){
+			entity.set(getPK(), IdKit.createUUID());		
 		};
 		return entity.save();
 	}
@@ -351,11 +371,7 @@ public abstract class BaseService {
 	 * select * from getTable()
 	 * @return
 	 */
-	private String getQuerySql() {
-		if(getTable()==null){
-			logger.error("请实现实现getTable()方法,且不能返回null");
-		}
-			
+	private String getQuerySql() {			
 		return "select * from "+getTable()+" ";
 	}
 }
