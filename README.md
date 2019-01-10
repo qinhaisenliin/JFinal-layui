@@ -21,56 +21,40 @@ jfinal+layui极速开发企业应用管理系统，是以jfinal+layui为核心�
 jfinal的通用配置如果不是特别需要，不需要修改，直接开发你的功能即可。
 
 1. controller控制类：只需继承BaseController就能拥有上传、导入、导出等通用方法。
-   controller的路由配置和spring的注解用法一样,
-   ControllerBind的path、viewPat的配置原理和jfinal路由配置完全一样，viewPath默认和path相同，也可自定义：
-
+   ControllerBind的path、viewPath默认相同，也可自定义：
 
 ```
-//用户管理控制类,viewPaht默认也等于“/portal/core/sysUser”
 @ControllerBind(path="/portal/core/sysUser")
 public class SysUserController extends BaseController {
 	@Inject
 	SysUserService service;
-	@Inject
-	SysOrgService sysOrgService;
-	@Inject
-	SysUserRoleService sysUserRoleService;
-    //用户管理首页
+
 	public void index() {
 		setAttr("orgList", service.queryOrgIdAndNameRecord());
 		render("index.html");
 	}
 
-   //分页列表数据接口
 	public void list() {
-        //条件查询
-		Record record = new Record();
-		record.set("userName", getPara("userName"));
-		record.set("orgId", getPara("orgId"));
-		record.set("sex", getPara("sex"));
-        //通用查询接口
-		renderJson(service.page(getParaToInt("pageNumber", 1), getParaToInt("pageSize", 10), record));
+            //条件查询
+	     Record record = new Record();
+	     record.set("userName", getPara("userName"));
+	     record.set("orgId", getPara("orgId"));
+	     record.set("sex", getPara("sex"));
+	     renderJson(service.page(getParaToInt("pageNumber", 1), getParaToInt("pageSize", 10), record));
 	}
  }
 ```
 
-2. service服务类：只需要继承BaseService接口，实现getDao（）、getTable()方法，就能拥有对数据库持久层的所有方法接口。
+2. service服务类：只需要继承BaseService接口，实现getDao()方法，就能拥有对数据库持久层的所有方法接口。
   
 ```
- //用户管理接口
    public class SysUserService extends BaseService {
 
 	private SysUser dao = new SysUser().dao();
-	private final String table="sys_user";
 	
 	@Override
-	public SysUser getDao(){
+	public Model<?> getDao(){
 		return dao;
-	}
-	
-	@Override
-	public String getTable(){
-		return table;
 	}
   }
 
@@ -79,38 +63,17 @@ public class SysUserController extends BaseController {
 3. 前端页面，封装了layui常用代码，添加修改页面使用函数#@colStart和#@colEnd即可,#@colStart和#@colEnd必须成对出现
   
 ```
-<div class="layui-row layui-col-space1 task-row">
-		#@colStart('用户编号',6)		
-		<input type="text" class="layui-input #if(sysUser.user_code??&&!e)layui-disabled #end" 
-		name="sysUser.userCode" value="#(sysUser.user_code??)" 
-		lay-verType='tips'lay-verify="required|" maxlength="50" placeHolder="必填"
-		#if(sysUser.user_code??&&!e)readonly="readonly"#end/>
-		#@colEnd()
+   <div class="layui-row layui-col-space1 task-row">
+	#@colStart('用户编号',6)		
+	   <input type="text" class="layui-input" name="sysUser.userCode" value="#(sysUser.user_code??)" 
+		lay-verType='tips'lay-verify="required|" maxlength="50" placeHolder="必填"/>
+	#@colEnd()
 		
-		#@colStart('密码',6)
-		<input type="password" class="layui-input #if(sysUser.user_code??&&!e)layui-disabled #end" 
-		name="sysUser.passwd" value="#(sysUser.passwd??)"
-		lay-verType='tips'lay-verify=""  maxlength="50" placeHolder="不填则使用默认密码"
-		#if(sysUser.user_code??&&!e)disabled="disabled"#end/>
-		#@colEnd()
-	</div>
-	
-	<div class="layui-row layui-col-space1 task-row">	
-		#@colStart('用户名称',6)
-		<input type="text" class="layui-input" name="sysUser.userName" value="#(sysUser.user_name??'')" 
-		lay-verType='tips'lay-verify="required|" maxlength="50" placeHolder="必填"
-		/>		
-		#@colEnd()
-		
-		#@colStart('部门',6)
-		 <select name="sysUser.orgId" class="layui-input" lay-search>
-		   		<option value="">---请选择---</option>
-		   		#for(data:orgList)
-       			<option value="#(data.value??)" #if(sysUser.org_id??==data.value) selected="selected" #end>#(data.text??)</option>
-       			#end
-		   </select>
-		#@colEnd()
-	</div>
+	#@colStart('密码',6)
+	    <input type="password" class="layui-input" name="sysUser.passwd" value="#(sysUser.passwd??)"
+		lay-verType='tips'lay-verify=""  maxlength="50" placeHolder="不填则使用默认密码"/>
+	#@colEnd()
+    </div>
 
 ```
 
