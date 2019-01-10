@@ -23,7 +23,7 @@ public class PortalController extends BaseController {
 	/**
 	 * 
 	 * go后面带视图目录参数 如：/portal/go/common/upload/upload，<br/>
-	 * 将会访问/common/upload/index.html文件
+	 * 将会访问/common/upload/upload.html文件
 	 * 
 	 * @author QinHaiLin
 	 * @date 2018年8月2日
