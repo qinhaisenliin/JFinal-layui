@@ -19,7 +19,7 @@ undertow.gzip.minLength=1024
 # 是否开启 ssl
 undertow.ssl.enable=true
 # ssl 监听端口号，部署环境设置为 443
-undertow.ssl.port=8443
+undertow.ssl.port=443
 # 密钥库类型，建议使用 PKCS12
 undertow.ssl.keyStoreType=PKCS12
 # 密钥库文件
