@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.jfinal.aop.Inject;
+import com.jfinal.plugin.ehcache.CacheKit;
+import com.jfinal.plugin.ehcache.IDataLoader;
 import com.qinhailin.common.base.BaseController;
 import com.qinhailin.common.model.SysOrg;
 import com.qinhailin.common.routes.ControllerBind;
@@ -47,6 +49,7 @@ public class SysOrgController extends BaseController {
 		SysOrg entity=getBean(SysOrg.class);
 		entity.setId(createUUID()).setOrgCode(entity.getId()).save();
 		setAttr("sysOrg", entity);
+		CacheKit.removeAll("orgManager");
 		render("add.html");
 	}
 
@@ -59,6 +62,7 @@ public class SysOrgController extends BaseController {
 		SysOrg entity=getBean(SysOrg.class);
 		entity.update();
 		setAttr("sysOrg", entity);
+		CacheKit.removeAll("orgManager");
 		render("edit.html");
 	}
 
@@ -67,8 +71,10 @@ public class SysOrgController extends BaseController {
 		render("detail.html");
 	}
 
+	
 	public void delete() {
 		service.deleteById(getPara("orgCode"));
+		CacheKit.removeAll("orgManager");
 		renderJson(Feedback.success());
 	}
 
@@ -79,7 +85,14 @@ public class SysOrgController extends BaseController {
 	 * @date 2018年10月8日
 	 */
 	public void tree() {
-		Collection<TreeNode> nodeList = this.service.getOrgTree("sys");
+		Collection<TreeNode> nodeList = CacheKit.get("orgManager", "tree", new IDataLoader() {
+			
+			@Override
+			public Object load() {
+				return service.getOrgTree("sys");
+			}
+		});
+		
 		Collection<TreeNode> nodes = new ArrayList<TreeNode>();
 		TreeNode node = new TreeNode();
 		node.setId("sys");

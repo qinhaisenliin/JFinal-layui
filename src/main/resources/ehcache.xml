@@ -23,5 +23,24 @@
            timeToLiveSeconds="0"
            overflowToDisk="false"
             />
+            
+    <!-- 功能管理--> 
+    <cache name="funcManager"
+           maxEntriesLocalHeap="90000"
+           eternal="false"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+            />
+            
+    <!-- 部门管理--> 
+    <cache name="orgManager"
+           maxEntriesLocalHeap="90000"
+           eternal="false"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+            />
+            
    
 </ehcache>

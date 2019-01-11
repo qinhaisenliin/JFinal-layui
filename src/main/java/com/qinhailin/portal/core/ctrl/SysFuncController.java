@@ -11,8 +11,10 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Record;
+import com.jfinal.plugin.ehcache.CacheKit;
 import com.jfinal.plugin.ehcache.CacheName;
 import com.jfinal.plugin.ehcache.EvictInterceptor;
+import com.jfinal.plugin.ehcache.IDataLoader;
 import com.qinhailin.common.model.SysFunction;
 import com.qinhailin.common.model.SysRole;
 import com.qinhailin.common.routes.ControllerBind;
@@ -70,6 +72,7 @@ public class SysFuncController extends BaseController {
 			setException("功能编号已存在，请重新输入");
 		}
 		setAttr("sysFunction", entity);
+		CacheKit.removeAll("funcManager");
 		render("add.html");
 	}
 
@@ -90,6 +93,7 @@ public class SysFuncController extends BaseController {
 		}
 		entity.update();
 		setAttr("sysFunction", entity);
+		CacheKit.removeAll("funcManager");
 		render("edit.html");
 	}
 
@@ -97,6 +101,7 @@ public class SysFuncController extends BaseController {
 	@CacheName("userFunc")
 	public void delete() {
 		service.deleteByIds(getIds());
+		CacheKit.removeAll("funcManager");
 		renderJson(Feedback.success());
 	}
 
@@ -107,7 +112,13 @@ public class SysFuncController extends BaseController {
 	 * @date 2018年10月8日
 	 */
 	public void tree() {
-		Collection<TreeNode> nodeList = this.service.getFunctionTree("frame");
+		Collection<TreeNode> nodeList = CacheKit.get("funcManager", "tree", new IDataLoader() {		
+			@Override
+			public Object load() {
+				return service.getFunctionTree("frame");
+			}
+		});
+				
 		Collection<TreeNode> nodes = new ArrayList<TreeNode>();
 		TreeNode node = new TreeNode();
 		node.setId("frame");
@@ -137,7 +148,13 @@ public class SysFuncController extends BaseController {
 					roleCode = sysRole.getParentId();
 				}
 			}
-			Collection<TreeNode> nodeList = this.service.getRoleFunctionTree(roleCode, "frame");
+			
+			Collection<TreeNode> nodeList = CacheKit.get("funcManager", roleCode);
+			if(nodeList==null){				
+				nodeList=service.getRoleFunctionTree(roleCode, "frame");
+				CacheKit.put("funcManager", roleCode, nodeList);
+			}
+	
 			Collection<TreeNode> nodes = new ArrayList<TreeNode>();
 			TreeNode node = new TreeNode();
 			node.setId("frame");
@@ -156,6 +173,7 @@ public class SysFuncController extends BaseController {
 	public void isStop() {
 		SysFunction entity = (SysFunction) service.findById(getPara("id"));
 		entity.setIsStop(getParaToInt("state")).update();
+		CacheKit.removeAll("funcManager");
 		renderJson(suc());
 	}
 	
@@ -166,6 +184,7 @@ public class SysFuncController extends BaseController {
 	@CacheName("userFunc")
 	public void updateFieldValue(){
 		getModel(SysFunction.class).update();
+		CacheKit.removeAll("funcManager");
 		renderJson(suc("修改成功"));
 	}
 }

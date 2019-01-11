@@ -10,6 +10,7 @@ import java.util.Collection;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Record;
+import com.jfinal.plugin.ehcache.CacheKit;
 import com.jfinal.plugin.ehcache.CacheName;
 import com.jfinal.plugin.ehcache.EvictInterceptor;
 import com.qinhailin.common.model.SysRole;
@@ -125,6 +126,7 @@ public class SysRoleController extends BaseController {
 	@CacheName("userFunc")
 	public void saveRoleFunction() {
 		boolean b = service.saveRoleFunc(getPara("roleCode"), getPara("funcs").split(","));
+		if(b)CacheKit.remove("funcManager", getPara("roleCode"));
 		renderJson(suc(b?"保存成功":"保存失败"));
 	}
 
