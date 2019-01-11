@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Record;
 import com.qinhailin.common.base.service.BaseService;
 import com.qinhailin.common.model.SysFunction;
@@ -24,17 +25,16 @@ import com.qinhailin.common.vo.TreeNode;
 public class SysFuncService extends BaseService {
 
 	private SysFunction dao = new SysFunction().dao();
-	private final String table="sys_function";
 	
+	/* (non-Javadoc)
+	 * @see com.qinhailin.common.base.service.BaseService#getDao()
+	 */
 	@Override
-	public SysFunction getDao(){
+	public Model<?> getDao() {
 		return dao;
 	}
 	
-	@Override
-	public String getTable(){
-		return table;
-	}
+	
 	public Grid page(int pageNumber, int pageSize, Record record) {
 		return queryForListEq(pageNumber, pageSize, record, " order by func_type,order_no asc");
 	}

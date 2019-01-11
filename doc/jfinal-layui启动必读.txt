@@ -7,5 +7,5 @@
       
 4、管理员登录账号：admin  密码：123456
 
-5、特别提醒：通过start.bat启动项目时，需要把项目源码的jfinal-layui-1.0.jar复制一份到webapp\WEB-INF\lib目录下，
+5、特别提醒：通过start.bat、start.sh启动项目时，需要把项目源码的jfinal-layui-1.0.jar复制一份到webapp\WEB-INF\lib目录下，
       否则404错误，这个是因为用@ControllerBind注解路由的问题，开发环境可以忽略

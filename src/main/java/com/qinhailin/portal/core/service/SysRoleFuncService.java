@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.jfinal.plugin.ehcache.IDataLoader;
@@ -24,16 +25,13 @@ import com.qinhailin.common.model.SysRoleFunction;
 public class SysRoleFuncService extends BaseService {
 
 	private SysRoleFunction dao = new SysRoleFunction().dao();
-	private final String table="sys_role_function";
 
+	/* (non-Javadoc)
+	 * @see com.qinhailin.common.base.service.BaseService#getDao()
+	 */
 	@Override
-	public SysRoleFunction getDao(){
+	public Model<?> getDao() {
 		return dao;
-	}
-	
-	@Override
-	public String getTable(){
-		return table;
 	}
 
 	/**

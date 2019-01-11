@@ -12,15 +12,13 @@ import com.qinhailin.common.model.DataDictionaryValue;
 public class DataDictionaryValueService extends BaseService {
 
 	private DataDictionaryValue dao=new DataDictionaryValue().dao();
-	private final String table="data_dictionary_value";
+
+	/* (non-Javadoc)
+	 * @see com.qinhailin.common.base.service.BaseService#getDao()
+	 */
 	@Override
 	public Model<?> getDao() {
 		return dao;
-	}
-
-	@Override
-	public String getTable() {
-		return table;
 	}
 
 }

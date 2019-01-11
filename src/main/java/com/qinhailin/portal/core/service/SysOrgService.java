@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Model;
 import com.qinhailin.common.base.service.BaseService;
 import com.qinhailin.common.model.SysOrg;
 import com.qinhailin.common.vo.TreeNode;
@@ -23,16 +24,13 @@ import com.qinhailin.common.vo.TreeNode;
 public class SysOrgService extends BaseService {
 
 	private SysOrg dao = new SysOrg().dao();
-	private final String table="sys_org";
 	
+	/* (non-Javadoc)
+	 * @see com.qinhailin.common.base.service.BaseService#getDao()
+	 */
 	@Override
-	public SysOrg getDao(){
+	public Model<?> getDao() {
 		return dao;
-	}
-	
-	@Override
-	public String getTable(){
-		return table;
 	}
 	
 	/**

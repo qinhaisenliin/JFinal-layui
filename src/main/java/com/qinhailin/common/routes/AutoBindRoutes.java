@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.jfinal.config.Routes;
 import com.jfinal.core.Controller;
-import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
 
 /**
@@ -16,8 +15,6 @@ import com.jfinal.log.Log;
  */
 public class AutoBindRoutes extends Routes {
 
-    private boolean autoScan = true;
-
 	private List<Class<? extends Controller>> excludeClasses = new ArrayList<>();
 
 	private boolean includeAllJarsInLib = false;
@@ -26,15 +23,10 @@ public class AutoBindRoutes extends Routes {
 
     protected final Log logger = Log.getLog(getClass());
 
-    private String suffix = "Controller";
-
 	public AutoBindRoutes() {
 		excludeClasses.add(Controller.class);
 	}
-    public AutoBindRoutes autoScan(boolean autoScan) {
-        this.autoScan = autoScan;
-        return this;
-    }
+
 
 	/**
 	 * 添加要排除的class类
@@ -107,33 +99,9 @@ public class AutoBindRoutes extends Routes {
             	}            	
             	this.add(actionkey, controller,viewPath );
             }
-//          else{
-//            	// 排除不是自动配置的类
-//                if (!autoScan) {
-//                    continue;
-//                }
-//           	//不是ControllerBind绑定的类，建议不处理，以便保留JFinal Rules原有特性
-//            	this.add(controllerKey(controller), controller,controllerKey(controller));
-//            }
         }
     }
 
-	/**
-	 * 截取类名作为控制器key值
-	 * 
-	 * @param clazz
-	 * @return
-	 * @author QinHaiLin
-	 * @date 2018年7月17日
-	 */
-    private String controllerKey(Class<Controller> clazz) {
-		if (!clazz.getSimpleName().endsWith(suffix)) {
-			return "/" + StrKit.firstCharToLowerCase(clazz.getSimpleName());
-		}
-        String controllerKey = "/" + StrKit.firstCharToLowerCase(clazz.getSimpleName());
-        controllerKey = controllerKey.substring(0, controllerKey.indexOf(suffix));
-        return controllerKey;
-    }
 
 	/**
 	 * 是否读取lib目录下jar包中的控制器类，<br/>
@@ -148,19 +116,6 @@ public class AutoBindRoutes extends Routes {
 	 */
     public AutoBindRoutes includeAllJarsInLib(boolean includeAllJarsInLib) {
         this.includeAllJarsInLib = includeAllJarsInLib;
-        return this;
-    }
-
-	/**
-	 * 设置截取标识类
-	 * 
-	 * @param suffix
-	 * @return
-	 * @author QinHaiLin
-	 * @date 2018年7月17日
-	 */
-    public AutoBindRoutes suffix(String suffix) {
-        this.suffix = suffix;
         return this;
     }
 
