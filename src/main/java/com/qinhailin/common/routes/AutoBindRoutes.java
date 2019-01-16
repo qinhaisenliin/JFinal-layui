@@ -23,7 +23,7 @@ public class AutoBindRoutes extends Routes {
 
     protected final Log logger = Log.getLog(getClass());
 
-    private String packageName="";
+    private String packageName="com";
     private String trgetName="*Controller.class";
 	public AutoBindRoutes() {
 		excludeClasses.add(Controller.class);
