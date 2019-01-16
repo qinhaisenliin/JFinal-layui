@@ -143,6 +143,8 @@ public class ClassSearcher {
 
 	@SuppressWarnings("rawtypes")
 	private Class target;
+	/**设置查找package目录 */
+	private String packageName="com";
 	/**设置查找指定文件类型*Controller.class */
 	private String targetName="*Controller.class";
 
@@ -202,7 +204,10 @@ public class ClassSearcher {
 	 * @return
 	 */
 	public ClassSearcher setPackageName(String packageName){
-		this.classpath =this.classpath + "\\"+packageName.replace(".", "\\");
+		this.packageName=packageName;
+		if(classpath.endsWith("target")){//开发环境
+			this.classpath =this.classpath + File.separator + packageName.replace(".", File.separator);		
+		}
 		return this;
 	}
 	
@@ -261,9 +266,11 @@ public class ClassSearcher {
 					while (entries.hasMoreElements()) {
 						JarEntry jarEntry = entries.nextElement();
 						String entryName = jarEntry.getName();
-						if (!jarEntry.isDirectory() && entryName.endsWith(".class")) {
+						if (!jarEntry.isDirectory() && entryName.endsWith(targetName.substring(1))) {
 							String className = entryName.replaceAll("/", ".").substring(0, entryName.length() - 6);
-							classFiles.add(className);
+							if(className.startsWith(packageName)){//指定package
+								classFiles.add(className);								
+							}
 						}
 					}
 					localJarFile.close();
