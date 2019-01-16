@@ -23,6 +23,8 @@ public class AutoBindRoutes extends Routes {
 
     protected final Log logger = Log.getLog(getClass());
 
+    private String packageName="";
+    private String trgetName="*Controller.class";
 	public AutoBindRoutes() {
 		excludeClasses.add(Controller.class);
 	}
@@ -75,6 +77,26 @@ public class AutoBindRoutes extends Routes {
         }
         return this;
     }
+    
+    /**
+     * 查找指定package
+     * @param packageName 如 ：com.qinhailin
+     * @return
+     */
+    public AutoBindRoutes setPackageName(String packageName){
+    	this.packageName=packageName;
+    	return this;
+    }
+    
+    /**
+     * 查找指定类型文件
+     * @param targetName 如：*Controller.class
+     * @return
+     */
+    public AutoBindRoutes setTargetName(String targetName){
+    	this.trgetName=targetName;
+    	return this;
+    }
 
 	/**
 	 * 配置路由
@@ -83,7 +105,8 @@ public class AutoBindRoutes extends Routes {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void config() {
         List<Class<? extends Controller>> controllerClasses = ClassSearcher.of(Controller.class)
-                .includeAllJarsInLib(includeAllJarsInLib).injars(includeJars).search();
+                .includeAllJarsInLib(includeAllJarsInLib).injars(includeJars)
+                .setPackageName(packageName).setTargetName(trgetName).search();
         ControllerBind controllerBind = null;
         for (Class controller : controllerClasses) {
 			// 排除指定类

@@ -143,6 +143,8 @@ public class ClassSearcher {
 
 	@SuppressWarnings("rawtypes")
 	private Class target;
+	/**设置查找指定文件类型*Controller.class */
+	private String targetName="*Controller.class";
 
 	@SuppressWarnings("rawtypes")
 	public ClassSearcher(Class target) {
@@ -193,6 +195,26 @@ public class ClassSearcher {
 		this.classpath = classpath;
 		return this;
 	}
+	
+	/**
+	 * 设置查找指定package文件
+	 * @param packageName 如：com.qinhailin
+	 * @return
+	 */
+	public ClassSearcher setPackageName(String packageName){
+		this.classpath =this.classpath + "\\"+packageName.replace(".", "\\");
+		return this;
+	}
+	
+	/**
+	 * 设置查找指定类型文件
+	 * @param targetName 如：*Controller.class
+	 * @return
+	 */
+	public ClassSearcher setTargetName(String targetName){
+		this.targetName=targetName;
+		return this;
+	}
 
 	/**
 	 * 查找class文件
@@ -203,7 +225,7 @@ public class ClassSearcher {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> List<Class<? extends T>> search() {
-		List<String> classFileList = findFiles(classpath, "*.class");
+		List<String> classFileList = findFiles(classpath, targetName);
 		if (includeAllJarsInLib) {
 			classFileList.addAll(findjarFiles(libDir, includeJars));
 		}
