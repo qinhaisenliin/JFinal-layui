@@ -172,11 +172,13 @@ public class SysUserController extends BaseController {
 	}
 	
 	public void saveUserRole(){
-		//用户原有的角色(已经排除和登录者的一样的角色)
-		List<Record> userRoleList=sysUserRoleService.queryUserRoleList(getPara("userCode"),getVisitor().getCode());
+		//用户原有的角色(登录者却没有)
 		StringBuffer sbf=new StringBuffer();
-		for(Record rd:userRoleList){
-			sbf.append(rd.getStr("role_code")).append(",");
+		if(!getVisitor().getCode().equals("superadmin")){//超级管理员登录不查询
+			List<Record> userRoleList=sysUserRoleService.queryUserRoleList(getPara("userCode"),getVisitor().getCode());
+			for(Record rd:userRoleList){
+				sbf.append(rd.getStr("role_code")).append(",");
+			}			
 		}
 		//可配置的角色
 		sbf.append(getPara("role"));
