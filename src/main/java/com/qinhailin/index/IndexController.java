@@ -99,7 +99,7 @@ public class IndexController extends BaseController {
 	public void lock() {
 		Visitor vs = VisitorUtil.getVisitor(getSession());
 		if(vs==null){
-			redirect("/pub/login");
+			renderJson(err("登录信息已失效，请刷选浏览器(F5)重新登录"));
 			return;
 		}
 		getSession().setAttribute(getPara("userName","userName"), getPara("userName","userName"));
@@ -119,7 +119,7 @@ public class IndexController extends BaseController {
 	public void unLock() {
 		Visitor vs = VisitorUtil.getVisitor(getSession());
 		if(vs==null){
-			redirect("/pub/login");
+			renderJson(err("登录信息已失效，请刷选浏览器(F5)重新登录"));
 			return;
 		}
 		String passwd = Md5Kit.md5(getPara("password"));
