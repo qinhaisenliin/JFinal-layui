@@ -97,7 +97,12 @@ public class IndexController extends BaseController {
 	 * @date 2018年3月6日下午11:48:34
 	 */
 	public void lock() {
-		getSession().setAttribute(getPara("userName"), getPara("userName"));
+		Visitor vs = VisitorUtil.getVisitor(getSession());
+		if(vs==null){
+			redirect("/pub/login");
+			return;
+		}
+		getSession().setAttribute(getPara("userName","userName"), getPara("userName","userName"));
 		renderJson(suc());
 	}
 
@@ -112,8 +117,12 @@ public class IndexController extends BaseController {
 	 * @date 2018年3月6日下午11:48:34
 	 */
 	public void unLock() {
-		String passwd = Md5Kit.md5(getPara("password"));
 		Visitor vs = VisitorUtil.getVisitor(getSession());
+		if(vs==null){
+			redirect("/pub/login");
+			return;
+		}
+		String passwd = Md5Kit.md5(getPara("password"));
 		SysUser user = sysUserService.findByUserCode(vs.getCode());
 		if (passwd.equals(user.getPasswd())) {
 			getSession().removeAttribute(getPara("userName"));
