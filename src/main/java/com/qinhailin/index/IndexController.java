@@ -40,7 +40,7 @@ public class IndexController extends BaseController {
 	 */
 	public void index() {
 		Visitor vs = VisitorUtil.getVisitor(getSession());
-		// 锁屏未解锁,刷新页面强制移除登录身份信息
+		// 锁屏未解锁,刷新浏览器强制移除登录身份信息
 		String userName = (String) getSession().getAttribute(vs.getName());
 
 		if (userName != null) {
@@ -51,7 +51,7 @@ public class IndexController extends BaseController {
 		}
 
 		// 缓存
-		Collection<TreeNode> funcList = CacheKit.get("userFunc", "funcList", new IDataLoader() {
+		Collection<TreeNode> funcList = CacheKit.get("userFunc", "funcList"+vs.getCode(), new IDataLoader() {
 			@Override
 			public Object load() {
 				return sysFuncService.getUserFunctionTree(vs.getCode(), "sys");
@@ -63,7 +63,7 @@ public class IndexController extends BaseController {
 			public Object load() {
 				return sysFuncService.findById("frame_main_view");
 			}
-		});
+		    });
 
 		if (sf != null) {
 			setAttr("frameMainView", sf.getLinkPage());
@@ -77,7 +77,7 @@ public class IndexController extends BaseController {
 
 
 	/**
-	   * 退出登录
+	 * 退出登录
 	 * 
 	 * @author qinhailin
 	 * @date 2018年11月15日
@@ -99,7 +99,7 @@ public class IndexController extends BaseController {
 	public void lock() {
 		Visitor vs = VisitorUtil.getVisitor(getSession());
 		if(vs==null){
-			renderJson(err("登录信息已失效，请刷选浏览器(F5)重新登录"));
+			renderJson(err("登录信息已失效，请刷新浏览器(F5)重新登录"));
 			return;
 		}
 		getSession().setAttribute(getPara("userName","userName"), getPara("userName","userName"));
@@ -119,7 +119,7 @@ public class IndexController extends BaseController {
 	public void unLock() {
 		Visitor vs = VisitorUtil.getVisitor(getSession());
 		if(vs==null){
-			renderJson(err("登录信息已失效，请刷选浏览器(F5)重新登录"));
+			renderJson(err("登录信息已失效，请刷新浏览器(F5)重新登录"));
 			return;
 		}
 		String passwd = Md5Kit.md5(getPara("password"));
