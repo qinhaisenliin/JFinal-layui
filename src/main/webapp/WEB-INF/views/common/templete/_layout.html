@@ -19,7 +19,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="format-detection" content="telephone=no" />
 #@header()
-#@css()
+#@css?()
+#@getOption()
 </head>
 <body>
 	<div class="layui-container-fluid">
@@ -27,8 +28,7 @@
 		#@main()
 	</div>
 	#@footer()
-	#@getOption()
-	#@js()
+	#@js?()
 	#@layui()
 </body>
 </html>
@@ -82,8 +82,9 @@
 		var table = layui.table;
 		var form = layui.form;
 		var layer = layui.layer;
-		var $ = layui.$;	
-		#@layuiFunc()
+		var $ = layui.$;
+		//layui相关语法函数
+		#@layuiFunc?()
 		form.render();
 	});
 </script>
@@ -94,13 +95,5 @@
    	 <input type="hidden" name="tokenKey" value="#(tokenKey)">
    	 <input type="hidden" name="tokenValue" value="#(tokenValue)">
 #end
-<!-- layui相关语法函数-->
-#define layuiFunc()
-#end
-<!-- 业务css -->
-#define css()
-#end
-<!-- 业务js -->
-#define js()
-#end
+
 
