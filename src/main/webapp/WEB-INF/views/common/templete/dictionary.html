@@ -34,7 +34,9 @@
 
 
 #define getOption()
+<script src="#(path)/static/libs/layui/layui.js?t=#now()" type="text/javascript" ></script>
 <script type="text/javascript">
+
 	//获取业务字典数据 
 	function getOption(code,type){
 		$.ajax({
@@ -56,6 +58,11 @@
 				}					
 	
 				$('#'+type+"_"+code).append(option);
+				//立即渲染元素，防止有些情况渲染不成功
+				layui.use('form', function() {
+					var form = layui.form;
+					form.render();
+				});
 			}			
 		});
 	}
