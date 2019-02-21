@@ -2,7 +2,7 @@
 	<input type="hidden" class="layui-input" name="dataDictionary.id" value="#(dataDictionary.id??)"/>
 	<div class="layui-row layui-col-space1 task-row">
 	#@colStart("字典编号",12)
-		<input type="text" class="layui-input #if(dataDictionary.id??)layui-disabled#end" name="dataDictionary.code" value="#(dataDictionary.code??)" #if(dataDictionary.id??)readonly="readonly"#end/>
+		<input type="text" lay-verType='tips'lay-verify="required|" required maxlength="30" placeHolder="必填"  class="layui-input #if(dataDictionary.id??)layui-disabled#end" name="dataDictionary.code" value="#(dataDictionary.code??)" #if(dataDictionary.id??)readonly="readonly"#end/>
 	#@colEnd()
 	</div>
 	<div class="layui-row layui-col-space1 task-row">
