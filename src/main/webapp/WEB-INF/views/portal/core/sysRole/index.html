@@ -304,11 +304,11 @@ function treeClick(item){
     queryRoleFunctionTree(roleCode);
     var cite=document.getElementsByTagName('cite');
     for(var i=0;i<cite.length;i++){
-  	  if(cite[i].innerText==item.name){
-		  document.getElementsByTagName('cite')[i].classList.add("cite")
-  	  }else{
-  		  document.getElementsByTagName('cite')[i].classList.remove("cite")
-  	  }
+    	if(cite[i]==window.event.srcElement){
+   		   cite[i].classList.add("cite")
+     	}else{
+   	       cite[i].classList.remove("cite")  
+     	}
     }
 }
 //功能树

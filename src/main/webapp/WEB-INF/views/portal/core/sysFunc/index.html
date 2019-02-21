@@ -198,8 +198,7 @@ function leftTree(){
 				elem: '#leftLayout' //传入元素选择器
 				,skin: 'skin'			
 				,click: function(item){ //点击节点回调
-				      treeClick(item);	
-					  //treeClickNew(item);//add by Simon 2019-2-20 16:40:08
+				      treeClick(item);
 				      $("#addBtn_").off("click");//去掉添加按钮重复绑定事件	      			     
 				      getFuncList();	
 				 }
