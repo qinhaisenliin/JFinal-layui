@@ -173,6 +173,7 @@ function initGrid(options, events, initGridArgs) {
 			event.stopPropagation();
 			return false;
 		});
+		$('#' + tableOptions.searchForm).off('bind');
 		$('#' + tableOptions.searchForm).bind('keydown', function(event) {
 			if (event.keyCode == 13) {
 				var params = {};
@@ -194,6 +195,7 @@ function initGrid(options, events, initGridArgs) {
 				return false;
 			}
 		});
+		$('button[search]').off('click');
 		$('button[search]').click(function() {
 			var searchId = $(this).attr('search');
 			log(searchId);
@@ -203,6 +205,7 @@ function initGrid(options, events, initGridArgs) {
 			$('#' + searchId).trigger(keyDownEvt);
 		});
 		// 添加
+		$(addBtn).off('click');
 		$(addBtn).click(function() {
 			currentLayer=openDialog('添加' + gridArgs_.title, gridArgs_.addUrl, false, null, null, {
 				end : function() {
@@ -231,6 +234,7 @@ function initGrid(options, events, initGridArgs) {
 		});
 //		$('#'+tableOptions.searchForm).removeAttr('action');
 		// 刷新
+		$(refreshBtn).off('click');
 		$(refreshBtn).click(function() {
 			var keyDownEvt = $.Event('keydown', {
 				keyCode : 13
@@ -243,6 +247,7 @@ function initGrid(options, events, initGridArgs) {
 			$('#' + tableOptions.searchForm).trigger(keyDownEvt);			
 		});
 		// 删除多条
+		$(deleteBtn).off('click');
 		$(deleteBtn).click(function() {
 			var checkStatus = table.checkStatus(options.id); // test即为基础参数id对应的值
 
@@ -269,6 +274,7 @@ function initGrid(options, events, initGridArgs) {
 			}
 		});
 		// 重置密码
+		$(resetBtn).off('click');
 		$(resetBtn).click(function() {
 			var checkStatus = table.checkStatus(options.id); // test即为基础参数id对应的值
 
@@ -297,6 +303,7 @@ function initGrid(options, events, initGridArgs) {
 		});
 		
 		// 特殊的ajax请求
+		$(ajaxBtn).off('click');
 		$(ajaxBtn).click(function() {
 			var checkStatus = table.checkStatus(options.id); // test即为基础参数id对应的值
 
