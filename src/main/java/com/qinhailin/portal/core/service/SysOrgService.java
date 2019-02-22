@@ -34,7 +34,7 @@ public class SysOrgService extends BaseService {
 	}
 	
 	/**
-	 * 删除部门及子部门
+	 * 删除部门及下级部门,多层会有数据冗余
 	 * @param id
 	 * @author QinHaiLin
 	 * @date 2018年12月5日
@@ -66,4 +66,14 @@ public class SysOrgService extends BaseService {
 		return nodes;
 	}
 
+	/**
+	 * 修改关联的部门名称
+	 * @param id
+	 * @author QinHaiLin
+	 * @date 2019-02-23
+	 */
+	public void updateOrgParentName(String id){
+		String sql="update sys_org AS a inner join (select id,org_name form sys_org where id=?) as b on a.parentid=b.id set a.parentid_name=b.org_name";
+		Db.update(sql, id);
+	}
 }

@@ -62,6 +62,7 @@ public class SysOrgController extends BaseController {
 		SysOrg entity=getBean(SysOrg.class);
 		entity.update();
 		setAttr("sysOrg", entity);
+		service.updateOrgParentName(entity.getId());
 		CacheKit.removeAll("orgManager");
 		render("edit.html");
 	}
@@ -73,7 +74,7 @@ public class SysOrgController extends BaseController {
 
 	
 	public void delete() {
-		service.deleteById(getPara("orgCode"));
+		service.deleteOrgById(getPara("orgCode"));
 		CacheKit.removeAll("orgManager");
 		renderJson(Feedback.success());
 	}
