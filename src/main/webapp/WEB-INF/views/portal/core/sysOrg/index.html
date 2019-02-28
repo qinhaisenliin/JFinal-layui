@@ -56,7 +56,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 				</button>		
 				#end
 				#if(vs.funcMap.get('sys_org_delete'))
-				<button id='deleteBtn_' class="layui-btn  layui-btn-normal layui-btn-sm">
+				<button id='deleteBtn_1' class="layui-btn  layui-btn-normal layui-btn-sm">
 				  <i class="layui-icon">&#xe640;</i> 删除
 				</button>			
 				#end		
@@ -141,7 +141,7 @@ $(function(){
 		openDialog("修改部门",url,false,650,350,option);		
 	});
 	
-	$("#deleteBtn_").click(function(){	
+	$("#deleteBtn_1").click(function(){	
 		if(orgName==undefined||orgName=="组织机构"){
 			layer.msg("请选择部门");
 			return
