@@ -342,7 +342,14 @@ public abstract class BaseService {
         		if(whereSql.length()>0){
         			whereSql.append(" and ");
         		}
-				if ("=".equals(queryType)) {
+        		//用法看用户管理查询功能
+        		if(column.endsWith("=")){
+        			whereSql.append(column + " ? ");
+					paras.add(value);
+        		}else if(column.endsWith("like")){
+        			whereSql.append(column + " ? ");
+					paras.add("%" + value + "%");
+        		}else if("=".equals(queryType)) {
 					whereSql.append(column + " = ? ");
 					paras.add(value);
 				} else {

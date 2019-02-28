@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Record;
@@ -25,6 +26,8 @@ import com.qinhailin.common.vo.Grid;
 public class SysUserService extends BaseService {
 
 	private SysUser dao = new SysUser().dao();
+	@Inject
+	private SysOrgService orgService;
 	
 	/* (non-Javadoc)
 	 * @see com.qinhailin.common.base.service.BaseService#getDao()
@@ -36,10 +39,24 @@ public class SysUserService extends BaseService {
 	
 	public Grid page(int pageNumber, int pageSize, Record record) {
 		Record rd = new Record();
-		rd.set("a.user_code like '%" + record.getStr("userName") + "%' or a.user_name", record.getStr("userName"));
-		rd.set("a.org_id", record.getStr("orgId"));
-		rd.set("a.sex", record.getStr("sex"));
+		rd.set("a.user_code like", record.getStr("userCode"));
+		rd.set("a.user_name like", record.getStr("userName"));
+		rd.set("a.sex=", record.getStr("sex"));
 		String sql=Db.getSql("core.getUserList");
+		String orgId=record.getStr("orgId");
+		
+		//部门用户列个表
+		String type=record.getStr("type");
+		if("org".equals(type)){
+			
+			StringBuffer sbf=new StringBuffer().append("'"+orgId+"'");		
+			String orgIds=orgService.getIdsByOrgId(orgId,sbf);
+			
+			sql=Db.getSql("core.getOrgUserList").replace("?", orgIds);
+			return queryForList(sql,pageNumber, pageSize, rd, "group by a.id");			
+		}
+		//用户管理列表
+		rd.set("a.org_id=", orgId);
 		return queryForList(sql,pageNumber, pageSize, rd, "group by a.id");
 	}
 
@@ -132,6 +149,5 @@ public class SysUserService extends BaseService {
 
 		return map;
 	}
-
 
 }

@@ -76,6 +76,12 @@
 	where (a.org_id = b.org_code or a.org_id is null)
 #end
 
+#sql("getOrgUserList")
+	select a.id,a.user_code,a.user_name,a.sex,a.allow_login,a.tel,a.mobile,a.email,address,case when a.org_id in (select id from sys_org) then b.org_name else '' end 'org_name'
+	from  sys_user a,sys_org b 
+	where (a.org_id = b.org_code or a.org_id is null) and b.id in(?)
+#end
+
 查询用户功能map集合,页面权限控制
 #sql("getUserFuncMap")
     select rf.function_id from sys_role_function rf where rf.role_code in (select ur.role_code from sys_user_role ur where ur.user_code=?)  

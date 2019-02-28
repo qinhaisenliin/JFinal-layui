@@ -84,7 +84,8 @@ function initGrid(options, events, initGridArgs) {
 				dataName : 'list' // 数据列表的字段名称，默认：data
 			},
 			url : gridArgs_.listUrl,
-			limit:20,
+			limit:gridArgs_.pageSize||20,//分页初始化大小
+			limits:gridArgs_.limits,  //分页数组，默认[10,20,30,40,50,60,70,80,90]
 			page : true
 		}, options)
 

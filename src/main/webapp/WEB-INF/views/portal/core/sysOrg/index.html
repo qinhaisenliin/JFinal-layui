@@ -46,7 +46,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 	     <div class="l-layout-header" onclick="reloadOrg()">部门菜单
 	        <div class="layui-btn-group"style="float: right">
 				#if(vs.funcMap.get('sys_org_add'))
-				<button id='addBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
+				<button id='addBtn_1' class="layui-btn layui-btn-normal layui-btn-sm">
 				  <i class="layui-icon">&#xe608;</i> 新增
 				</button>
 				#end
@@ -71,6 +71,28 @@ body .layui-tree-skin-skin .layui-tree-branch{
 	<div class="layui-col-xs9" position='center' id="orgDetail" 
 		style="border:1px solid #DCDCDC;height: 595px;">
 		<div id="orgInfor"></div>
+		<div id="orgUser" style="display: none">
+			#@formStart()
+				#@queryStart('用户名')
+				   <input type="search" name="userCode" autocomplete="off" class="layui-input" placeholder="用户名"/>
+				#@queryEnd()
+				#@queryStart('姓名')
+			   		<input type="search" name="userName" autocomplete="off" class="layui-input" placeholder="姓名"/>
+				#@queryEnd()
+				#@queryStart('性别')
+					<select name="sex" class="layui-input" lay-search>
+						<option value="">---请选择性别---</option>
+						<option value="1">男</option>
+						<option value="0">女</option>
+					</select>
+				#@queryEnd()
+			#@formEnd()
+		    <div class="layui-row  f-index-toolbar">
+				<div class="layui-col-xs12">
+	   				<table id="maingrid" lay-filter="maingrid"></table>
+	   			</div>
+	    	</div>
+		</div>
     </div>
 	
   </div>
@@ -96,43 +118,29 @@ function setHight(){
 }
 $(function(){
 	queryOrgTree();
-	//getOrgList();
 	setHight();
-	$("#addBtn_").click(function(){
-		layui.use('layer',function(){
-			var layer = layui.layer;
-			index=layer.open({
-				  title:'添加部门',
-				  type: 2, 
-				  maxmin : true,
-				  area: ['650px', '350px'],
-				  content: '#(path)/portal/core/sysOrg/add?orgCode='+orgCode,
-				  end : function() {
-					  reloadOrg();
-					}
-		   });
-	   });
+	//关闭弹窗的回调函数
+	var option={
+		end : function() {
+			reloadOrg();
+			getOrgInfor();
+		}
+	}
+	
+	$("#addBtn_1").click(function(){
+		var url='#(path)/portal/core/sysOrg/add?orgCode='+orgCode;
+		openDialog("添加部门",url,false,650,350,option);
 	});
+	
 	$("#updateBtn_").click(function(){
 		if(orgName==undefined||orgName=="组织机构"){
 			layer.msg("请选择部门");
 			return
 		}
-		layui.use('layer',function(){
-			var layer = layui.layer;
-			index=layer.open({
-				  title:'修改-'+orgName,
-				  type: 2, 
-				  maxmin : true,
-				  area: ['650px', '350px'],
-				  content: '#(path)/portal/core/sysOrg/edit?orgCode='+orgCode,
-				  end : function() {
-					  reloadOrg();
-					  getOrgInfor();
-					}
-		   });
-	   });
+		var url='#(path)/portal/core/sysOrg/edit?orgCode='+orgCode;
+		openDialog("修改部门",url,false,650,350,option);		
 	});
+	
 	$("#deleteBtn_").click(function(){	
 		if(orgName==undefined||orgName=="组织机构"){
 			layer.msg("请选择部门");
@@ -221,7 +229,7 @@ function reloadOrg(){
 	queryOrgTree();
 }
 
-//功能树
+//部门树
 function leftTree(){
 	layui.use('tree',function(){
 		var node=[strToJson(leftNodes.replace("undefined",""))];
@@ -249,9 +257,41 @@ function treeClick(item){
       	}else{
     	    cite[i].classList.remove("cite")  
       	}
-    } 	
+    } 
+    queryOrgUser();	
 }
 
+function queryOrgUser(){
+	$("#orgUser").show();
+	gridArgs.gridDivId ='maingrid';
+	gridArgs.heightDiff =227;
+	gridArgs.pageSize =10;
+	initGrid({id : 'maingrid'
+			,elem : '#maingrid'
+			,cellMinWidth: 80
+			,cols : [ [
+					{title: '主键',field : 'id',width : 35,checkbox : true},						
+					{title:'序号',type:'numbers',width:35},
+					{title: '用户名', field: 'user_code' },
+        			{title: '姓名', field: 'user_name'},
+	        		{title: '所属部门', field: 'org_name'},
+	        		{title: '性别', field: 'sex',templet:'#sexStr'},
+        			{title: '电话', field: 'tel'},
+        			{title: '手机号码', field: 'mobile'},
+        			{title: '邮箱', field: 'email'},
+        			{title: '允许登录', field: 'allow_login',templet:'#numToStr' }																	
+					//,{title: '操作',fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
+			] ]
+			,url:"#(path)/portal/core/sysUser/list?type=org&orgId="+orgCode
+			,searchForm : 'searchForm'
+		});
+}
 </script>
-
+<script type="text/html" id="sexStr">
+    {{ d.sex == 1 ? '男' : '女' }}             
+</script>
+<script type="text/html" id="numToStr">
+    <input type="checkbox" name="isStop" disabled value="{{d.id}}" 
+		lay-skin="switch" lay-text="是|否" lay-filter="allowLoginFilter" {{ d.allow_login == 0 ? 'checked' : '' }}>               
+</script>
 #end

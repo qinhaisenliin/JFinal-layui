@@ -34,9 +34,9 @@
 		  <div class="layui-col-xs6 div-scroll">
 			 <div class="l-layout-header"><span style="color:#5FB878">#(roleName)</span> 可选用户</div>
              <div class="l-scroll"style="left: 0px;top: 0px;">
-            	#@formStart()
+            	#@formStart()							
 					<div class="layui-inline">																	
-					   	<input type="search" name="userName" autocomplete="off" class="layui-input" placeholder="用户名/姓名"/>								
+					   	<input type="search" name="userName" autocomplete="off" class="layui-input" placeholder="姓名"/>								
 					</div>								
 					<div class="layui-inline">
 					   <select name="orgId" class="layui-input" lay-search>
@@ -59,7 +59,7 @@
 						<div class='layui-col-xs12 '> 
 							<div class="layui-form-item">
 								<div class="layui-inline">																	
-								   	<input type="search" name="userName" autocomplete="off" class="layui-input" placeholder="用户名/姓名"/>								
+								   	<input type="search" name="userName" autocomplete="off" class="layui-input" placeholder="姓名"/>								
 								</div>								
 								<div class="layui-inline">
 								   <select name="orgId" class="layui-input" lay-search>
@@ -162,7 +162,7 @@
 					{title: '用户名', field: 'user_code',sort:true},
         			{title: '姓名', field: 'user_name',sort:true},
 	        		{title: '所属部门', field: 'org_name',sort:true},																	
-					{fixed:'right',width : 100,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
+					{title: '操作',fixed:'right',width : 100,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
 			] ]
 			,url:"#(path)/portal/core/sysRole/queryUserListNotInRoleCode?roleCode="+roleCode
 			,searchForm : 'searchForm'
@@ -177,7 +177,7 @@
 					{title: '用户名', field: 'user_code',sort:true },
         			{title: '姓名', field: 'user_name',sort:true},
 	        		{title: '所属部门', field: 'org_name',sort:true},																	
-					{fixed:'right',width : 100,align : 'left',toolbar : '#bar_maingrid1'} // 这里的toolbar值是模板元素的选择器
+					{title: '操作',fixed:'right',width : 100,align : 'left',toolbar : '#bar_maingrid1'} // 这里的toolbar值是模板元素的选择器
 			] ]
 			,url:"#(path)/portal/core/sysRole/queryRoleUserList?roleCode="+roleCode
 			,searchForm : 'searchForm1'

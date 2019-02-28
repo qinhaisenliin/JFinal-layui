@@ -40,8 +40,10 @@ public class SysOrgService extends BaseService {
 	 * @date 2018年12月5日
 	 */
 	public void deleteOrgById(String id) {
-		String hql = "delete from sys_org where id=? or parentid=?";
-		Db.update(hql, id, id);
+		String sql = "delete from sys_org where id=? or parentid=?";		
+		Db.update(sql, id, id);
+		sql="update sys_user set org_id=null where org_id=?";
+		Db.update(sql,id);
 	}
 
 	public Collection<TreeNode> getOrgTree(String treeNodeId) {
@@ -73,7 +75,22 @@ public class SysOrgService extends BaseService {
 	 * @date 2019-02-23
 	 */
 	public void updateOrgParentName(String id){
-		String sql="update sys_org AS a inner join (select id,org_name form sys_org where id=?) as b on a.parentid=b.id set a.parentid_name=b.org_name";
+		String sql="update sys_org as a inner join (select id,org_name from sys_org where id=?) as b on a.parentid=b.id set a.parentid_name=b.org_name";
 		Db.update(sql, id);
+	}
+	
+	/**
+	 * 获取下级部门id
+	 * @param orgId
+	 * @return
+	 */
+	public String getIdsByOrgId(String orgId,StringBuffer sbf){		
+		Collection<TreeNode> treeList=this.getOrgTree(orgId);
+		for(TreeNode t:treeList){
+			if(sbf.length()>0)sbf.append(",");
+			sbf.append("'"+t.getId()+"'");
+			getIdsByOrgId(t.getId(),sbf);			
+		}
+		return sbf.toString();
 	}
 }

@@ -1,8 +1,11 @@
 #@layoutT("用户管理")
 #define main()
 	#@formStart()
-		#@queryStart('用户')
-		   <input type="search" name="userName" autocomplete="off" class="layui-input" placeholder="用户名/姓名"/>
+		#@queryStart('用户名')
+		   <input type="search" name="userCode" autocomplete="off" class="layui-input" placeholder="用户名"/>
+		#@queryEnd()
+		#@queryStart('姓名')
+		   <input type="search" name="userName" autocomplete="off" class="layui-input" placeholder="姓名"/>
 		#@queryEnd()
 		#@queryStart('部门')
 		   <select name="orgId" class="layui-input" lay-search>
@@ -84,7 +87,7 @@
 	 }
 	 
 
-	gridArgs.title='功能';
+	gridArgs.title='用户';
 	gridArgs.dataId='id';
 	gridArgs.deleteUrl='#(path)/portal/core/sysUser/delete';
 	gridArgs.updateUrl='#(path)/portal/core/sysUser/edit/';
@@ -107,7 +110,7 @@
         			{title: '手机号码', field: 'mobile'},
         			{title: '邮箱', field: 'email'},
         			{title: '允许登录', field: 'allow_login',templet:'#numToStr' },																		
-					{fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
+					{title: '操作',fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
 			] ]
 			,url:"#(path)/portal/core/sysUser/list"
 			,searchForm : 'searchForm'
