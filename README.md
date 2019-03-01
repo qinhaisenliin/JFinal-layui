@@ -154,7 +154,7 @@ code:字典编号，name:元素name属性,text:选项名称 ，如：系统日�
 ![功能管理](https://images.gitee.com/uploads/images/2019/0105/215623_059ce33f_1692092.png "功能管理.png")
 ![角色管理](https://images.gitee.com/uploads/images/2019/0105/215705_08c4c892_1692092.png "角色管理.png")
 ![用户管理](https://images.gitee.com/uploads/images/2019/0105/215739_245dccdd_1692092.png "用户管理.png")
-![部门管理](https://images.gitee.com/uploads/images/2019/0105/215806_2c0c748f_1692092.png "部门管理.png")
+![部门管理](https://images.gitee.com/uploads/images/2019/0301/085710_77180688_1692092.jpeg "部门管理.jpg")
 ![业务字典](https://images.gitee.com/uploads/images/2019/0105/215832_91d9f78c_1692092.png "业务字典.png")
 ![系统日志](https://images.gitee.com/uploads/images/2019/0105/215909_00d4c9e0_1692092.png "系统日志.png")
 ![附件上传](https://images.gitee.com/uploads/images/2019/0105/220039_83ff97e3_1692092.png "附件上传.png")
