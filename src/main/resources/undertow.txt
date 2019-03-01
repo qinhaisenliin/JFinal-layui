@@ -17,7 +17,7 @@ undertow.gzip.minLength=1024
 # keytool -importkeystore -srckeystore club.jks -destkeystore club.pfx -deststoretype PKCS12
 # 生成过程中提示输入 "名字与姓氏" 时输入 localhost。生产环境从阿里云下载 tomcat 类型的密钥库
 # 是否开启 ssl
-undertow.ssl.enable=true
+undertow.ssl.enable=false
 # ssl 监听端口号，部署环境设置为 443
 undertow.ssl.port=443
 # 密钥库类型，建议使用 PKCS12
