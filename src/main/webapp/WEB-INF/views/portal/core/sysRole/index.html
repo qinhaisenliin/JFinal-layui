@@ -303,8 +303,9 @@ function treeClick(item){
     roleCode=item.id;  
     queryRoleFunctionTree(roleCode);
     var cite=document.getElementsByTagName('cite');
+    var event=window.event||arguments.callee.caller.arguments[0];//消除浏览器差异
     for(var i=0;i<cite.length;i++){
-    	if(cite[i]==window.event.srcElement){
+    	if(cite[i]==event.srcElement){
    		   cite[i].classList.add("cite")
      	}else{
    	       cite[i].classList.remove("cite")  
