@@ -344,16 +344,16 @@ public abstract class BaseService {
         		}
         		//用法看用户管理查询功能
         		if(column.endsWith("=")){
-        			whereSql.append(column + " ? ");
+        			whereSql.append(column).append("? ");
 					paras.add(value);
         		}else if(column.endsWith("like")){
-        			whereSql.append(column + " ? ");
+        			whereSql.append(column).append(" ? ");
 					paras.add("%" + value + "%");
         		}else if("=".equals(queryType)) {
-					whereSql.append(column + " = ? ");
+					whereSql.append(column).append("=? ");
 					paras.add(value);
 				} else {
-					whereSql.append(column + " like ? ");
+					whereSql.append(column).append(" like ? ");
 					paras.add("%" + value + "%");
 				}
         	}

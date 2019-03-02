@@ -244,8 +244,9 @@ function initGrid(options, events, initGridArgs) {
 			var button = $(".layui-laypage-btn");
 			if (button.length > 0) {
 				refreshData();
+			}else{				
+				$('#' + tableOptions.searchForm).trigger(keyDownEvt);			
 			} 	
-			$('#' + tableOptions.searchForm).trigger(keyDownEvt);			
 		});
 		// 删除多条
 		$(deleteBtn).off('click');
