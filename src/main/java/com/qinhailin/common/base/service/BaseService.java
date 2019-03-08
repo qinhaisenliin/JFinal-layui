@@ -346,7 +346,7 @@ public abstract class BaseService {
         		if(column.endsWith("=")){
         			whereSql.append(column).append("? ");
 					paras.add(value);
-        		}else if(column.endsWith("like")){
+        		}else if(column.toLowerCase().endsWith("like")){
         			whereSql.append(column).append(" ? ");
 					paras.add("%" + value + "%");
         		}else if("=".equals(queryType)) {
@@ -360,7 +360,7 @@ public abstract class BaseService {
         }
 
         if(whereSql.length()>0){
-        	if(sql.contains("where")){
+        	if(sql.toLowerCase().contains("where")){
         		sql+=" and "+whereSql.toString();
         	}else{
         		sql+=" where "+whereSql.toString();

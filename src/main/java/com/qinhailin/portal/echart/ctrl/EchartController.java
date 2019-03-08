@@ -4,10 +4,14 @@
 */
 package com.qinhailin.portal.echart.ctrl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jfinal.core.Controller;
 import com.qinhailin.common.routes.ControllerBind;
 import com.qinhailin.portal.echart.service.EchartService;
 import com.qinhailin.portal.echart.vo.Chart;
+import com.qinhailin.portal.echart.vo.EchartData;
 
 /**
  * Echart图表统计
@@ -31,19 +35,22 @@ public class EchartController extends Controller {
 	 */
 	public void queryData() {
 		//TODO 根据具体业务给下面的变量赋值即可
-		String title="";
-		String subtitle="";
-		String xAxis="";		//sql中的字段名
-		String yAxis="";		//sql中的字段名
-		String chartType="";	//bar,line,pie
-		String xName="";		
-		String yName="";		
-		String seriesName="";
+		String title="ECharts入门示例";
+		String subtitle="部门人数统计";
+		String xAxis="x";		//sql中的字段名
+		String yAxis="y";		//sql中的字段名
+		String chartType="bar";	//bar,line,pie
+		String xName="部门";		
+		String yName="人数（人）";		
+		String seriesName="部门人数";
 		String tooltipText="";
-		String sql="";			//统计数据的sql
+		String sql="select b.org_name as 'x' ,count(*) as 'y' from sys_user a,sys_org b where a.org_id=b.id group by org_id";//统计部门人数sql
 		Object[] params=new Object[0];
 		Chart data =new Chart(title, subtitle, xAxis, yAxis, chartType, xName, yName, seriesName, tooltipText, sql, params);
-		renderJson(service.getEchartData(data));
+		
+		List<EchartData> list=new ArrayList<>();
+		list.add(service.getEchartData(data));
+		renderJson(list);
 	}
 	
 }

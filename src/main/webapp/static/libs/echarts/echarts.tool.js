@@ -72,7 +72,7 @@ Echart.prototype.getData=function(url,params){
 	$.ajax({
     	url:url,
     	type:"POST",
-    	data:params,
+    	data:params||{},
     	success:function(result){
     		console.log(result);
     		var config=echart.config;

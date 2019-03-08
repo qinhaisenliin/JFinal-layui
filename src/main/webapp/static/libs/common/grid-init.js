@@ -169,6 +169,9 @@ function initGrid(options, events, initGridArgs) {
 			}
 			table.reload(tableOptions.id, {
 				where : params
+				,page: {
+				    curr: 1 //重新从第 1 页开始
+				  }
 			});
 			event.preventDefault();
 			event.stopPropagation();
@@ -190,6 +193,9 @@ function initGrid(options, events, initGridArgs) {
 				}
 				table.reload(tableOptions.id, {
 					where : params
+					,page: {
+					    curr: 1 //重新从第 1 页开始
+					  }
 				});
 				event.preventDefault();
 				event.stopPropagation();
@@ -330,8 +336,10 @@ function initGrid(options, events, initGridArgs) {
 		});
 		
 		//时间戳的处理
+		//表格用法：{title: '创建时间', field: 'CREATE_TIME_',templet:'<div>{{ layui.laytpl.toDateString(d.CREATE_TIME_,"yyyy-MM-dd") }}</div>'},
+		//IE用法：{title: '创建时间', field: 'CREATE_TIME_',templet:'<div>{{ layui.laytpl.toDateString(new Date(d.CREATE_TIME_).getTime(),"yyyy-MM-dd") }}</div>'},
 		layui.laytpl.toDateString = formateDate;
-		 
+	
 		//数字前置补零
 		layui.laytpl.digit = digit;
 	});
