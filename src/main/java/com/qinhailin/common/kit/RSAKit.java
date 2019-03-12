@@ -1,3 +1,19 @@
+/**
+ * Copyright 2019 覃海林(qinhaisenlin@163.com).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */ 
+
 package com.qinhailin.common.kit;
 
 import java.io.ByteArrayOutputStream;
@@ -5,7 +21,11 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import java.math.BigInteger;
+
+import java.net.URLDecoder;
+
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -51,16 +71,9 @@ public class RSAKit {
 		StringBuffer sbUserCode = new StringBuffer();
 		sbUserCode.append(new String(deResultUserCode));
 		result = sbUserCode.reverse().toString();
-		// 转译特殊字符
-		if (result.contains("%")) {
-			result = result.replace("%23", "#");
-			result = result.replace("%24", "$");
-			result = result.replace("%25", "%");
-			result = result.replace("%2B", "+");
-			result = result.replace("%3D", "=");
-			result = result.replace("%3F", "?");
-			result = result.replace("%40", "@");
-		}
+		// 转译特殊字符	
+		result =URLDecoder.decode(result, "UTF-8");
+		
 		return result.equals("") ? cipher : result;
 	}
 

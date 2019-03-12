@@ -51,22 +51,9 @@ var Echart=function(){
 
 
 /*
-  	图表应用样本实例
-	<style type="text/css">
-	 	#chart{
-	 		width:100%;height:550px;margin-top:30px;
-		}
-		.chart{
-	 		width:50%;height:250px;margin-top:30px;float: left;display: none;
-		}	
-	</style>
-	
+  	图表应用样本实例	
 	<!--  默认div容器配置 -->
 	<div id="chart"></div>
-	<div id="chart0" class="chart"></div>
-	<div id="chart1" class="chart"></div>
-	<div id="chart2" class="chart"></div>
-	<div id="chart3" class="chart"></div>
  */
 Echart.prototype.getData=function(url,params){
 	$.ajax({
@@ -90,42 +77,14 @@ Echart.prototype.getData=function(url,params){
    			    config.series=data.series;
    			    config.seriesName=data.seriesName;
    				config.tooltipText=data.tooltipText;
-   				
+   				config.seriesPieData=data.seriesPieData;	
    				var chartType=data.type;
 	    		if(chartType=='bar'){
-	    			$(".chart").hide();
-	    			$("#chart").show();
 	    			echart.bar(config);
 	    		}else if(chartType=='line'){
-	    			$(".chart").hide();
-	    			$("#chart").show();
 	    			echart.line(config);
 	    		}else if(chartType=='pie'){
-	    			$(".chart").hide();
-	    			var num=data.seriesPieDataList.length;
-	    			if(num==1){
-	    				$('#chart0').css('width','100%');
-	    				$('#chart0').css('height','500');	    				
-	    			}else if(num==2){
-	    				$('#chart0').css('width','50%');
-	    				$('#chart0').css('height','500');
-	    				$('#chart1').css('width','50%');
-	    				$('#chart1').css('height','500');
-	    			}else{
-	    				$('.chart').css('width','50%');
-	    				$('.chart').css('height','350');
-	    			}
-	    			
-	   			    for(var j=0;j<num;j++){
-		   			    config.seriesPieData=data.seriesPieDataList[j];	
-		   			    config.seriesName=data.seriesNameList[j];	
-		   			    config.subtitle=data.seriesNameList[j];
-		   			    
-		   			    $("#chart"+j).show();
-		   			    $("#chart").hide();
-		   			 	config.divId="chart"+j;
-		    			echart.pie(config);
-	   			    }
+	    			echart.pie(config);	    			
 	    		}
     		}
     	}

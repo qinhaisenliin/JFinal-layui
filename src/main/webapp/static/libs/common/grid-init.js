@@ -337,7 +337,6 @@ function initGrid(options, events, initGridArgs) {
 		
 		//时间戳的处理
 		//表格用法：{title: '创建时间', field: 'CREATE_TIME_',templet:'<div>{{ layui.laytpl.toDateString(d.CREATE_TIME_,"yyyy-MM-dd") }}</div>'},
-		//IE用法：{title: '创建时间', field: 'CREATE_TIME_',templet:'<div>{{ layui.laytpl.toDateString(new Date(d.CREATE_TIME_).getTime(),"yyyy-MM-dd") }}</div>'},
 		layui.laytpl.toDateString = formateDate;
 	
 		//数字前置补零
@@ -370,6 +369,7 @@ var digit = function(num, length, end){
 	};
 function formateDate(d, format){
 	  if(d ==undefined)return "";
+	  d=d.replace(/-/g,"/");
 	  var date = new Date(d || new Date())
 	  ,ymd = [
 	   digit(date.getFullYear(), 4),
