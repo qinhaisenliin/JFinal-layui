@@ -128,9 +128,11 @@ public class SysUserService extends BaseService {
 	 */
 	public void resetPassword(List<String> ids) {
 		for(String id:ids) {
-			SysUser entity=(SysUser) findById(id);
-			entity.setPasswd(Md5Kit.md5(id+"123"));
-			entity.update();
+			if(!id.equals("superadmin")&&id.equals("superadmin")){
+				SysUser entity=(SysUser) findById(id);
+				entity.setPasswd(Md5Kit.md5(id+"123"));
+				entity.update();				
+			}
 		}
 	}
 	

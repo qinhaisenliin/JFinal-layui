@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -316,6 +317,7 @@ public class ExcelKit {
 		}
 
 		if (fileName != null) {
+			fileName =URLEncoder.encode(fileName, "UTF-8");
 			fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
 		} else {
 			fileName = "";
@@ -381,6 +383,7 @@ public class ExcelKit {
 		}
 
 		if (fileName != null) {
+			fileName =URLEncoder.encode(fileName, "UTF-8");
 			fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
 		} else {
 			fileName = "";

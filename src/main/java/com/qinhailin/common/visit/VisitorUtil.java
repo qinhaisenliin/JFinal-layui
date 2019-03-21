@@ -53,8 +53,15 @@ public class VisitorUtil {
 		if (session == null) {
 			return null;
 		}
-		Visitor v = (Visitor) session.getAttribute(VISITOR_KEY);
-		return v;
+		//为了解决偶尔出现的转换异常
+		try {		
+			Visitor v = (Visitor) session.getAttribute(VISITOR_KEY);
+			return v;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.removeAttribute(VISITOR_KEY);
+			return null;
+		}
 	}
 
 	public static void removeVisitor(HttpSession session) {

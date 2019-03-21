@@ -86,7 +86,10 @@ function initGrid(options, events, initGridArgs) {
 			url : gridArgs_.listUrl,
 			limit:gridArgs_.pageSize||20,//分页初始化大小
 			limits:gridArgs_.limits,  //分页数组，默认[10,20,30,40,50,60,70,80,90]
-			page : true
+			page : true,
+			done:function(res){
+				$("#sarchBtn_").removeClass("layui-btn-disabled").prop("disabled",false);
+			}
 		}, options)
 
 		// 执行渲染

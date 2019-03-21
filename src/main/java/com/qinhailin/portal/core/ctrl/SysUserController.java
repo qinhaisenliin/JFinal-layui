@@ -91,7 +91,8 @@ public class SysUserController extends BaseController {
 		render("edit.html");
 	}
 
-	public void update(SysUser sysUser) {
+	public void update() {
+		SysUser sysUser=getBean(SysUser.class);
 		sysUser.update();
 		sysUser.setPasswd("******");
 		setAttr("sysUser", sysUser);
@@ -135,6 +136,11 @@ public class SysUserController extends BaseController {
 	 */
 	public void updateMy(){
 		SysUser sysUser=getBean(SysUser.class);
+		Visitor vs=getVisitor();
+		if(!vs.getCode().equals(sysUser.getUserCode())){		
+			getResponse().setStatus(403);
+			renderError(403);
+		}
 		sysUser.update();
 		setAttr("sysUser", sysUser);
 		SysOrg org=(SysOrg) sysOrgService.findById(sysUser.getOrgId());
