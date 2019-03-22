@@ -61,7 +61,8 @@ public class SysUserService extends BaseService {
 		String type=record.getStr("type");
 		if("org".equals(type)){
 			
-			StringBuffer sbf=new StringBuffer().append("'"+orgId+"'");		
+			StringBuffer sbf=new StringBuffer();
+			sbf.append("'").append(orgId).append("'");		
 			String orgIds=orgService.getIdsByOrgId(orgId,sbf);
 			
 			sql=Db.getSql("core.getOrgUserList").replace("?", orgIds);
@@ -82,7 +83,7 @@ public class SysUserService extends BaseService {
 	}
 	
 	public SysUser findByUserCode(String userCode) {
-		return dao.findById(userCode);
+		return dao.findById(userCode.toLowerCase());
 	}
 
 	public boolean saveEntity(SysUser entity) {
@@ -95,6 +96,7 @@ public class SysUserService extends BaseService {
 
 	@Override
 	public boolean deleteById(String id) {
+		id=id.toLowerCase();
 		if(!"admin".equals(id)&&!"superadmin".equals(id)) {		
 			return dao.deleteById(id);
 		}
@@ -105,7 +107,8 @@ public class SysUserService extends BaseService {
 	public void deleteByIds(List<String> ids) {
 		Object[][] paras=new Object[ids.size()][1];
 		for(int i=0;i<ids.size();i++) {
-			if(!"superadmin".equals(ids.get(i))&&!"admin".equals(ids.get(i))){
+			if(!"superadmin".equals(ids.get(i).toLowerCase())
+					&&!"admin".equals(ids.get(i).toLowerCase())){
 				paras[i][0]=ids.get(i);				
 			}
 		}
