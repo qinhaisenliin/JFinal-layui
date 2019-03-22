@@ -18,7 +18,7 @@ JFinal+layui极速开发企业应用管理系统，是以JFinal+layui为核心�
 4. 登录账号：admin/123456
 
 #### 使用说明
-jfinal的通用配置如果不是特别需要，不需要修改，直接开发你的功能即可。
+jfinal的通用配置如果不是特别需要，不需要修改，直接开发你的功能即可，QQ交流群：970045838
 
 1. controller控制类：只需继承BaseController就能拥有上传、导入、导出等通用方法。
    ControllerBind的path、viewPath默认相同，也可自定义：
