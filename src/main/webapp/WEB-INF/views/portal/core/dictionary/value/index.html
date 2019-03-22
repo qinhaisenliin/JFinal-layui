@@ -91,7 +91,7 @@ function getFuncList(){
 	   			{title: '功能类型', field: 'func_type',templet:'#numToStr'},
 	   			{title: '排序', field: 'order_no',edit:'text'},
 	   			{title: '图标', field: 'icon',templet:'#icon'},
-				{fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
+				{title: '操作',fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
 			] ],
 			url:"#(path)/portal/core/sysFunc/list?id="+funcCode,
 			searchForm : 'searchForm'

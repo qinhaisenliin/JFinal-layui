@@ -5,7 +5,7 @@
 		   <input type="search" name="userCode" autocomplete="off" class="layui-input" placeholder="操作用户"/>
 		#@queryEnd()
 		#@queryStart('时间')
-			<input type="search" name="createTime" autocomplete="off" id="createTime" class="layui-input" placeholder="时间"/>
+			<input type="search" name="createTime" autocomplete="off" class="layui-input layui-date" placeholder="时间"/>
 		#@queryEnd()		
 		#@queryStart('资源类型')
 		   <input type="search" name="methodName" autocomplete="off" class="layui-input" placeholder="资源类型"/>
@@ -40,17 +40,6 @@
 #end
 
 #define js()
-<script>
-layui.use('laydate', function(){
-  var laydate = layui.laydate;
-  
-  //执行一个laydate实例
-  laydate.render({
-    elem: '#createTime' //指定元素
-  });
-});
-</script>
-
 <!-- 分页表格 -->
 <script>
 	var userCode="#(vs.code)";
@@ -75,7 +64,7 @@ layui.use('laydate', function(){
         			{title: '资源数据', field: 'data'},
         			{title: 'ip地址', field: 'ip'},																	
         			{title: '日志类型', field: 'remark'},																	
-					{fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
+					{title: '操作 ',fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
 			] ]
 			,url:"#(path)/portal/core/sysLog/list"
 			,searchForm : 'searchForm'

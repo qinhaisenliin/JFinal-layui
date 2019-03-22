@@ -78,11 +78,23 @@
 <!-- layui函数模块 -->
 #define layui()
 <script>
-	layui.use([ 'table', 'form', 'jquery'], function() {
+	layui.use([ 'table', 'form', 'jquery','laydate'], function() {
 		var table = layui.table;
 		var form = layui.form;
 		var layer = layui.layer;
 		var $ = layui.$;
+		var laydate = layui.laydate;
+		
+		//执行一个laydate日期选择控件实例
+		laydate.render({
+		    elem: '.layui-date' //指定class元素
+		});		  
+		//执行一个laydate日期时间控件实例
+		laydate.render({
+		    elem: '.layui-date-time' //指定class元素
+		    ,type: 'datetime'
+		});
+		
 		//layui相关语法函数
 		#@layuiFunc?()
 		form.render();
