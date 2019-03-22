@@ -89,7 +89,7 @@
 				<button id='refreshBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
 				  <i class="layui-icon">&#xe669;</i> 刷新
 				</button>	
-				#@button()		
+				#@button?()		
 				<button id='deleteBtn_' class="layui-btn  layui-btn-normal layui-btn-sm">
 				  <i class="layui-icon">&#xe640;</i> 删除
 				</button>			
@@ -105,16 +105,10 @@
    	<!-- 	每行的操作按钮 -->
 	<script type="text/html" id="bar_maingrid">
   	<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-	#@buttonRow()
+	#@buttonRow?()
   	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 	</script>
 #end
-<!-- 自定义列表上方按钮 函数-->
-#define button()
-#end
 
-<!-- 自定义列表行按钮函数 -->
-#define buttonRow()
-#end
 
 

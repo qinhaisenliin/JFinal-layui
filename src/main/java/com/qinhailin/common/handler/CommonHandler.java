@@ -46,7 +46,7 @@ public class CommonHandler extends Handler {
 			request.setAttribute("url", target.substring(15));
 			target = target.substring(0, 14);
 		} else if (target.startsWith("/portal/go/")) {
-			// 公共/pub/go路由
+			// 公共/portal/go路由
 			request.setAttribute("view", target.substring(11));
 			target = target.substring(0, 10);
 		} else if (target.startsWith("/portal/temp/")) {	

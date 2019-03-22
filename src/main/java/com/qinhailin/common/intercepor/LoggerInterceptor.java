@@ -82,6 +82,7 @@ public class LoggerInterceptor implements Interceptor {
 					sysLog.setRemark("数据日志");
 					if(name.equals("登录")){
 						sysLog.setRemark("登录日志");
+						sysLog.setData("{}");
 					}
 					sysLog.save();
 				}		
