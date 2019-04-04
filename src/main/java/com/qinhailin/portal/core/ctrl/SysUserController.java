@@ -93,6 +93,9 @@ public class SysUserController extends BaseController {
 
 	public void update() {
 		SysUser sysUser=getBean(SysUser.class);
+		if(sysUser.getOrgId()==null){
+			sysUser.setOrgId("sys");
+		}
 		sysUser.update();
 		sysUser.setPasswd("******");
 		setAttr("sysUser", sysUser);

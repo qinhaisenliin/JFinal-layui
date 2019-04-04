@@ -180,6 +180,7 @@ INSERT INTO `sys_org` VALUES ('40288ae767ee75f70167ee7c94220003', '40288ae767ee7
 INSERT INTO `sys_org` VALUES ('40288ae767ee75f70167ee7cb5120004', '40288ae767ee75f70167ee7cb5120004', 'ff80808161e4629f0161e49ac1d30001', '系统集成部', '项目部', NULL, NULL, NULL, NULL, NULL, NULL, 1);
 INSERT INTO `sys_org` VALUES ('ff808081616e1efd01616e2c89af0000', 'ff808081616e1efd01616e2c89af0000', 'sys', '组织机构', '绘宇智能', '一木森', NULL, NULL, NULL, NULL, NULL, 1);
 INSERT INTO `sys_org` VALUES ('ff80808161e4629f0161e49ac1d30001', 'ff80808161e4629f0161e49ac1d30001', 'ff808081616e1efd01616e2c89af0000', '绘宇智能', '系统集成部', NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `sys_org` VALUES ('sys', 'sys', '', '', '组织机构', '系统管理员', NULL, NULL, NULL, NULL, NULL, 1);
 
 -- ----------------------------
 -- Table structure for sys_role

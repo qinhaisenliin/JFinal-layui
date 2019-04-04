@@ -52,21 +52,18 @@ public class SysOrgService extends BaseService {
 	 * @date 2018年12月5日
 	 */
 	public void deleteOrgById(String id) {
+		if(id.equalsIgnoreCase("sys")){
+			return;
+		}
 		String sql = "delete from sys_org where id=? or parentid=?";		
 		Db.update(sql, id, id);
-		sql="update sys_user set org_id=null where org_id=?";
+		sql="update sys_user set org_id='sys' where org_id=?";
 		Db.update(sql,id);
 	}
 
 	public Collection<TreeNode> getOrgTree(String treeNodeId) {
-		List<SysOrg> list = null;
+		List<SysOrg> list = dao.find("select * from sys_org where parentid=? order by id asc", treeNodeId);
 
-		if (StrKit.notBlank(treeNodeId)) {
-
-			list = dao.find("select * from sys_org where parentid=? order by id asc", treeNodeId);
-		} else {
-			list = dao.find("select * from sys_org where parentid is null");
-		}
 		Collection<TreeNode> nodes = new ArrayList<TreeNode>();
 		for (SysOrg org : list) {
 			TreeNode node = new TreeNode();

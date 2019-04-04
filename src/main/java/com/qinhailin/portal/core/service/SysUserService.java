@@ -66,11 +66,11 @@ public class SysUserService extends BaseService {
 			String orgIds=orgService.getIdsByOrgId(orgId,sbf);
 			
 			sql=Db.getSql("core.getOrgUserList").replace("?", orgIds);
-			return queryForList(sql,pageNumber, pageSize, rd, "group by a.id");			
+			return queryForList(sql,pageNumber, pageSize, rd, null);			
 		}
 		//用户管理列表
 		rd.set("a.org_id=", orgId);
-		return queryForList(sql,pageNumber, pageSize, rd, "group by a.id");
+		return queryForList(sql,pageNumber, pageSize, rd, null);
 	}
 
 	/**
@@ -91,6 +91,9 @@ public class SysUserService extends BaseService {
 			return false;
 		}
 		entity.setPasswd(Md5Kit.md5(entity.getPasswd()));
+		if(entity.getOrgId()==null){
+			entity.setOrgId("sys");
+		}
 		return entity.save();
 	}
 
