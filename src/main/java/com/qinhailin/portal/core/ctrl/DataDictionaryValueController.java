@@ -53,7 +53,8 @@ public class DataDictionaryValueController extends BaseController {
 	
 	@Before(EvictInterceptor.class)
 	@CacheName("dictionary")
-	public void save(DataDictionaryValue dataDictionaryValue){
+	public void save(){
+		DataDictionaryValue dataDictionaryValue =getBean(DataDictionaryValue.class);
 		String isExitSql="dictionary_code='"+dataDictionaryValue.getDictionaryCode()+"' and value";
 		if(service.isExit(isExitSql, dataDictionaryValue.getValue())){
 			setException("字典的数据值不能重复,请重新输入");
@@ -72,7 +73,8 @@ public class DataDictionaryValueController extends BaseController {
 	
 	@Before(EvictInterceptor.class)
 	@CacheName("dictionary")
-	public void update(DataDictionaryValue dataDictionaryValue){
+	public void update(){
+		DataDictionaryValue dataDictionaryValue =getBean(DataDictionaryValue.class);
 		dataDictionaryValue.update();
 		setAttr("dataDictionaryValue",dataDictionaryValue);
 		render("edit.html");

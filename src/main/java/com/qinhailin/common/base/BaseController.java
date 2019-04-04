@@ -298,8 +298,16 @@ public class BaseController extends Controller {
 	public void exportExcel(String[] title, String sql) {
 		fileService.exportExcelxlsx(getResponse(), title, null, sql);
 	}
+	
+	/**
+	 * 文件名放前面，避免误用
+	 * @param fileName
+	 * @param title
+	 * @param sql
+	 * @param paras
+	 */
 	@NotAction
-	public void exportExcel(String[] title, String fileName, String sql, Object... paras) {
+	public void exportExcel(String fileName, String[] title, String sql, Object... paras) {
 		fileService.exportExcelxlsx(getResponse(), title, fileName, sql, paras);
 	}
 	@NotAction
