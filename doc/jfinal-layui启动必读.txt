@@ -6,20 +6,28 @@
 
 3、运行com.qinhailin.common.config.MainConfig.java的main方法即可，
      若端口占用问题，可修改undertow.txt相关参数
-      
-4、管理员登录账号：admin  密码：123456
+     
+4、默认访问地址：http://localhost
 
-5、特别提醒：通过start.bat、start.sh启动项目时，需要把项目源码的jfinal-layui-1.0.jar复制一份到webapp\WEB-INF\lib目录下，
-      同时把devMode的值改成false，否则404错误，这个是因为用@ControllerBind注解路由的问题，开发环境可以忽略   
+5、管理员登录账号：admin  密码：123456
+
+
 
 打包部署到服务器：
 1：命令行进入项目根目录，然后运行 mvn clean package 即可打包 
+
 2：打包完后，进入 JFinal-layu/target/JFinal-layu-release/JFinal-layu 目录，
-3：windows 下双击 start.bat 启动项目，
+
+3:需要把项目源码的jfinal-layui-1.0.jar复制一份到webapp\WEB-INF\lib目录下，
+     同时把devMode的值改成false，否则404错误，这个是因为用@ControllerBind注解路由的问题，开发环境可以忽略   
+     
+4：windows 下双击 start.bat 启动项目，
 	linux 下运行 start.sh 脚本启动项目， 运行 stop.sh 关闭项目 
-:
+      
 注意 JFinal-layui/target 目录下面还会有一个 JFinal-layui-release.zip 文件
-	只需要把JFinal-layui-release.zip拷贝到服务器，然后解压运行即可。
+	只需要把JFinal-layui-release.zip拷贝到服务器，然后解压,安装打包部署步骤配置运行即可。
+
+
 	
 如果出现404问题处理步骤：
 1、把devMode的值改成false，

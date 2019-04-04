@@ -57,7 +57,7 @@ public class SysUserService extends BaseService {
 		String sql=Db.getSql("core.getUserList");
 		String orgId=record.getStr("orgId");
 		
-		//部门用户列个表
+		//部门用户列表
 		String type=record.getStr("type");
 		if("org".equals(type)){
 			
