@@ -24,6 +24,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.DbPro;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
@@ -62,6 +63,18 @@ public abstract class BaseService {
 	public String getDb(){
 		return null;
 	}
+	
+	/**
+	 * 获取DBPro数据源
+	 * @return
+	 */
+	private DbPro getDbPro(){
+		if(getDb()!=null){
+			return Db.use(getDb());
+		}
+		return Db.use();
+	}
+	
 	/**
 	 * 获取table名称
 	 * @return tableName
@@ -159,12 +172,7 @@ public abstract class BaseService {
 			paras[i][0]=ids.get(i);
 		}
 		String sql="delete from "+getTable()+" where id=?";
-		
-		if(getDb()!=null){
-			Db.use(getDb()).batch(sql, paras, 100);
-		}else{
-			Db.batch(sql, paras, 100);			
-		}
+		getDbPro().batch(sql, paras, 100);
 	}
 	
 	/**
@@ -177,13 +185,8 @@ public abstract class BaseService {
 		for(int i=0;i<ids.size();i++) {
 			paras[i][0]=ids.get(i);
 		}
-		String sql="delete from "+getTable()+" where "+pk+"=?";
-		
-		if(getDb()!=null){
-			Db.use(getDb()).batch(sql, paras, 100);
-		}else{
-			Db.batch(sql, paras, 100);			
-		}
+		String sql="delete from "+getTable()+" where "+pk+"=?";	
+		getDbPro().batch(sql, paras, 100);			
 	}
 	
 	/**
@@ -193,41 +196,24 @@ public abstract class BaseService {
 	 * @return
 	 */
 	public boolean isExit(String pk,String value){
-		List<?> list=new ArrayList<>();
-		if(getDb()!=null){
-			list=Db.use(getDb()).find(getQuerySql()+"where "+pk+"=?", value);		
-		}else{
-			list=Db.find(getQuerySql()+"where "+pk+"=?", value);
-		}		
+		List<?> list=getDbPro().find(getQuerySql()+"where "+pk+"=?", value);
 		return list.size()>0;
 	}
 	
 	public List<Record> queryAllList() {
-		if(getDb()!=null){
-			return Db.use(getDb()).find(getQuerySql());
-		}
-		return Db.find(getQuerySql());
+		return getDbPro().find(getQuerySql());
 	}
 	
 	public List<Record> queryAllList(String groupOrderBy) {
-		if(getDb()!=null){
-			return Db.use(getDb()).find(getQuerySql()+groupOrderBy);
-		}
-		return Db.find(getQuerySql()+groupOrderBy);
+		return getDbPro().find(getQuerySql()+groupOrderBy);
 	}
 	
 	public List<Record> queryForList(String sql) {
-		if(getDb()!=null){
-			return Db.use(getDb()).find(sql);
-		}
-		return Db.find(sql);
+		return getDbPro().find(sql);
 	}
 	
 	public List<Record> queryForList(String sql,Object...object) {
-		if(getDb()!=null){
-			return Db.use(getDb()).find(sql,object);
-		}
-		return Db.find(sql,object);
+		return getDbPro().find(sql,object);
 	}
 	public List<Record> queryForList(String sql,Record record) {
 		return queryForList(sql,record,null);
@@ -236,19 +222,13 @@ public abstract class BaseService {
 	public List<Record> queryForList(String sql,Record record,String groupOrderBy){
 		List<Object> paras = new ArrayList<>();
 		sql = this.createQuerySql(sql, groupOrderBy, record, paras, "like");
-		if(getDb()!=null){
-			return Db.use(getDb()).find(sql, paras.toArray());
-		}
-		return Db.find(sql, paras.toArray());	
+		return getDbPro().find(sql, paras.toArray());	
 	}
 	
 	public List<Record> queryForListEq(String sql,Record record,String groupOrderBy){
 		List<Object> paras = new ArrayList<>();
 		sql = this.createQuerySql(sql, groupOrderBy, record, paras, "=");
-		if(getDb()!=null){
-			return Db.use(getDb()).find(sql, paras.toArray());
-		}
-		return Db.find(sql, paras.toArray());
+		return getDbPro().find(sql, paras.toArray());
 	}
 	
 	/**
@@ -366,22 +346,13 @@ public abstract class BaseService {
 			sqlPara.addPara(paras[i]);
 		}
 		
-		if(getDb()!=null){
-			Page<Record> page=Db.use(getDb()).paginate(pageNumber, pageSize, sqlPara);
-			return new Grid(page.getList(), pageNumber, pageSize, page.getTotalRow());
-		}
-		
-		Page<Record> page=Db.paginate(pageNumber, pageSize, sqlPara);
+		Page<Record> page=getDbPro().paginate(pageNumber, pageSize, sqlPara);
 		return new Grid(page.getList(), pageNumber, pageSize, page.getTotalRow());
 	}
 	
 	private Grid getGrid(int pageNumber,int pageSize,String sql){
 		SqlPara sqlPara=new SqlPara().setSql(sql);
-		if(getDb()!=null){
-			Page<Record> page=Db.use(getDb()).paginate(pageNumber, pageSize, sqlPara);
-			return new Grid(page.getList(), pageNumber, pageSize, page.getTotalRow());
-		}
-		Page<Record> page=Db.paginate(pageNumber, pageSize, sqlPara);
+		Page<Record> page=getDbPro().paginate(pageNumber, pageSize, sqlPara);
 		return new Grid(page.getList(), pageNumber, pageSize, page.getTotalRow());
 	}
 	
