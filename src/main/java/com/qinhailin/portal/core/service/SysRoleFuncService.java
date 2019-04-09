@@ -62,7 +62,7 @@ public class SysRoleFuncService extends BaseService {
 				
 				Map<String,Boolean> map=new HashMap<>();
 				for(Record r:list) {
-					map.put(r.getStr("url"), true);
+					map.put(r.getStr("link_page"), true);
 				}
 				return map;
 			}
@@ -82,7 +82,7 @@ public class SysRoleFuncService extends BaseService {
 				List<Record> list=Db.find(Db.getSql("core.getAllPermissions"));
 				Map<String,Boolean> map=new HashMap<>();		
 				for(Record r:list) {					
-					map.put(r.getStr("url"), true);
+					map.put(r.getStr("link_page"), true);
 				}
 				return map;
 			}
