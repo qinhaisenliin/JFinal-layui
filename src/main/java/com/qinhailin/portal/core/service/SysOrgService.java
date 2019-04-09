@@ -97,7 +97,7 @@ public class SysOrgService extends BaseService {
 		Collection<TreeNode> treeList=this.getOrgTree(orgId);
 		for(TreeNode t:treeList){
 			if(sbf.length()>0)sbf.append(",");
-			sbf.append("'"+t.getId()+"'");
+			sbf.append("'").append(t.getId()).append("'");
 			getIdsByOrgId(t.getId(),sbf);			
 		}
 		return sbf.toString();
