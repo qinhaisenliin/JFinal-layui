@@ -24,6 +24,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Record;
+import com.jfinal.plugin.ehcache.CacheKit;
 import com.qinhailin.common.base.service.BaseService;
 import com.qinhailin.common.model.SysUserRole;
 import com.qinhailin.common.vo.Grid;
@@ -126,6 +127,7 @@ public class SysUserRoleService extends BaseService {
 						modelList.add(entity);
 					}
 					Db.batchSave(modelList, 20);
+					CacheKit.remove("userFunc", "funcList"+userCode);
 					return true;
 				}
 			});			
