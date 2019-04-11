@@ -126,7 +126,8 @@ public class SysUserRoleService extends BaseService {
 						entity.setRoleCode(role);
 						modelList.add(entity);
 					}
-					Db.batchSave(modelList, 20);
+					Db.batchSave(modelList, modelList.size());
+					//清除用户菜单缓存
 					CacheKit.remove("userFunc", "funcList"+userCode);
 					return true;
 				}
@@ -157,7 +158,9 @@ public class SysUserRoleService extends BaseService {
 						entity.setRoleCode(roleCode);
 						modelList.add(entity);
 					}
-					Db.batchSave(modelList, 20);
+					//清除所有用户菜单缓存，这里比较暴力，（因为这里无法获取角色移除的用户）
+					CacheKit.removeAll("userFunc");
+					Db.batchSave(modelList, modelList.size());
 					return true;
 				}
 			});
