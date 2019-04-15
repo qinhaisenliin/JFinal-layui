@@ -83,7 +83,7 @@ public class SysUserRoleService extends BaseService {
 		String sql=Db.getSql("core.queryRoleUserList");
 		sql=sql.replace("?", roleCode);
 
-		return queryForList(sql,pageNumber, pageSize,rd,"group by a.id");
+		return queryForList(sql,pageNumber, pageSize,rd,null);
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class SysUserRoleService extends BaseService {
 		String sql=Db.getSql("core.queryUserListNotInRoleCode");
 		sql=sql.replace("?", roleCode);
 		
-		return queryForList(sql, pageNumber, pageSize,rd,"group by a.id");
+		return queryForList(sql, pageNumber, pageSize,rd,null);
 	}
 
 	/**
