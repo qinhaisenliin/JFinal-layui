@@ -10,6 +10,8 @@ JFinal+layui极速开发企业应用管理系统，是以JFinal+layui为核心�
 前端页面：封装了layui常用模块代码，参照使用例子，就能快速上手，无需担心不懂layui。
 系统日志：操作日志、数据日志、登录日志，无需注解和手动添加，就能跟踪记录数据，不担心数据丢失
 
+琴海森林 JFinal-layui官方社区提供了代码器功能：[http://www.qinhaisenlin.com/](http://www.qinhaisenlin.com/)
+
 #### 安装教程
 
 1. 下载项目代码
