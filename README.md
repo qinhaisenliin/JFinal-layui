@@ -131,12 +131,13 @@ public class SysUserController extends BaseController {
 ```
 5、业务字典快速引用函数
 **#@getSelect(code,name,text)** ； **#@getRadio(code,name,text)** ；**#@getCheckbox(code,name,text)** 
-code:字典编号，name:元素name属性,text:选项名称 ，如：系统日志类型引用：
+code:字典编号，name:元素name属性,text:选项名称，需要选中值，在调用之前设置值即可：#set(value='选中值')，如：系统日志类型引用：
 ```
    #@queryStart('日志类型')					
 	#@getSelect('logType','remark','日志类型')			
    #@queryEnd() 
-   #@queryStart('日志类型')					
+   #@queryStart('日志类型')
+        #set(value='数据日志')					
 	#@getRadio('logType','remark','日志类型')			
    #@queryEnd() 
    #@queryStart('日志类型')					
