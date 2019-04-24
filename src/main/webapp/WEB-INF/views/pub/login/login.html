@@ -50,6 +50,15 @@
 </body>
 <script type="text/javascript">
 	var vc="#(vc??)";	
+	//解决360浏览器记住密码登录失败问题
+	$(function(){
+		changeType('text');
+		setTimeout("changeType('password')",100);
+	});
+	
+	function changeType(type){
+		$("#signup_password").attr("type",type);
+	}
 </script>
 <script src="#(path)/static/pub/login/login.js" type="text/javascript"></script>
 </html>

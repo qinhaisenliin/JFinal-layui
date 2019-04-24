@@ -7,7 +7,7 @@
 </select>
 <script type="text/javascript">
 	$(function(){
-		getOption('#(code)','select');
+		getOption('#(code)','select',"#(value)");
 	});
 </script>
 #end
@@ -17,7 +17,7 @@
 <div id="radio_#(code)"></div>
 <script type="text/javascript">
 	$(function(){
-		getOption("#(code)","radio");
+		getOption("#(code)","radio","#(value)");
 	});
 </script>
 #end
@@ -27,18 +27,18 @@
 <div id="checkbox_#(code)"></div>
 <script type="text/javascript">
 	$(function(){
-		getOption("#(code)","checkbox");
+		getOption("#(code)","checkbox","#(value)");
 	});
 </script>
 #end
 
-
 #define getOption()
 <script src="#(path)/static/libs/layui/layui.js?t=#now()" type="text/javascript" ></script>
 <script type="text/javascript">
-
+	
 	//获取业务字典数据 
-	function getOption(code,type){
+	function getOption(code,type,value){	
+		var checkboxValue=value.split(',');
 		$.ajax({
 			url:'#(path)/portal/core/dictionary/value/getOption',
 			data:{
@@ -49,12 +49,35 @@
 				var option="";
 				for(var i=0;i<data.length;i++){
 					if(type=="radio"){
-						option+='<input type="radio" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+						if(data[i].value==value){
+							option+='<input type="radio" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" checked="checked"/>';
+						}else{
+							option+='<input type="radio" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+						}
 					}else if(type=="checkbox"){
-						option+='<input type="checkbox" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+						if(checkboxValue.length>0){
+							var isCheck=false;
+							$.each(checkboxValue,function(key,val){
+								if(data[i].value==val){
+									isCheck=true;
+								}								
+							});	
+							
+							if(isCheck){
+								option+='<input type="checkbox" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" checked="checked"/>';
+							}else{
+								option+='<input type="checkbox" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+							}				
+						}else{
+							option+='<input type="checkbox" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+						}
 					}else{
-						option+='<option value="'+data[i].value+'">'+data[i].name+'</option>';
-					}				
+						if(data[i].value==value){
+						    option+='<option value="'+data[i].value+'" selected="selected">'+data[i].name+'</option>';
+						}else{
+							option+='<option value="'+data[i].value+'">'+data[i].name+'</option>';
+						}
+					}	
 				}					
 	
 				$('#'+type+"_"+code).append(option);
