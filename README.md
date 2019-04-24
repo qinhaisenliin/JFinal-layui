@@ -140,7 +140,8 @@ code:字典编号，name:元素name属性,text:选项名称，需要选中值，
         #set(value='数据日志')					
 	#@getRadio('logType','remark','日志类型')			
    #@queryEnd() 
-   #@queryStart('日志类型')					
+   #@queryStart('日志类型')
+        #set(value='操作日志,数据日志,登录日志')					
 	#@getCheckbox('logType','remark','日志类型')			
    #@queryEnd() 
 ```
