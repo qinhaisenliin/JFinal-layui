@@ -97,6 +97,31 @@
 		
 		//layui相关语法函数
 		#@layuiFunc?()
+
+		//表单提交监听
+		form.on('submit(saveForm)', function(data) {
+			var data = jQuery(data.elem).formToArray();
+			var params = {};
+			for ( var k in data) {
+				if (data[k]) {
+					params[data[k].name] = data[k].value;
+				} else {
+					params[data[k].name] = null;
+					delete params[data[k].name];
+				}
+			}
+			//发送请求			
+			$.post(saveUrl, param(params), function(ret) {
+				if (ret.state=='ok') {
+					parent.success(ret.msg);
+					$('#closeWinBtn').click();
+				} else {
+					warn(ret.msg);
+				}
+			});	
+			
+		 });	
+		 
 		form.render();
 	});
 </script>

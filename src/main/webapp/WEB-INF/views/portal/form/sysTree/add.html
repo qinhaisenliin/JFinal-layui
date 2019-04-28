@@ -1,0 +1,29 @@
+
+#@layout()
+#define main()
+
+	<form action="javascript:void(0)" class="layui-form layui-form-pane f-form" method="post" lay-filter='saveForm'>
+		#include("_form.html")
+	</form>
+
+#end
+<!-- 截取url参数 -->
+#define js()
+<script type="text/javascript">
+	$(function(){
+		var searchURL=window.location.search;
+		searchURL = searchURL.substring(1, searchURL.length);
+		var params=searchURL.split("&");
+		var p1 = params[0].split("=")[1];
+		var p2 = params[1].split("=")[1];
+		$('input[name="parent_id"]').val(p1);
+		$('input[name="type"]').val(p2);
+		
+	});     
+</script>
+#end
+
+<!-- 保存数据 -->
+#define layuiFunc()	
+	var saveUrl="#(path)/portal/form/sysTree/save";
+#end

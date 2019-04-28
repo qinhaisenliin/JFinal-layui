@@ -1,0 +1,37 @@
+#@layout()
+#define main()
+
+	<form action="javascript:void(0)" class="layui-form layui-form-pane f-form"  method="post" lay-filter="saveForm">
+		#include("_form.html")
+	</form>
+
+#end
+<!-- 获取对象数据 -->
+#define js()
+<script type="text/javascript">
+	$(function(){
+		var searchURL=window.location.search;
+		searchURL = searchURL.substring(1, searchURL.length);
+		var target = searchURL.split("&")[0].split("=")[1];
+		var editUrl="#(path)/portal/form/sysTree/getModel/"+target;
+		//发送请求
+		$.post(editUrl, {}, function(ret) {
+			if (ret.state=="ok") {
+				var data=ret.data;
+				//页面赋值
+				$.each(data,function(key,val){
+					$('input[name="'+key+'"]').val(val);
+				});
+			} else {
+				warn(ret.msg);
+			}
+		});
+	});
+	
+</script>
+#end
+
+<!-- 保存数据 -->
+#define layuiFunc()
+	var saveUrl="#(path)/portal/form/sysTree/update";
+#end

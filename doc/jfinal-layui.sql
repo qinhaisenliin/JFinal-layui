@@ -124,7 +124,15 @@ INSERT INTO sys_function VALUES ('sys_user_manager', '用户管理', 0, '/portal
 INSERT INTO sys_function VALUES ('sys_user_reset', '重置密码', 0, '/portal/core/sysUser/reset', 'sys_user_manager', '用户管理', 1, NULL, 5, NULL);
 INSERT INTO sys_function VALUES ('sys_user_role', '角色', 0, '/portal/core/sysUser/userRole', 'sys_user_manager', '用户管理', 1, NULL, 6, NULL);
 INSERT INTO sys_function VALUES ('sys_user_update', '修改', 0, '/portal/core/sysUser/update', 'sys_user_manager', '用户管理', 1, NULL, 2, NULL);
-
+INSERT INTO sys_function VALUES ('form_business_table', '测试表单', 0, '/portal/form/business/view_table', 'sys', '网站后台管理', 0, 'layui-icon-table', 7, NULL);
+INSERT INTO sys_function VALUES ('form_sys_tree', '表单分类树', 0, NULL, 'form_view_manager', '在线表单', 1, NULL, 6, NULL);
+INSERT INTO sys_function VALUES ('form_sys_tree_add', '添加', 0, '/portal/form/sysTree/save', 'form_sys_tree', '表单分类树', 1, NULL, 7, NULL);
+INSERT INTO sys_function VALUES ('form_sys_tree_delete', '删除', 0, '/portal/form/sysTree/delete', 'form_sys_tree', '表单分类树', 1, NULL, 9, NULL);
+INSERT INTO sys_function VALUES ('form_sys_tree_update', '修改', 0, '/portal/form/sysTree/update', 'form_sys_tree', '表单分类树', 1, NULL, 8, NULL);
+INSERT INTO sys_function VALUES ('form_view_add', '添加', 0, '/portal/form/view/save', 'form_view_manager', '在线表单', 1, NULL, 3, NULL);
+INSERT INTO sys_function VALUES ('form_view_delete', '删除', 0, '/portal/form/view/delete', 'form_view_manager', '在线表单', 1, NULL, 5, NULL);
+INSERT INTO sys_function VALUES ('form_view_manager', '在线表单', 0, '/portal/form/view', 'sys', '网站后台管理', 0, 'layui-icon-templeate-1', 6, NULL);
+INSERT INTO sys_function VALUES ('form_view_update', '修改', 0, '/portal/form/view/update', 'form_view_manager', '在线表单', 1, NULL, 4, NULL);
 -- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
@@ -451,7 +459,33 @@ INSERT INTO sys_role_function VALUES ('zjl_sys_user_delete', 'sys_user_delete', 
 INSERT INTO sys_role_function VALUES ('zjl_sys_user_manager', 'sys_user_manager', 'zjl');
 INSERT INTO sys_role_function VALUES ('zjl_sys_user_reset', 'sys_user_reset', 'zjl');
 INSERT INTO sys_role_function VALUES ('zjl_sys_user_update', 'sys_user_update', 'zjl');
-
+INSERT INTO sys_role_function VALUES ('admin-form_business_table', 'form_business_table', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_sys_tree', 'form_sys_tree', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_sys_tree_add', 'form_sys_tree_add', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_sys_tree_delete', 'form_sys_tree_delete', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_sys_tree_update', 'form_sys_tree_update', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_view_add', 'form_view_add', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_view_delete', 'form_view_delete', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_view_manager', 'form_view_manager', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_view_update', 'form_view_update', 'admin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_business_table', 'form_business_table', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_sys_tree', 'form_sys_tree', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_sys_tree_add', 'form_sys_tree_add', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_sys_tree_delete', 'form_sys_tree_delete', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_sys_tree_update', 'form_sys_tree_update', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_view_add', 'form_view_add', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_view_delete', 'form_view_delete', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_view_manager', 'form_view_manager', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_view_update', 'form_view_update', 'superadmin');
+INSERT INTO sys_role_function VALUES ('sys_form_business_table', 'form_business_table', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_sys_tree', 'form_sys_tree', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_sys_tree_add', 'form_sys_tree_add', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_sys_tree_delete', 'form_sys_tree_delete', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_sys_tree_update', 'form_sys_tree_update', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_view_add', 'form_view_add', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_view_delete', 'form_view_delete', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_view_manager', 'form_view_manager', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_view_update', 'form_view_update', 'sys');
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------

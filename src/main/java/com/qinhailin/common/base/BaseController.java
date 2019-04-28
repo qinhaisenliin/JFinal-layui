@@ -16,6 +16,9 @@
 
 package com.qinhailin.common.base;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,8 @@ import org.apache.log4j.Logger;
 import com.jfinal.aop.Aop;
 import com.jfinal.core.Controller;
 import com.jfinal.core.NotAction;
+import com.jfinal.kit.PathKit;
+import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.upload.UploadFile;
 import com.qinhailin.common.base.service.FileService;
@@ -321,5 +326,56 @@ public class BaseController extends Controller {
 	@NotAction
 	public void exportExcel(String[] title, List<Record> list) {
 		fileService.exportExcelxlsx(getResponse(), title, null, list);
+	}
+	
+	/**
+	 * 写内容到html
+	 * @param fileName 格式：index.html
+	 * @param text 任意内容
+	 * @author QinHaiLin
+	 * @date 2019年3月21日
+	 */
+	@NotAction
+	public void writeToHtml(String fileName,String text) {
+		File file = new File(PathKit.getWebRootPath() + getViewPath()+"/"+fileName);
+		FileWriter writer;
+		try {
+			writer = new FileWriter(file);			
+			writer.write(text);							
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			handerException(e);
+		}
+	}
+	
+	/**
+	 * 返回接口成功数据
+	 * @param data
+	 * @return
+	 * @author QinHaiLin
+	 * @date 2019年3月6日
+	 */
+	public Ret ok(Object data) {
+		return Ret.ok("msg", "成功").set("data", data);
+	}
+	
+	public Ret ok() {
+		return Ret.ok("msg", "成功");
+	}
+	
+	public Ret fail() {
+		return Ret.fail("msg", "失败");
+	}
+
+	/**
+	 * 返回接口失败数据
+	 * @param data
+	 * @return
+	 * @author QinHaiLin
+	 * @date 2019年3月6日
+	 */
+	public Ret fail(String msg) {
+		return Ret.fail("msg", msg);
 	}
 }

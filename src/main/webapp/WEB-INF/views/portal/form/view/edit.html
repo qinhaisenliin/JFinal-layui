@@ -1,0 +1,36 @@
+#@layoutT('编辑表单')
+#define main()
+	#include("_form.html")
+#end
+
+<!-- 保存数据 -->
+#define layuiFunc()	
+	var saveUrl="#(path)/portal/form/view/update";
+#end
+
+
+<script type="text/javascript">
+$(function(){
+	//获取url中的参数
+	var searchURL=window.location.search;
+	searchURL = searchURL.substring(1, searchURL.length);
+	var target = searchURL.split("&")[0].split("=")[1];
+	var editUrl="#(path)/portal/form/view/getModel/"+target;
+	//发送请求
+	$.post(editUrl, {}, function(ret) {
+		if (ret.state=="ok") {console.log(ret.data)
+			var data=ret.data;
+			//页面赋值
+			$.each(data,function(key,val){
+				$('input[name="'+key+'"]').val(val);
+				$('textarea[name="'+key+'"]').val(val);
+				$('#'+key).val(val);
+			});
+			$('input[name="code"]').attr("readonly","readonly");
+			$('input[name="code"]').attr("class","layui-input layui-disabled");
+		} else {
+			warn(ret.msg);
+		}
+	});
+});
+</script>

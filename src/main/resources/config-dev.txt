@@ -1,6 +1,6 @@
 #主要配置
 dbType=mysql
-jdbcUrl=jdbc:mysql://localhost/qhl-core?characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull
+jdbcUrl=jdbc:mysql://localhost/jfinal-layui?characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull
 user=root
 password=root
 devMode=true

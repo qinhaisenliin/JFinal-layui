@@ -39,5 +39,28 @@ public class SqlKit {
 		}
 		ret.append(")");
 	}
+	
+	/**
+	 * 将 id 列表 join 起来，用逗号分隔，并且用小括号括起来
+	 * @param ids
+	 * @return
+	 * @author QinHaiLin
+	 * @date 2019年3月13日
+	 */
+	public static String joinIds(List<String> ids) {
+		StringBuilder ret=new StringBuilder();
+		ret.append("(");
+		boolean isFirst = true;
+		for (String id : ids) {
+			if (isFirst) {
+				isFirst = false;
+			} else {
+				ret.append(", ");
+			}
+			ret.append("'").append(id.toString()).append("'");
+		}
+		ret.append(")");
+		return ret.toString();
+	}
 }
 

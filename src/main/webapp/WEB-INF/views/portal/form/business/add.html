@@ -1,0 +1,53 @@
+
+#@layoutT("添加页")
+#define main()
+	<form action="javascript:void(0)" class="layui-form layui-form-pane f-form" method="post" lay-filter='saveForm'>	
+	         <input type="hidden" class="layui-input" name="object" value="sys_tree"/>
+		<input type="hidden" class="layui-input" name="id" value=""/>
+		<input type="hidden" class="layui-input" name="parent_id" value=""/>
+		
+		<div class="layui-row layui-col-space1 task-row">
+		#@colStart("所属分类",12)
+			<input type="text" name="type" value="form" class="layui-input layui-disabled" lay-verType='tips'lay-verify="required|" required maxlength="50" placeHolder="必填" readonly="readonly" />
+		#@colEnd()
+		</div>
+		
+		<div class="layui-row layui-col-space1 task-row">
+		#@colStart("名称",12)
+			<input type="text" name="name"  value="" class="layui-input"  lay-verType='tips' lay-verify="required|" maxlength="50" placeHolder="必填" required />
+		#@colEnd()
+	 	</div>	
+		
+		<div class="layui-row layui-col-space1 task-row">
+		#@colStart("序号",12)
+			<input type="number" name="order_no" value="1" class="layui-input"/>
+		#@colEnd()
+		</div>
+	
+		</div>
+		
+		#@submitButton()
+	</form>
+	
+#end
+
+<!-- 截取url参数 -->
+#define js()
+<script type="text/javascript">
+	$(function(){
+		var searchURL=window.location.search;
+		searchURL = searchURL.substring(1, searchURL.length);
+		var params=searchURL.split("&");
+		var p1 = params[0].split("=")[1];
+		var p2 = params[1].split("=")[1];
+		$('input[name="parent_id"]').val(p1);
+		$('input[name="type"]').val(p2);
+		
+	});     
+</script>
+#end
+
+<!-- 保存数据 -->
+#define layuiFunc()	
+	var saveUrl="#(path)/portal/form/business/save";
+#end

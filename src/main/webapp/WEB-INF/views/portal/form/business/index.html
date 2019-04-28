@@ -1,0 +1,72 @@
+
+
+#@layoutT("列表首页")
+#define main()
+	#@formStart()
+		#@queryStart('名称')
+		   <input type="search" name="name" autocomplete="off" class="layui-input" placeholder="名称"/>
+		#@queryEnd()
+		#@queryStart('分类')
+		   <input type="search" name="type" autocomplete="off" class="layui-input" placeholder="分类"/>
+		#@queryEnd()		
+	#@formEnd()
+	
+	<!-- 表头按钮 -->
+	<div class='layui-row f-index-toolbar'>
+		<div class='layui-col-xs12'>
+			<div class="layui-btn-group">
+				<button id='addBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe608;</i> 新增
+				</button>
+				<button id='refreshBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe669;</i> 刷新
+				</button>				
+				<button id='deleteBtn_' class="layui-btn  layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe640;</i> 删除
+				</button>			
+			</div>
+		</div>
+	</div>
+	
+	<!-- 表格列表 -->
+	<div class="layui-row  f-index-toolbar">
+		<div class="layui-col-xs12">
+			<table id="maingrid" lay-filter="maingrid"></table>
+		</div>
+   	</div>
+   	
+   	<!-- 	每行的操作按钮 -->
+	<script type="text/html" id="bar_maingrid">
+  		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+	</script>
+#end
+
+#define js()
+<!-- 分页表格 -->
+<script>
+	gridArgs.title='系统树';
+	gridArgs.dataId='id';
+	gridArgs.deleteUrl='#(path)/portal/form/business/delete?object=sys_tree&primaryKey='+gridArgs.dataId;
+	gridArgs.updateUrl='#(path)/portal/form/business/edit?viewCode=view_update&id=';
+	gridArgs.addUrl='#(path)/portal/form/business/add?viewCode=view_add';
+	gridArgs.gridDivId ='maingrid';
+	initGrid({id : 'maingrid'
+			,elem : '#maingrid'
+			,cellMinWidth: 80
+			,cols : [ [
+					{title: '主键',field : 'id',width : 35,checkbox : true},						
+					{title:'序号',type:'numbers',width:35},
+        			{title: '分类', field: 'type'},
+					{title: '名称', field: 'name' },
+	        		{title: '排序', field: 'order_no'},																
+					{title: '操作',fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
+			] ]
+			,url:"#(path)/portal/form/business/list"
+            ,where:{"object":"sys_tree","primaryKey":gridArgs.dataId}
+			,searchForm : 'searchForm'
+		});
+</script>
+
+#end
+ 

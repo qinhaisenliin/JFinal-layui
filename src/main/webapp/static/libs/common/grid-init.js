@@ -88,7 +88,7 @@ function initGrid(options, events, initGridArgs) {
 			limits:gridArgs_.limits,  //分页数组，默认[10,20,30,40,50,60,70,80,90]
 			page : true,
 			done:function(res){
-				$("#sarchBtn_").removeClass("layui-btn-disabled").prop("disabled",false);
+				$("#searchBtn_").removeClass("layui-btn-disabled").prop("disabled",false);
 			}
 		}, options)
 
@@ -180,31 +180,15 @@ function initGrid(options, events, initGridArgs) {
 			event.stopPropagation();
 			return false;
 		});
+		
+		//回车键查询
 		$('#' + tableOptions.searchForm).off('bind');
 		$('#' + tableOptions.searchForm).bind('keydown', function(event) {
 			if (event.keyCode == 13) {
-				var params = {};
-				var data = $(this).formToArray(true);
-				var data = new Array();
-				for ( var k in data) {
-					if (data[k]) {
-						params[data[k].name] = data[k].value;
-					} else {
-						params[data[k].name] = null;
-						delete params[data[k].name];
-					}
-				}
-				table.reload(tableOptions.id, {
-					where : params
-					,page: {
-					    curr: 1 //重新从第 1 页开始
-					  }
-				});
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
+				$('#' + tableOptions.searchForm).submit();
 			}
 		});
+		
 		$('button[search]').off('click');
 		$('button[search]').click(function() {
 			var searchId = $(this).attr('search');
