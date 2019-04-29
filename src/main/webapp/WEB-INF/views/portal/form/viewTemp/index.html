@@ -44,11 +44,12 @@
 #define js()
 <!-- 分页表格 -->
 <script>
+	var object="sys_tree";
 	gridArgs.title='系统树';
 	gridArgs.dataId='id';
-	gridArgs.deleteUrl='#(path)/portal/form/business/delete?object=sys_tree&primaryKey='+gridArgs.dataId;
-	gridArgs.updateUrl='#(path)/portal/form/business/edit?viewId=402880fa6a62f77b016a62fd9dad005d&id=';
-	gridArgs.addUrl='#(path)/portal/form/business/add?viewId=402880fa6a61eb68016a620b0dba0079';
+	gridArgs.deleteUrl='#(path)/portal/form/business/delete?object='+object+'&primaryKey='+gridArgs.dataId;
+	gridArgs.updateUrl='#(path)/portal/form/business/edit?viewCode=view_update&id=';
+	gridArgs.addUrl='#(path)/portal/form/business/add?viewCode=view_add';
 	gridArgs.gridDivId ='maingrid';
 	initGrid({id : 'maingrid'
 			,elem : '#maingrid'
@@ -62,7 +63,7 @@
 					{title: '操作',fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
 			] ]
 			,url:"#(path)/portal/form/business/list"
-            ,where:{"object":"sys_tree","primaryKey":gridArgs.dataId}
+			,where:{"object":object,"primaryKey":gridArgs.dataId}
 			,searchForm : 'searchForm'
 		});
 </script>
