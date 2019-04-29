@@ -27,11 +27,16 @@ import com.qinhailin.portal.form.service.FormViewService;
 import com.qinhailin.portal.form.service.BusinessService;
 
 /**
+ * 处理在线表单开发的业务模块
  * @author QinHaiLin
  * @date 2019年3月14日  
  */
 @ControllerBind(path="/portal/form/business")
 public class BusinessController extends BaseController{
+	/**
+	 * 表前缀，只能处理这个前缀的表，降低风险
+	 */
+	private final String tableNameSpace="w_";
 
 	@Inject
 	BusinessService service;
@@ -80,7 +85,7 @@ public class BusinessController extends BaseController{
 		kv.remove("pageSize");
 		kv.remove("object");
 		kv.remove("primaryKey");
-		renderJson(service.queryPage(getParaToInt("pageNumber"), getParaToInt("pageSize"),getPara("object"),kv));
+		renderJson(service.queryPage(getParaToInt("pageNumber"), getParaToInt("pageSize"),tableNameSpace+getPara("object"),kv));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -98,7 +103,7 @@ public class BusinessController extends BaseController{
 		
 		//移除不是表字段的参数
 		record.remove("object","primaryKey");	
-		boolean b=service.save(table,primaryKey, record);
+		boolean b=service.save(tableNameSpace+table,primaryKey, record);
 		
 		if(!b) {
 			renderJson(fail());
@@ -109,7 +114,7 @@ public class BusinessController extends BaseController{
 	}
 	
 	public void getModel() {
-		List<Record> list=service.find(getPara("object"), Kv.by(getPara("primaryKey")+"=", getPara("id")));
+		List<Record> list=service.find(tableNameSpace+getPara("object"), Kv.by(getPara("primaryKey")+"=", getPara("id")));
 		if(list.size()==0) {
 			renderJson(fail());
 			return;
@@ -125,7 +130,7 @@ public class BusinessController extends BaseController{
 		String primaryKey=record.get("primaryKey","id");
 		//移除不是表字段的参数
 		record.remove("object","primaryKey");	
-		boolean b=service.update(table, primaryKey, record);
+		boolean b=service.update(tableNameSpace+table, primaryKey, record);
 		if(!b) {
 			renderJson(fail());
 			return;
@@ -134,7 +139,7 @@ public class BusinessController extends BaseController{
 	}
 	
 	public void delete() {		
-		boolean b=service.deleteByIds(getPara("object"), getPara("primaryKey","id"), getIds());
+		boolean b=service.deleteByIds(tableNameSpace+getPara("object"), getPara("primaryKey","id"), getIds());
 		if(!b) {
 			renderJson(err());
 			return;

@@ -21,7 +21,7 @@ import com.qinhailin.common.base.service.DbService;
 import com.qinhailin.common.vo.Grid;
 
 /**
- * 流程表单
+ * 在线表单
  * @author QinHaiLin
  * @date 2019年4月24日  
  */

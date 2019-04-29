@@ -545,4 +545,56 @@ INSERT INTO sys_user_role VALUES ('yfb-admin', 'yfb', 'admin');
 INSERT INTO sys_user_role VALUES ('zjl-linwei', 'zjl', 'linwei');
 INSERT INTO sys_user_role VALUES ('zjl-qweq', 'zjl', 'qweq');   
 
+DROP TABLE IF EXISTS form_view;
+CREATE TABLE form_view  (
+  id varchar(64) CHARACTER SET utf8  NOT NULL,
+  tree_id varchar(64) CHARACTER SET utf8  NOT NULL,
+  name varchar(255) CHARACTER SET utf8  NOT NULL,
+  code varchar(255) CHARACTER SET utf8  NOT NULL,
+  status varchar(50) CHARACTER SET utf8  NOT NULL,
+  template_view text CHARACTER SET utf8  NOT NULL,
+  create_time datetime(0) NULL DEFAULT NULL,
+  update_time datetime(0) NULL DEFAULT NULL,
+  descp varchar(255) CHARACTER SET utf8  NULL DEFAULT NULL,
+  PRIMARY KEY (id) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '在线表单' ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Records of form_view
+-- ----------------------------
+INSERT INTO form_view VALUES ('402880fa6a61eb68016a620b0dba0079', '107400000000002215', '添加页', 'view_add', 'DEPLOYED', '\n#@layoutT(\"添加页\")\n#define main()\n	<form action=\"javascript:void(0)\" class=\"layui-form layui-form-pane f-form\" method=\"post\" lay-filter=\'saveForm\'>	\n	         <input type=\"hidden\" class=\"layui-input\" name=\"object\" value=\"sys_tree\"/>\n		<input type=\"hidden\" class=\"layui-input\" name=\"id\" value=\"\"/>\n		<input type=\"hidden\" class=\"layui-input\" name=\"parent_id\" value=\"\"/>\n		\n		<div class=\"layui-row layui-col-space1 task-row\">\n		#@colStart(\"所属分类\",12)\n			<input type=\"text\" name=\"type\" value=\"form\" class=\"layui-input layui-disabled\" lay-verType=\'tips\'lay-verify=\"required|\" required maxlength=\"50\" placeHolder=\"必填\" readonly=\"readonly\" />\n		#@colEnd()\n		</div>\n		\n		<div class=\"layui-row layui-col-space1 task-row\">\n		#@colStart(\"名称\",12)\n			<input type=\"text\" name=\"name\"  value=\"\" class=\"layui-input\"  lay-verType=\'tips\' lay-verify=\"required|\" maxlength=\"50\" placeHolder=\"必填\" required />\n		#@colEnd()\n	 	</div>	\n		\n		<div class=\"layui-row layui-col-space1 task-row\">\n		#@colStart(\"序号\",12)\n			<input type=\"number\" name=\"order_no\" value=\"1\" class=\"layui-input\"/>\n		#@colEnd()\n		</div>\n	\n		</div>\n		\n		#@submitButton()\n	</form>\n	\n#end\n\n<!-- 截取url参数 -->\n#define js()\n<script type=\"text/javascript\">\n	$(function(){\n		var searchURL=window.location.search;\n		searchURL = searchURL.substring(1, searchURL.length);\n		var params=searchURL.split(\"&\");\n		var p1 = params[0].split(\"=\")[1];\n		var p2 = params[1].split(\"=\")[1];\n		$(\'input[name=\"parent_id\"]\').val(p1);\n		$(\'input[name=\"type\"]\').val(p2);\n		\n	});     \n</script>\n#end\n\n<!-- 保存数据 -->\n#define layuiFunc()	\n	var saveUrl=\"#(path)/portal/form/business/save\";\n#end\n', '2019-04-28 11:44:13', '2019-04-28 17:59:47', '测试添加页面');
+INSERT INTO form_view VALUES ('402880fa6a62f77b016a62fd9dad005d', '107400000000002215', '修改页', 'view_update', 'DEPLOYED', '\n#@layoutT(\"修改页\")\n#define main()\n\n	<form action=\"javascript:void(0)\" class=\"layui-form layui-form-pane f-form\" method=\"post\" lay-filter=\'saveForm\'>\n	        <input type=\"hidden\" class=\"layui-input\" name=\"object\" value=\"sys_tree\"/>\n		<input type=\"hidden\" class=\"layui-input\" name=\"id\" value=\"\"/>\n		<input type=\"hidden\" class=\"layui-input\" name=\"parent_id\" value=\"\"/>\n		\n		<div class=\"layui-row layui-col-space1 task-row\">\n		#@colStart(\"所属分类\",12)\n			<input type=\"text\" name=\"type\" value=\"\" class=\"layui-input layui-disabled\" lay-verType=\'tips\'lay-verify=\"required|\" required maxlength=\"50\" placeHolder=\"必填\" readonly=\"readonly\" />\n		#@colEnd()\n		</div>\n		\n		<div class=\"layui-row layui-col-space1 task-row\">\n		#@colStart(\"名称\",12)\n			<input type=\"text\" name=\"name\"  value=\"\" class=\"layui-input\"  lay-verType=\'tips\' lay-verify=\"required|\" maxlength=\"50\" placeHolder=\"必填\" required />\n		#@colEnd()\n	 	</div>	\n		\n		<div class=\"layui-row layui-col-space1 task-row\">\n		#@colStart(\"序号\",12)\n			<input type=\"number\" name=\"order_no\" value=\"1\" class=\"layui-input\"/>\n		#@colEnd()\n		</div>\n	\n		</div>\n		\n		#@submitButton()\n	</form>\n	\n#end\n\n<!-- 获取对象数据 -->\n#define js()\n<script type=\"text/javascript\">\n	$(function(){\n		var searchURL=window.location.search;\n		searchURL=searchURL+\"&object=sys_tree&primaryKey=id\";\n		var editUrl=\"#(path)/portal/form/business/getModel\"+searchURL;\n		//发送请求\n		$.post(editUrl, {}, function(ret) {\n			if (ret.state==\"ok\") {\n				var data=ret.data;\n				//页面赋值\n				$.each(data,function(key,val){\n					$(\'input[name=\"\'+key+\'\"]\').val(val);\n				});\n			} else {\n				warn(ret.msg);\n			}\n		});\n	});\n	\n</script>\n#end\n\n<!-- 保存数据 -->\n#define layuiFunc()\n	var saveUrl=\"#(path)/portal/form/business/update\";\n#end\n', '2019-04-28 16:09:09', '2019-04-28 17:59:38', '修改数据页面');
+INSERT INTO form_view VALUES ('402880fa6a62f77b016a62fe58b60066', '107400000000002215', '列表页', 'view_table', 'DEPLOYED', '\n\n#@layoutT(\"列表首页\")\n#define main()\n	#@formStart()\n		#@queryStart(\'名称\')\n		   <input type=\"search\" name=\"name\" autocomplete=\"off\" class=\"layui-input\" placeholder=\"名称\"/>\n		#@queryEnd()\n		#@queryStart(\'分类\')\n		   <input type=\"search\" name=\"type\" autocomplete=\"off\" class=\"layui-input\" placeholder=\"分类\"/>\n		#@queryEnd()		\n	#@formEnd()\n	\n	<!-- 表头按钮 -->\n	<div class=\'layui-row f-index-toolbar\'>\n		<div class=\'layui-col-xs12\'>\n			<div class=\"layui-btn-group\">\n				<button id=\'addBtn_\' class=\"layui-btn layui-btn-normal layui-btn-sm\">\n				  <i class=\"layui-icon\">&#xe608;</i> 新增\n				</button>\n				<button id=\'refreshBtn_\' class=\"layui-btn layui-btn-normal layui-btn-sm\">\n				  <i class=\"layui-icon\">&#xe669;</i> 刷新\n				</button>				\n				<button id=\'deleteBtn_\' class=\"layui-btn  layui-btn-normal layui-btn-sm\">\n				  <i class=\"layui-icon\">&#xe640;</i> 删除\n				</button>			\n			</div>\n		</div>\n	</div>\n	\n	<!-- 表格列表 -->\n	<div class=\"layui-row  f-index-toolbar\">\n		<div class=\"layui-col-xs12\">\n			<table id=\"maingrid\" lay-filter=\"maingrid\"></table>\n		</div>\n   	</div>\n   	\n   	<!-- 	每行的操作按钮 -->\n	<script type=\"text/html\" id=\"bar_maingrid\">\n  		<a class=\"layui-btn layui-btn-xs\" lay-event=\"edit\">编辑</a>\n  		<a class=\"layui-btn layui-btn-xs layui-btn-danger\" lay-event=\"del\">删除</a>\n	</script>\n#end\n\n#define js()\n<!-- 分页表格 -->\n<script>\n	gridArgs.title=\'系统树\';\n	gridArgs.dataId=\'id\';\n	gridArgs.deleteUrl=\'#(path)/portal/form/business/delete?object=sys_tree&primaryKey=\'+gridArgs.dataId;\n	gridArgs.updateUrl=\'#(path)/portal/form/business/edit?viewCode=view_update&id=\';\n	gridArgs.addUrl=\'#(path)/portal/form/business/add?viewCode=view_add\';\n	gridArgs.gridDivId =\'maingrid\';\n	initGrid({id : \'maingrid\'\n			,elem : \'#maingrid\'\n			,cellMinWidth: 80\n			,cols : [ [\n					{title: \'主键\',field : \'id\',width : 35,checkbox : true},						\n					{title:\'序号\',type:\'numbers\',width:35},\n        			{title: \'分类\', field: \'type\'},\n					{title: \'名称\', field: \'name\' },\n	        		{title: \'排序\', field: \'order_no\'},																\n					{title: \'操作\',fixed:\'right\',width : 180,align : \'left\',toolbar : \'#bar_maingrid\'} // 这里的toolbar值是模板元素的选择器\n			] ]\n			,url:\"#(path)/portal/form/business/list\"\n            ,where:{\"object\":\"sys_tree\",\"primaryKey\":gridArgs.dataId}\n			,searchForm : \'searchForm\'\n		});\n</script>\n\n#end\n ', '2019-04-28 16:09:57', '2019-04-28 18:04:14', '列表页');
+
+-- ----------------------------
+-- Table structure for sys_tree
+-- ----------------------------
+DROP TABLE IF EXISTS sys_tree;
+CREATE TABLE sys_tree  (
+  id varchar(64) CHARACTER SET utf8  NOT NULL COMMENT '主键',
+  parent_id varchar(64) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '上级Id',
+  name varchar(50) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '名称',
+  type varchar(50) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '分类',
+  create_time datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  order_no int(11) NULL DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (id) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '系统tree' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_tree
+-- ----------------------------
+INSERT INTO sys_tree VALUES ('107400000000002215', NULL, '流程表单', 'form', '2019-04-25 14:00:52', 1);
+
+-- ----------------------------
+-- Table structure for w_sys_tree
+-- ----------------------------
+DROP TABLE IF EXISTS w_sys_tree;
+CREATE TABLE w_sys_tree  (
+  id varchar(64) CHARACTER SET utf8  NOT NULL COMMENT '主键',
+  parent_id varchar(64) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '上级Id',
+  name varchar(50) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '名称',
+  type varchar(50) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '分类',
+  create_time datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  order_no int(11) NULL DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (id) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '测试在线表单用表' ROW_FORMAT = Dynamic;
