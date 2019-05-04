@@ -30,6 +30,15 @@
 			<directory>${basedir}/src/main/resources</directory>
 			<outputDirectory>config</outputDirectory>
 		</fileSet>
+
+		<!-- 将jfinal-layui.jar复制到WEB-INF下. -->
+		<fileSet>
+			<directory>${project.build.directory}/</directory>
+			<outputDirectory>webapp/WEB-INF/lib/</outputDirectory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+		</fileSet>
 		
 		<!-- src/main/webapp 全部 copy 到 webapp 目录下 -->
 		<fileSet>
