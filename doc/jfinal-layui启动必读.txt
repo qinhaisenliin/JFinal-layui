@@ -14,12 +14,11 @@
 
 
 打包部署到服务器：
-1：命令行进入项目根目录，然后运行 mvn clean package 即可打包 
+1：eclipse 打包：run as -->maven package
 
-2：打包完后，进入 JFinal-layu/target/JFinal-layu-release/JFinal-layu 目录，
+2：打包完后，进入 JFinal-layu/target/JFinal-layu-release/JFinal-layui/config 目录，
 
-3:需要把项目源码的jfinal-layui-1.0.jar复制一份到webapp\WEB-INF\lib目录下，
-     同时把devMode的值改成false，否则404错误，这个是因为用@ControllerBind注解路由的问题，开发环境可以忽略   
+3:把devMode的值改成false，否则404错误，这个是因为用@ControllerBind注解路由的问题，开发环境可以忽略   
      
 4：windows 下双击 start.bat 启动项目，
 	linux 下运行 start.sh 脚本启动项目， 运行 stop.sh 关闭项目 
