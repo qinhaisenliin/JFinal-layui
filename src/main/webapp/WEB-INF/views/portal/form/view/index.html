@@ -20,7 +20,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 .div-scroll{
 	overflow:auto;
 	border:1px solid #DCDCDC;
-	min-height: 595px;
+	min-height: 550px;
 	position: relative;
 	width:290px;
 }
@@ -70,7 +70,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
      </div>
     
     <!-- 右侧表格 -->
-	<div class="layui-col-xs9" position='center'  id="tablelist"style="border:1px solid #DCDCDC;min-height: 595px;">
+	<div class="layui-col-xs9" position='center'  id="tablelist"style="border:1px solid #DCDCDC;min-height: 550px;">
     	<!-- 表头按钮 -->  
 		<div class='layui-row f-index-toolbar'>
 			<div class='layui-col-xs12'>
@@ -188,7 +188,7 @@ function setHight(){
 	var width =$('#container').width();
 	$("#accordion1").css("height",contentHeight);
 	$("#tablelist").css("height",contentHeight);
-	$("#tablelist").css("width",width-290);
+	$("#tablelist").css("width",width-295);
 }
 
 //预览
@@ -207,7 +207,7 @@ function getTableList(){
 	gridArgs.updateUrl='#(path)/portal/form/view/edit?id=';
 	gridArgs.addUrl='#(path)/portal/form/view/add?treeId='+itemId+"&treeName="+itemName;
 	gridArgs.gridDivId ='maingrid';
-	gridArgs.heightDiff=82;
+	gridArgs.heightDiff=85;
 	initGrid({id : 'maingrid',
 			elem : '#maingrid',
 			cols : [ [
