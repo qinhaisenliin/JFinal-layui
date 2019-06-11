@@ -553,8 +553,8 @@ CREATE TABLE form_view  (
   code varchar(255) CHARACTER SET utf8  NOT NULL,
   status varchar(50) CHARACTER SET utf8  NOT NULL,
   template_view text CHARACTER SET utf8  NOT NULL,
-  create_time datetime(0) NULL DEFAULT NULL,
-  update_time datetime(0) NULL DEFAULT NULL,
+  create_time datetime  DEFAULT NULL,
+  update_time datetime  DEFAULT NULL,
   descp varchar(255) CHARACTER SET utf8  NULL DEFAULT NULL,
   PRIMARY KEY (id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '在线表单' ROW_FORMAT = Dynamic;
@@ -575,7 +575,7 @@ CREATE TABLE sys_tree  (
   parent_id varchar(64) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '上级Id',
   name varchar(50) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '名称',
   type varchar(50) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '分类',
-  create_time datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  create_time datetime DEFAULT NULL COMMENT '创建时间',
   order_no int(11) NULL DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '系统tree' ROW_FORMAT = Dynamic;
@@ -594,7 +594,7 @@ CREATE TABLE w_sys_tree  (
   parent_id varchar(64) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '上级Id',
   name varchar(50) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '名称',
   type varchar(50) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT '分类',
-  create_time datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  create_time datetime DEFAULT NULL COMMENT '创建时间',
   order_no int(11) NULL DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '测试在线表单用表' ROW_FORMAT = Dynamic;
