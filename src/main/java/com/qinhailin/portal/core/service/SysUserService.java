@@ -79,7 +79,7 @@ public class SysUserService extends BaseService {
 	 * @return
 	 */
 	public List<Record> queryOrgIdAndNameRecord(){
-		return queryForList("select id 'value',org_name 'text' from sys_org");
+		return queryForList("select id value,org_name text from sys_org");
 	}
 	
 	public SysUser findByUserCode(String userCode) {

@@ -50,7 +50,8 @@ public class DataDictionaryController extends BaseController {
 		render("add.html");
 	}
 	
-	public void save(DataDictionary dataDictionary){
+	public void save(){
+		DataDictionary dataDictionary=getBean(DataDictionary.class);
 		if(service.isExit("code", dataDictionary.getCode())){
 			setException("字典编号已存在,请重新输入");
 			setAttr("dataDictionary",dataDictionary);

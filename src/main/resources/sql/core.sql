@@ -56,14 +56,14 @@
 
 查询角色用户列表
 #sql("queryRoleUserList")
-	select a.id,a.user_code,a.user_name,a.org_id,a.sex,a.mobile,a.email,CASE WHEN a.org_id in (select id from sys_org) then b.org_name else '' end 'org_name'
+	select a.id,a.user_code,a.user_name,a.org_id,a.sex,a.mobile,a.email,CASE WHEN a.org_id in (select id from sys_org) then b.org_name else '' end org_name
 	from  sys_user a,sys_org b where (a.org_id = b.org_code or a.org_id is null) and  a.user_code in (
 	select c.user_code from sys_user_role c where c.role_code='?')
 #end
 
 查询角色未选用户列表
 #sql("queryUserListNotInRoleCode")
-	select a.id,a.user_code,a.user_name,a.org_id,a.sex,a.mobile,a.email,case when a.org_id in (select id from sys_org) then b.org_name else '' end 'org_name'
+	select a.id,a.user_code,a.user_name,a.org_id,a.sex,a.mobile,a.email,case when a.org_id in (select id from sys_org) then b.org_name else '' end org_name
 	from  sys_user a,sys_org b 
 	where (a.org_id = b.org_code or a.org_id is null) and a.user_code not in (select c.user_code from sys_user_role c where c.role_code='?')
 #end
@@ -71,13 +71,13 @@
 -------------------------- SysUserService ------------------------------------------
 查询用户列表
 #sql("getUserList")
-	select a.id,a.user_code,a.user_name,a.sex,a.allow_login,a.tel,a.mobile,a.email,address,case when a.org_id in (select id from sys_org) then b.org_name else '' end 'org_name'
+	select a.id,a.user_code,a.user_name,a.sex,a.allow_login,a.tel,a.mobile,a.email,address,case when a.org_id in (select id from sys_org) then b.org_name else '' end org_name
 	from  sys_user a,sys_org b 
 	where (a.org_id = b.org_code or a.org_id is null)
 #end
 
 #sql("getOrgUserList")
-	select a.id,a.user_code,a.user_name,a.sex,a.allow_login,a.tel,a.mobile,a.email,address,case when a.org_id in (select id from sys_org) then b.org_name else '' end 'org_name'
+	select a.id,a.user_code,a.user_name,a.sex,a.allow_login,a.tel,a.mobile,a.email,address,case when a.org_id in (select id from sys_org) then b.org_name else '' end org_name
 	from  sys_user a,sys_org b 
 	where (a.org_id = b.org_code or a.org_id is null) and b.id in(?)
 #end

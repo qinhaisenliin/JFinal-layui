@@ -16,9 +16,11 @@
 
 package com.qinhailin.common.base;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -338,10 +340,9 @@ public class BaseController extends Controller {
 	@NotAction
 	public void writeToHtml(String fileName,String text) {
 		File file = new File(PathKit.getWebRootPath() + getViewPath()+"/"+fileName);
-		FileWriter writer;
 		try {
-			writer = new FileWriter(file);			
-			writer.write(text);							
+			BufferedWriter writer = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(file),"UTF-8"));		
+			writer.write(text);				
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
