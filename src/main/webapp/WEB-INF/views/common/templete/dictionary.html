@@ -7,7 +7,7 @@
 </select>
 <script type="text/javascript">
 	$(function(){
-		getOption('#(code)','select',"#(value)");
+		getOption('#(code)','select',"#(value)","#(name)");
 	});
 </script>
 #end
@@ -17,7 +17,7 @@
 <div id="radio_#(code)"></div>
 <script type="text/javascript">
 	$(function(){
-		getOption("#(code)","radio","#(value)");
+		getOption("#(code)","radio","#(value)","#(name)");
 	});
 </script>
 #end
@@ -27,7 +27,7 @@
 <div id="checkbox_#(code)"></div>
 <script type="text/javascript">
 	$(function(){
-		getOption("#(code)","checkbox","#(value)");
+		getOption("#(code)","checkbox","#(value)","#(name)");
 	});
 </script>
 #end
@@ -37,7 +37,7 @@
 <script type="text/javascript">
 	
 	//获取业务字典数据 
-	function getOption(code,type,value){	
+	function getOption(code,type,value,name){	
 		var checkboxValue=value.split(',');
 		$.ajax({
 			url:'#(path)/portal/core/dictionary/value/getOption',
@@ -50,9 +50,9 @@
 				for(var i=0;i<data.length;i++){
 					if(type=="radio"){
 						if(data[i].value==value){
-							option+='<input type="radio" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" checked="checked"/>';
+							option+='<input type="radio" name="'+name+'" value="'+data[i].value+'" title="'+data[i].name+'" checked="checked"/>';
 						}else{
-							option+='<input type="radio" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+							option+='<input type="radio" name="'+name+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
 						}
 					}else if(type=="checkbox"){
 						if(checkboxValue.length>0){
@@ -64,12 +64,12 @@
 							});	
 							
 							if(isCheck){
-								option+='<input type="checkbox" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" checked="checked"/>';
+								option+='<input type="checkbox" name="'+name+'" value="'+data[i].value+'" title="'+data[i].name+'" checked="checked"/>';
 							}else{
-								option+='<input type="checkbox" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+								option+='<input type="checkbox" name="'+name+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
 							}				
 						}else{
-							option+='<input type="checkbox" name="'+code+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
+							option+='<input type="checkbox" name="'+name+'" value="'+data[i].value+'" title="'+data[i].name+'" />';
 						}
 					}else{
 						if(data[i].value==value){
