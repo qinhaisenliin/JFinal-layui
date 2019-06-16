@@ -71,8 +71,8 @@ public class LoggerInterceptor implements Interceptor {
 			
 			//在线表单数据不存储，日志列表会翻译html代码，显示不出日志列表数据
 			if(actionKey.equals("/portal/form/view/save")
-					||actionKey.equals("/portal/form/view/update")||
-					actionKey.equals("/portal/form/viewTemp/save")){
+					||actionKey.equals("/portal/form/view/update")
+					||actionKey.equals("/portal/form/viewTemp/save")){
 				sysLog.setData("{在线表单数据不存储}");
 			}
 			
