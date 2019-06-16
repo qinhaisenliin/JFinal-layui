@@ -59,6 +59,11 @@ public class CommonHandler extends Handler {
 				e.printStackTrace();
 			}
 			target = target.substring(0, 12);
+		}else if(target.startsWith("/portal/view/")){
+			
+			// 图片预览
+			request.setAttribute("url", target.substring(13));
+			target = target.substring(0, 13);
 		}
 		
 		next.handle(target, request, response, isHandled);

@@ -71,6 +71,13 @@ public class LoggerInterceptor implements Interceptor {
 			if(actionName!=null){		
 				sysLog.setMethodName(actionName);
 				sysLog.setRemark("操作日志("+funcMap.get(actionKey+actionName)+")");
+				
+				//在线表单数据不存储，日志列表会翻译html代码，显示不出日志列表数据
+				if(actionKey.equals("/portal/form/view/save")
+						||actionKey.equals("/portal/form/view/update")){
+					sysLog.setData("{在线表单数据不存储}");
+				}
+				
 				sysLog.save();
 			}else{
 				String method="save.*|update.*|delete.*|submit";

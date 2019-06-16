@@ -17,7 +17,12 @@
 package com.qinhailin.portal;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Ret;
@@ -91,7 +96,12 @@ public class PortalController extends BaseController {
 		} else {
 			fu = getFileUploadedByObjectId(getAttr("url"));
 		}
-
+		
+		//实现服务器资源共享
+		String fileTypeName = fu.getFileName().substring(fu.getFileName().lastIndexOf("."));
+		fu.setSavePath(PathKit.getWebRootPath() +  "/" +
+				WebContant.baseUloadPath + "/" + fu.getUrl() + fileTypeName);
+		
 		renderFile(new File(fu.getSavePath()), fu.getFileName());
 	}
 
@@ -136,4 +146,60 @@ public class PortalController extends BaseController {
 		renderFile(new File(PathKit.getWebRootPath() + "/" + WebContant.baseDownloadPath + getAttr("url")));
 	}
 
+	private static Map<String, String> imageContentType = new HashMap<String, String>();
+	static {
+		imageContentType.put("jpg","image/jpeg");
+		imageContentType.put("jpeg","image/jpeg");
+		imageContentType.put("png","image/png");
+		imageContentType.put("tif","image/tiff");
+		imageContentType.put("tiff","image/tiff");
+		imageContentType.put("ico","image/x-icon");
+		imageContentType.put("bmp","image/bmp");
+		imageContentType.put("gif","image/gif");
+	}
+	
+	/**
+	 * 图片预览
+	 * 
+	 * @params url格式：18080615/18080615025800002
+	 * @author QinHaiLin
+	 * @date 2019年6月16日
+	 */
+	public void view() {
+		String url = getAttr("url", "");
+		FileUploaded fu;
+		if (url.contains("/")) {
+			fu = getFileUploaded(getAttr("url"));
+		} else {
+			fu = getFileUploadedByObjectId(getAttr("url"));
+		}
+		
+		if(fu==null){
+			renderHtml("<img src=\"/static/img/error/error.png\">");
+			return;
+		}
+		
+		try {
+			String fileTypeName = fu.getFileName().substring(fu.getFileName().lastIndexOf("."));
+			fu.setSavePath(PathKit.getWebRootPath() +  "/" +
+					WebContant.baseUloadPath + "/" + fu.getUrl() + fileTypeName);
+			File image = new File(fu.getSavePath());
+			@SuppressWarnings("resource")
+			FileInputStream inputStream = new FileInputStream(image);
+			int length = inputStream.available();
+			byte data[] = new byte[length];
+			getResponse().setContentLength(length);
+			String fileName = image.getName();
+			String fileType = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+			getResponse().setContentType(imageContentType.get(fileType));
+			inputStream.read(data);
+			OutputStream toClient = getResponse().getOutputStream();
+			toClient.write(data);
+			toClient.flush();
+			toClient.close();
+		} catch (IOException e) {
+			handerException(e);
+		}
+		renderNull();
+	}
 }
