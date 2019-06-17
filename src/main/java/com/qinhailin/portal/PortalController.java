@@ -199,6 +199,8 @@ public class PortalController extends BaseController {
 			toClient.close();
 		} catch (IOException e) {
 			handerException(e);
+			renderHtml("<img src=\"/static/img/error/error.png\">");
+			return;
 		}
 		renderNull();
 	}
