@@ -86,7 +86,7 @@ public class LoginController extends BaseController {
 				isShowVerifyCode(user);
 			}
 			setAttr("returnUrl", returnUrl);
-			setAttr("msg", e.getCause().getMessage());
+			setAttr("msg", e.getCause()!=null?e.getCause().getMessage():e.getMessage());
 			render("login.html");
 		} 
 
