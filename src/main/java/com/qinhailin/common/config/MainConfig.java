@@ -70,6 +70,8 @@ public class MainConfig extends JFinalConfig {
 		me.setJsonFactory(FastJsonFactory.me());
 		//开启依赖注入
 		me.setInjectDependency(true);
+		//附件上传大小设置100M
+		me.setMaxPostSize(WebContant.maxPostSize);
 	}
 	
 	/**
@@ -79,7 +81,7 @@ public class MainConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		// 配置ControllerBind注解路由
 		AutoBindRoutes autoBindRoutes = new AutoBindRoutes();
-		autoBindRoutes.includeAllJarsInLib(!p.getBoolean("devMode"));
+		autoBindRoutes.includeAllJarsInLib(true);
 		autoBindRoutes.setBaseViewPath(WebContant.baseViewPath);
 		me.add(autoBindRoutes);
 	}

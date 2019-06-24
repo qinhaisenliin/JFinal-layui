@@ -85,7 +85,7 @@ public class ClassSearcher {
 		// 判断目录是否存在
 		File baseDir = new File(baseDirName);
 		if (!baseDir.exists() || !baseDir.isDirectory()) {
-			logger.error("search error：" + baseDirName + "is not a dir！");
+//			logger.error("search error：" + baseDirName + "is not a dir！");
 		} else {
 			String[] filelist = baseDir.list();
 			for (int i = 0; i < filelist.length; i++) {
@@ -268,7 +268,7 @@ public class ClassSearcher {
 			// 判断目录是否存在
 			File baseDir = new File(baseDirName);
 			if (!baseDir.exists() || !baseDir.isDirectory()) {
-				logger.error("file serach error：" + baseDirName + " is not a dir！");
+//				logger.error("file serach error：" + baseDirName + " is not a dir！");
 			} else {
 				String[] filelist = baseDir.list(new FilenameFilter() {
 					@Override
