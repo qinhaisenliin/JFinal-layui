@@ -66,6 +66,10 @@ public class SessionInterceptor implements Interceptor {
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
+				//部门详情
+				if(actionKey.equals("/portal/core/sysOrg/detail")){
+					actionKey="/portal/core/sysOrg";
+				}
 				//重新登录，携带重定向地址
 				controller.redirect("/pub/login?returnUrl="+actionKey+para);
 				return;
