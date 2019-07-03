@@ -55,6 +55,13 @@ public class IndexController extends BaseController {
 	 * @date 2018年11月15日
 	 */
 	public void index() {
+		//屏蔽无效的url地址
+		if(getPara()!=null){
+			getResponse().setStatus(404);
+			renderError(404);
+			return;
+		}
+		
 		Visitor vs = VisitorUtil.getVisitor(getSession());
 		// 锁屏未解锁,刷新浏览器强制移除登录身份信息
 		String userName = (String) getSession().getAttribute(vs.getName());

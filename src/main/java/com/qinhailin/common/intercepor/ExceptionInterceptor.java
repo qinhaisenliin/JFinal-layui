@@ -56,6 +56,8 @@ public class ExceptionInterceptor implements Interceptor {
 			} else  if(ctrl.getResponse().getStatus()==403){
 				ctrl.setAttr(E, e);
 				ctrl.renderError(403);
+			} else  if(ctrl.getResponse().getStatus()==404){
+				ctrl.renderError(404);
 			}else{
 				ctrl.getResponse().setStatus(500);
 				ctrl.setAttr(E, e);

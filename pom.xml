@@ -40,13 +40,13 @@
 		<dependency>
 			<groupId>com.jfinal</groupId>
 			<artifactId>jfinal-undertow</artifactId>
-			<version>1.6</version>
+			<version>1.7</version>
 		</dependency>
 		 
 		<dependency>
 			<groupId>com.jfinal</groupId>
 			<artifactId>jfinal</artifactId>
-			<version>4.2</version>
+			<version>4.3</version>
 		</dependency>
 		
 		<!-- 避免控制台输出如下提示信息：
