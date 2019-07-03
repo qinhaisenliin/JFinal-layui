@@ -10,7 +10,8 @@ JFinal+layui极速开发企业应用管理系统，是以JFinal+layui为核心�
 前端页面：封装了layui常用模块代码，参照使用例子，就能快速上手，无需担心不懂layui。
 系统日志：操作日志、数据日志、登录日志，无需注解和手动添加，就能跟踪记录数据，不担心数据丢失
 
-#### 
+
+#### 友情链接
 
  **JFinal-layui在线演示系统：** [JFinal极速开发企业应用管理系统](http://www.qinhaisenlin.com:8080/)
  系统登录账号：admin/123456
@@ -19,12 +20,13 @@ JFinal+layui极速开发企业应用管理系统，是以JFinal+layui为核心�
 
  **JFinal-layui交流群：970045838**
 
+
 #### 安装教程
 
 1. 新建数据库,执行doc目录下的jfinal-layui.sql
 2. 修改resources下面的config-dev.txt配置文件,修改数据库配置
 3. 运行com.qinhailin.common.config.ManiConfig的main方法
-4. 访问地址：http://localhost,登录账号：admin/123456
+4. 访问地址：http://localhost;登录账号：admin/123456
 
 #### 使用说明
 jfinal的通用配置如果不是特别需要，不需要修改，直接开发你的功能即可，QQ交流群：970045838
