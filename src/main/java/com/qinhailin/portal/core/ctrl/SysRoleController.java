@@ -63,13 +63,8 @@ public class SysRoleController extends BaseController {
 
 	public void add() {
 		SysRole entity = service.findByRoleCode(getPara("roleCode"));
-		if (entity != null) {
-			setAttr("parentId", entity.getRoleCode());
-			setAttr("parentName", entity.getRoleName());
-		} else {
-			setAttr("parentId", "superadmin");
-			setAttr("parentName", "超级管理员");
-		}
+		setAttr("parentId", entity!=null?entity.getRoleCode():"superadmin");
+		setAttr("parentName", entity!=null?entity.getRoleName():"超级管理员");
 		render("add.html");
 	}
 
@@ -80,14 +75,10 @@ public class SysRoleController extends BaseController {
 		if(!service.saveEntity(sysRole,getVisitor().getCode())) {
 			setException("角色编号已存在，请重新输入");
 		}
+		
 		SysRole entity = service.findByRoleCode(sysRole.getParentId());
-		if (entity != null) {
-			setAttr("parentId", entity.getRoleCode());
-			setAttr("parentName", entity.getRoleName());
-		} else {
-			setAttr("parentId", "superadmin");
-			setAttr("parentName", "超级管理员");
-		}
+		setAttr("parentId", entity!=null?entity.getRoleCode():"superadmin");
+		setAttr("parentName", entity!=null?entity.getRoleName():"超级管理员");
 		setAttr("sysRole", sysRole);
 		render("add.html");
 	}

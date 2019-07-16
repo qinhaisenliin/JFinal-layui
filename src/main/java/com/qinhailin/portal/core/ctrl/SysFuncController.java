@@ -63,26 +63,19 @@ public class SysFuncController extends BaseController {
 
 	public void add() {
 		setAttr("parentId", getPara("parentId"));
-		SysFunction parent = (SysFunction) service.findById(getPara("parentId"));
-		if (parent == null) {
-			setAttr("parentName", WebContant.projectName);
-		} else {
-			setAttr("parentName", parent.getFuncName());
-		}
+		SysFunction parent = (SysFunction) service.findById(getPara("parentId"));	
+		setAttr("parentName", parent!=null?parent.getFuncName():WebContant.projectName);	
 		render("add.html");
 	}
 
 	public void save() {
 		SysFunction entity=getBean(SysFunction.class);
 		SysFunction parent = (SysFunction) service.findById(entity.getParentCode());
-		if (parent == null) {
-			entity.setParentName(WebContant.projectName);
-		} else {
-			entity.setParentName(parent.getFuncName());
-		}
+		entity.setParentName(parent!=null?parent.getFuncName():WebContant.projectName);
 		if(!service.saveEntity(entity)) {
 			setException("功能编号已存在，请重新输入");
 		}
+		
 		setAttr("sysFunction", entity);
 		CacheKit.removeAll("funcManager");
 		render("add.html");
@@ -98,11 +91,7 @@ public class SysFuncController extends BaseController {
 	public void update() {
 		SysFunction entity=getBean(SysFunction.class);
 		SysFunction parent = (SysFunction) service.findById(entity.getParentCode());
-		if (parent == null) {
-			entity.setParentName(WebContant.projectName);
-		} else {
-			entity.setParentName(parent.getFuncName());
-		}
+		entity.setParentName(parent!=null?parent.getFuncName():WebContant.projectName);
 		entity.update();
 		setAttr("sysFunction", entity);
 		CacheKit.removeAll("funcManager");

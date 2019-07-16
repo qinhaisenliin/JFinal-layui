@@ -46,14 +46,9 @@ public class SysOrgController extends BaseController {
 	}
 
 	public void add() {
-		SysOrg entity = (SysOrg) service.findById(getPara("orgCode"));
-		if (entity != null) {
-			setAttr("parentid", entity.getId());
-			setAttr("parentIdName", entity.getOrgName());
-		} else {
-			setAttr("parentid", "sys");
-			setAttr("parentIdName", "组织机构");
-		}
+		SysOrg entity = (SysOrg) service.findById(getPara("orgCode"));	
+		setAttr("parentid", entity!=null?entity.getId():"sys");
+		setAttr("parentIdName", entity!=null?entity.getOrgName():"组织机构");
 		render("add.html");
 	}
 

@@ -56,7 +56,7 @@ public class EchartController extends Controller {
 		String yName="人数（人）";		
 		String seriesName="部门人数";
 		String tooltipText="";
-		String sql="select b.org_name as 'x' ,count(*) as 'y' from sys_user a,sys_org b where a.org_id=b.id group by org_id";//统计部门人数sql
+		String sql="select b.org_name x ,count(*) y from sys_user a,sys_org b where a.org_id=b.id group by b.org_name";//统计部门人数sql
 		Object[] params=new Object[0];
 		Chart data =new Chart(title, subtitle, xAxis, yAxis, chartType, xName, yName, seriesName, tooltipText, sql, params);
 		
