@@ -20,9 +20,7 @@ $(function(){
 
 	//验证吗
 	function reloadImage() {
-		window.location.reload();
-		//在验证码刷新之前会，会先请求浏览器中的地址，http://localhost/pub/login/submit?returnUrl=/抛异常，导致验证码出不来，暂时无法解决，希望大神解决一下
-		//document.getElementById('imageId').src = "#(path)/pub/verify?t=" + (new Date()).toTimeString();
+		document.getElementById('imageId').src = _path+"/pub/verify?t=" + (new Date()).toTimeString();
 	}
 	var isRequest=false;
 	
