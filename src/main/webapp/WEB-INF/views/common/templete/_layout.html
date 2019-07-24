@@ -71,6 +71,9 @@
 		function closedMsg(){			
 			$("#showmsg").hide();
 		}
+		var msg="#(e.message??msg)";
+		if(msg.indexOf("成功")>0)
+		setTimeout("$('#closeWinBtn').click();",1000);
      </script>
   #end
 #end
