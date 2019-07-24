@@ -86,6 +86,9 @@ body .layui-tree-skin-skin .layui-tree-branch{
 <script type="text/html" id="switchTpl">
   	<input type="checkbox" name="isStop" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="isStopFilter" {{ d.is_stop == 0 ? 'checked' : '' }}>
 </script> 
+<script type="text/html" id="switchTpl_spread">
+  	<input type="checkbox" name="spread" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="isSpreadFilter" {{ d.spread ==0  ? 'checked' : '' }}>
+</script> 
 <script type="text/html" id="icon">
 	<i class="layui-icon {{d.icon}}"></i>
 </script>
@@ -128,6 +131,7 @@ function getFuncList(){
 	   			{title: '连接地址', field: 'link_page',edit:'text'},       			
 	   			{title: '是否启用', field: 'is_stop',templet:'#switchTpl' },
 	   			{title: '功能类型', field: 'func_type',templet:'#numToStr'},
+	   			{title: '是否展开', field: 'spread',templet:'#switchTpl_spread' },
 	   			{title: '排序', field: 'order_no',edit:'text'},
 	   			{title: '图标', field: 'icon',templet:'#icon'},
 				{title: '操作',fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
@@ -251,7 +255,7 @@ function treeClick(item){
 			}
 		});
 	  });
-	  
+	  	  
 	   //监听单元格编辑
 	  table.on('edit(maingrid)', function(obj){
 	    var value = obj.value //得到修改后的值
@@ -259,7 +263,7 @@ function treeClick(item){
 	    ,field = obj.field; //得到字段	    
 	    var params="sysFunction."+field+"="+value;
 	    
-	    $.post("#(path)/portal/core/sysFunc/updateFieldValue?isJson=true&"+params
+	    $.post("#(path)/portal/core/sysFunc/updateFieldValue?"+params
 	    ,param({
 	      'sysFunction.id' : data.id
 	    })
@@ -267,6 +271,30 @@ function treeClick(item){
 			$(".layui-laypage-btn").click();	      
 			layer.msg(feedback.msg);			
 	    });
+	  });
+	  
+	  //是否展开菜单
+	  form.on('switch(isSpreadFilter)', function(obj){
+		 var id = obj.value;
+		 var checked=obj.elem.checked;
+		 var state=1;
+		 if(checked){
+		    state=0
+		 }
+		
+        $.post(
+        "#(path)/portal/core/sysFunc/updateFieldValue"
+        ,param({
+			'sysFunction.id' : id
+			,'sysFunction.spread':state
+		}),function(feedback) {
+			if (feedback.success) {
+				layer.tips("修改成功", obj.othis);
+			} else {
+				$(".layui-laypage-btn").click();
+				layer.alert(feedback.msg);
+			}
+		});
 	  });
  #end
  

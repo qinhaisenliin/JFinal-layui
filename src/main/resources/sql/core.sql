@@ -6,7 +6,7 @@
 
 查询用户权限菜单树
 #sql("getUserFunctionTree")
-	select  DISTINCT  a.order_no ,a.id,a.parent_code,a.func_name,a.link_page,a.icon,a.func_type,a.is_stop 
+	select  DISTINCT  a.order_no ,a.id,a.parent_code,a.func_name,a.link_page,a.icon,a.func_type,a.is_stop,a.spread 
  	from sys_function a 
 	left join sys_role_function b on a.id=b.function_id 
 	left join sys_user_role c on b.role_code=c.role_code 
@@ -16,7 +16,7 @@
 
 查询角色权限菜单树
 #sql("getRoleFunctionTree")
-	select a.id,a.parent_code,a.func_name,a.link_page,a.icon,a.func_type,a.is_stop 
+	select a.id,a.parent_code,a.func_name,a.link_page,a.icon,a.func_type,a.is_stop,a.spread  
 	from sys_function a 
 	left join sys_role_function b on a.id=b.function_id 
 	where b.role_code=? and a.parent_code=? and a.is_stop=0 

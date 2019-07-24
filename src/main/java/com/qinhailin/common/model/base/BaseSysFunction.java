@@ -99,4 +99,12 @@ public abstract class BaseSysFunction<M extends BaseSysFunction<M>> extends Mode
 		return getStr("descript");
 	}
 
+	public M setSpread(java.lang.Integer spread) {
+		set("spread", spread);
+		return (M)this;
+	}
+	
+	public java.lang.Integer getSpread() {
+		return getInt("spread");
+	}
 }

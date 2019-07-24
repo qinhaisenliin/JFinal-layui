@@ -109,11 +109,7 @@ public class SysFuncService extends BaseService {
 			node.setId(func.getStr("id"));
 			node.setPid(func.getStr("parent_code"));
 			node.setText(func.getStr("func_name"));
-
-			Integer functype = func.getInt("func_type");
-			if (functype == null) {
-				functype = 0;
-			}
+			node.setSpread(0==func.getInt("spread")?true:false);
 			node.setUrl(func.getStr("link_page"));
 
 			Collection<TreeNode> children = this.getFunctionTree(func.getStr("id"));
@@ -137,7 +133,7 @@ public class SysFuncService extends BaseService {
 			node.setText(func.getStr("func_name"));
 			node.setUrl(func.getStr("link_page"));
 			node.setIcon(func.getStr("icon"));
-
+			node.setSpread(0==func.getInt("spread")?true:false);
 			Collection<TreeNode> children = this.getUserFunctionTree(userCode, func.getStr("id"));
 			node.setChildren(children);
 			nodes.add(node);
@@ -159,7 +155,7 @@ public class SysFuncService extends BaseService {
 			node.setText(func.getStr("func_name"));
 			node.setUrl(func.getStr("link_page"));
 			node.setIcon(func.getStr("icon"));
-
+			node.setSpread(0==func.getInt("spread")?true:false);
 			Collection<TreeNode> children = this.getRoleFunctionTree(roleCode, func.getStr("id"));
 			node.setChildren(children);
 			nodes.add(node);

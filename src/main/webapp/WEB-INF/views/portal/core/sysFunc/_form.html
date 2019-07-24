@@ -9,8 +9,8 @@
 	#@colStart("功能编号",12)
 		<input type="text" lay-verType='tips'lay-verify="required|" required maxlength="30" placeHolder="必填" class="layui-input #if(sysFunction.id??&&!e) layui-disabled #end" name="sysFunction.id" value="#(sysFunction.id??)" #if(sysFunction.id??&&!e)readonly="readonly"#end/>
 	#@colEnd()
-	<div class="layui-row layui-col-space1 task-row">
 	</div>
+	<div class="layui-row layui-col-space1 task-row">
 	#@colStart("功能名称",12)
 		<input type="text" lay-verType='tips'lay-verify="required|" required maxlength="30" placeHolder="必填" class="layui-input" name="sysFunction.funcName" value="#(sysFunction.func_name??)" />
 	#@colEnd()

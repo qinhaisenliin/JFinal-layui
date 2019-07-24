@@ -29,7 +29,8 @@ public class TreeNode {
 	private String FontIcon;// 字体图标
 	private Collection<TreeNode> children;
 	private String pid;
-
+	private Boolean spread;//是否展开
+	
 	public String getId() {
 		return id;
 	}
@@ -100,6 +101,14 @@ public class TreeNode {
 
 	public void setFontIcon(String fontIcon) {
 		FontIcon = fontIcon;
+	}
+
+	public Boolean getSpread() {
+		return spread;
+	}
+
+	public void setSpread(Boolean spread) {
+		this.spread = spread;
 	}
 
 }
