@@ -84,55 +84,56 @@ CREATE TABLE sys_function  (
   icon varchar(50)    COMMENT '图标',
   order_no int(11)  COMMENT '排序',
   descript varchar(255)  COMMENT '注释',
+  spread int(11) DEFAULT 1 COMMENT '是否展开菜单(0:展开,1:不展开)',
   PRIMARY KEY (id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '系统功能表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_function
 -- ----------------------------
-INSERT INTO sys_function VALUES ('data_dictionary', '业务字典', 0, '/portal/core/dictionary', 'sys_manager', '系统管理', 0, NULL, 5, NULL);
-INSERT INTO sys_function VALUES ('data_dictionary_add', '添加', 0, '/portal/core/dictionary/save', 'data_dictionary', '数据字典', 1, NULL, 1, NULL);
-INSERT INTO sys_function VALUES ('data_dictionary_delete', '删除', 0, '/portal/core/dictionary/delete', 'data_dictionary', '数据字典', 1, NULL, 3, NULL);
-INSERT INTO sys_function VALUES ('data_dictionary_update', '修改', 0, '/portal/core/dictionary/update', 'data_dictionary', '数据字典', 1, NULL, 2, NULL);
-INSERT INTO sys_function VALUES ('data_dictionary_value', '字典数据值', 0, NULL, 'data_dictionary', '数据字典', 1, NULL, 4, NULL);
-INSERT INTO sys_function VALUES ('data_dictionary_value_add', '添加', 0, '/portal/core/dictionary/value/add', 'data_dictionary_value', '字典数据值', 1, NULL, 5, NULL);
-INSERT INTO sys_function VALUES ('data_dictionary_value_delete', '删除', 0, '/portal/core/dictionary/value/delete', 'data_dictionary_value', '字典数据值', 1, NULL, 7, NULL);
-INSERT INTO sys_function VALUES ('data_dictionary_value_update', '修改', 0, '/portal/core/dictionary/update', 'data_dictionary_value', '字典数据值', 1, NULL, 6, NULL);
-INSERT INTO sys_function VALUES ('frame_main_view', '主页', 0, 'http://www.meiwenhome.com/qinhaisenlin/xiaoxi/love.html', 'frame', 'JFinal极速开发企业应用管理系统', 0, 'layui-icon-home', 2, NULL);
-INSERT INTO sys_function VALUES ('pub_fileList', '附件列表', 0, '/portal/getFileList', 'sys', '网站后台管理', 0, 'layui-icon-read', 5, NULL);
-INSERT INTO sys_function VALUES ('sys', '网站后台管理', 0, NULL, 'frame', 'JFinal极速开发企业应用管理系统', 0, NULL, 1, NULL);
-INSERT INTO sys_function VALUES ('sys_druid', '性能监控', 0, '/assets/druid', 'sys', '网站后台管理', 0, 'layui-icon-engine', 3, NULL);
-INSERT INTO sys_function VALUES ('sys_echart', 'Echart图表', 0, '/portal/echart', 'sys', '网站后台管理', 0, 'layui-icon-chart', 2, NULL);
-INSERT INTO sys_function VALUES ('sys_func_add', '添加', 0, '/portal/core/sysFunc/save', 'sys_func_manager', '功能管理', 1, NULL, 1, NULL);
-INSERT INTO sys_function VALUES ('sys_func_delete', '删除', 0, '/portal/core/sysFunc/delete', 'sys_func_manager', '功能管理', 1, NULL, 3, NULL);
-INSERT INTO sys_function VALUES ('sys_func_manager', '功能管理', 0, '/portal/core/sysFunc', 'sys_manager', '系统管理', 0, 'layui-icon-wu', 1, NULL);
-INSERT INTO sys_function VALUES ('sys_func_update', '修改', 0, '/portal/core/sysFunc/update', 'sys_func_manager', '功能管理', 1, NULL, 2, NULL);
-INSERT INTO sys_function VALUES ('sys_log', '系统日志', 0, '/portal/core/sysLog', 'sys_manager', '系统管理', 0, NULL, 6, NULL);
-INSERT INTO sys_function VALUES ('sys_manager', '系统管理', 0, NULL, 'sys', '网站后台管理', 0, 'layui-icon-set', 1, NULL);
-INSERT INTO sys_function VALUES ('sys_org_add', '添加', 0, '/portal/core/sysOrg/add', 'sys_org_manager', '部门管理', 1, NULL, 1, NULL);
-INSERT INTO sys_function VALUES ('sys_org_delete', '删除', 0, '/portal/core/sysOrg/delete', 'sys_org_manager', '部门管理', 1, NULL, 3, NULL);
-INSERT INTO sys_function VALUES ('sys_org_manager', '部门管理', 0, '/portal/core/sysOrg', 'sys_manager', '系统管理', 0, 'layui-icon-wu', 4, NULL);
-INSERT INTO sys_function VALUES ('sys_org_update', '修改 ', 0, '/portal/core/sysOrg/update', 'sys_org_manager', '部门管理', 1, NULL, 2, NULL);
-INSERT INTO sys_function VALUES ('sys_pub_upload', '上传页面', 0, '/portal/toUpload', 'sys', '网站后台管理', 0, 'layui-icon-upload-drag', 4, NULL);
-INSERT INTO sys_function VALUES ('sys_role_add', '添加', 0, '/portal/core/sysRole/save', 'sys_role_manager', '角色管理', 1, NULL, 1, NULL);
-INSERT INTO sys_function VALUES ('sys_role_delete', '删除', 0, '/portal/core/sysRole/delete', 'sys_role_manager', '角色管理', 1, NULL, 3, NULL);
-INSERT INTO sys_function VALUES ('sys_role_manager', '角色管理', 0, '/portal/core/sysRole', 'sys_manager', '系统管理', 0, 'layui-icon-wu', 2, NULL);
-INSERT INTO sys_function VALUES ('sys_role_update', '修改', 0, '/portal/core/sysRole/update', 'sys_role_manager', '角色管理', 1, NULL, 2, NULL);
-INSERT INTO sys_function VALUES ('sys_user_add', '添加', 0, '/portal/core/sysUser/save', 'sys_user_manager', '用户管理', 1, NULL, 1, NULL);
-INSERT INTO sys_function VALUES ('sys_user_delete', '删除', 0, '/portal/core/sysUser/delete', 'sys_user_manager', '用户管理', 1, NULL, 3, NULL);
-INSERT INTO sys_function VALUES ('sys_user_manager', '用户管理', 0, '/portal/core/sysUser', 'sys_manager', '系统管理', 0, 'layui-icon-wu', 3, NULL);
-INSERT INTO sys_function VALUES ('sys_user_reset', '重置密码', 0, '/portal/core/sysUser/reset', 'sys_user_manager', '用户管理', 1, NULL, 5, NULL);
-INSERT INTO sys_function VALUES ('sys_user_role', '角色', 0, '/portal/core/sysUser/userRole', 'sys_user_manager', '用户管理', 1, NULL, 6, NULL);
-INSERT INTO sys_function VALUES ('sys_user_update', '修改', 0, '/portal/core/sysUser/update', 'sys_user_manager', '用户管理', 1, NULL, 2, NULL);
-INSERT INTO sys_function VALUES ('form_business_table', '测试表单', 0, '/portal/form/business/view_table', 'sys', '网站后台管理', 0, 'layui-icon-table', 7, NULL);
-INSERT INTO sys_function VALUES ('form_sys_tree', '表单分类树', 0, NULL, 'form_view_manager', '在线表单', 1, NULL, 6, NULL);
-INSERT INTO sys_function VALUES ('form_sys_tree_add', '添加', 0, '/portal/form/sysTree/save', 'form_sys_tree', '表单分类树', 1, NULL, 7, NULL);
-INSERT INTO sys_function VALUES ('form_sys_tree_delete', '删除', 0, '/portal/form/sysTree/delete', 'form_sys_tree', '表单分类树', 1, NULL, 9, NULL);
-INSERT INTO sys_function VALUES ('form_sys_tree_update', '修改', 0, '/portal/form/sysTree/update', 'form_sys_tree', '表单分类树', 1, NULL, 8, NULL);
-INSERT INTO sys_function VALUES ('form_view_add', '添加', 0, '/portal/form/view/save', 'form_view_manager', '在线表单', 1, NULL, 3, NULL);
-INSERT INTO sys_function VALUES ('form_view_delete', '删除', 0, '/portal/form/view/delete', 'form_view_manager', '在线表单', 1, NULL, 5, NULL);
-INSERT INTO sys_function VALUES ('form_view_manager', '在线表单', 0, '/portal/form/view', 'sys', '网站后台管理', 0, 'layui-icon-templeate-1', 6, NULL);
-INSERT INTO sys_function VALUES ('form_view_update', '修改', 0, '/portal/form/view/update', 'form_view_manager', '在线表单', 1, NULL, 4, NULL);
+INSERT INTO sys_function VALUES ('data_dictionary', '业务字典', 0, '/portal/core/dictionary', 'sys_manager', '系统管理', 0, NULL, 5, NULL, 1);
+INSERT INTO sys_function VALUES ('data_dictionary_add', '添加', 0, '/portal/core/dictionary/save', 'data_dictionary', '数据字典', 1, NULL, 1, NULL, 1);
+INSERT INTO sys_function VALUES ('data_dictionary_delete', '删除', 0, '/portal/core/dictionary/delete', 'data_dictionary', '数据字典', 1, NULL, 3, NULL, 1);
+INSERT INTO sys_function VALUES ('data_dictionary_update', '修改', 0, '/portal/core/dictionary/update', 'data_dictionary', '数据字典', 1, NULL, 2, NULL, 1);
+INSERT INTO sys_function VALUES ('data_dictionary_value', '字典数据值', 0, NULL, 'data_dictionary', '数据字典', 1, NULL, 4, NULL, 1);
+INSERT INTO sys_function VALUES ('data_dictionary_value_add', '添加', 0, '/portal/core/dictionary/value/add', 'data_dictionary_value', '字典数据值', 1, NULL, 5, NULL, 1);
+INSERT INTO sys_function VALUES ('data_dictionary_value_delete', '删除', 0, '/portal/core/dictionary/value/delete', 'data_dictionary_value', '字典数据值', 1, NULL, 7, NULL, 1);
+INSERT INTO sys_function VALUES ('data_dictionary_value_update', '修改', 0, '/portal/core/dictionary/update', 'data_dictionary_value', '字典数据值', 1, NULL, 6, NULL, 1);
+INSERT INTO sys_function VALUES ('frame_main_view', '主页', 0, 'http://www.meiwenhome.com/qinhaisenlin/xiaoxi/love.html', 'frame', 'JFinal极速开发企业应用管理系统', 0, 'layui-icon-home', 2, NULL, 1);
+INSERT INTO sys_function VALUES ('pub_fileList', '附件列表', 0, '/portal/getFileList', 'sys', '网站后台管理', 0, 'layui-icon-read', 5, NULL, 1);
+INSERT INTO sys_function VALUES ('sys', '网站后台管理', 0, NULL, 'frame', 'JFinal极速开发企业应用管理系统', 0, NULL, 1, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_druid', '性能监控', 0, '/assets/druid', 'sys', '网站后台管理', 0, 'layui-icon-engine', 3, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_echart', 'Echart图表', 0, '/portal/echart', 'sys', '网站后台管理', 0, 'layui-icon-chart', 2, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_func_add', '添加', 0, '/portal/core/sysFunc/save', 'sys_func_manager', '功能管理', 1, NULL, 1, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_func_delete', '删除', 0, '/portal/core/sysFunc/delete', 'sys_func_manager', '功能管理', 1, NULL, 3, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_func_manager', '功能管理', 0, '/portal/core/sysFunc', 'sys_manager', '系统管理', 0, 'layui-icon-wu', 1, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_func_update', '修改', 0, '/portal/core/sysFunc/update', 'sys_func_manager', '功能管理', 1, NULL, 2, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_log', '系统日志', 0, '/portal/core/sysLog', 'sys_manager', '系统管理', 0, NULL, 6, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_manager', '系统管理', 0, NULL, 'sys', '网站后台管理', 0, 'layui-icon-set', 1, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_org_add', '添加', 0, '/portal/core/sysOrg/add', 'sys_org_manager', '部门管理', 1, NULL, 1, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_org_delete', '删除', 0, '/portal/core/sysOrg/delete', 'sys_org_manager', '部门管理', 1, NULL, 3, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_org_manager', '部门管理', 0, '/portal/core/sysOrg', 'sys_manager', '系统管理', 0, 'layui-icon-wu', 4, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_org_update', '修改 ', 0, '/portal/core/sysOrg/update', 'sys_org_manager', '部门管理', 1, NULL, 2, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_pub_upload', '上传页面', 0, '/portal/toUpload', 'sys', '网站后台管理', 0, 'layui-icon-upload-drag', 4, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_role_add', '添加', 0, '/portal/core/sysRole/save', 'sys_role_manager', '角色管理', 1, NULL, 1, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_role_delete', '删除', 0, '/portal/core/sysRole/delete', 'sys_role_manager', '角色管理', 1, NULL, 3, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_role_manager', '角色管理', 0, '/portal/core/sysRole', 'sys_manager', '系统管理', 0, 'layui-icon-wu', 2, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_role_update', '修改', 0, '/portal/core/sysRole/update', 'sys_role_manager', '角色管理', 1, NULL, 2, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_user_add', '添加', 0, '/portal/core/sysUser/save', 'sys_user_manager', '用户管理', 1, NULL, 1, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_user_delete', '删除', 0, '/portal/core/sysUser/delete', 'sys_user_manager', '用户管理', 1, NULL, 3, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_user_manager', '用户管理', 0, '/portal/core/sysUser', 'sys_manager', '系统管理', 0, 'layui-icon-wu', 3, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_user_reset', '重置密码', 0, '/portal/core/sysUser/reset', 'sys_user_manager', '用户管理', 1, NULL, 5, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_user_role', '角色', 0, '/portal/core/sysUser/userRole', 'sys_user_manager', '用户管理', 1, NULL, 6, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_user_update', '修改', 0, '/portal/core/sysUser/update', 'sys_user_manager', '用户管理', 1, NULL, 2, NULL, 1);
+INSERT INTO sys_function VALUES ('form_business_table', '测试表单', 0, '/portal/form/business/view_table', 'sys', '网站后台管理', 0, 'layui-icon-table', 7, NULL, 1);
+INSERT INTO sys_function VALUES ('form_sys_tree', '表单分类树', 0, NULL, 'form_view_manager', '在线表单', 1, NULL, 6, NULL, 1);
+INSERT INTO sys_function VALUES ('form_sys_tree_add', '添加', 0, '/portal/form/sysTree/save', 'form_sys_tree', '表单分类树', 1, NULL, 7, NULL, 1);
+INSERT INTO sys_function VALUES ('form_sys_tree_delete', '删除', 0, '/portal/form/sysTree/delete', 'form_sys_tree', '表单分类树', 1, NULL, 9, NULL, 1);
+INSERT INTO sys_function VALUES ('form_sys_tree_update', '修改', 0, '/portal/form/sysTree/update', 'form_sys_tree', '表单分类树', 1, NULL, 8, NULL, 1);
+INSERT INTO sys_function VALUES ('form_view_add', '添加', 0, '/portal/form/view/save', 'form_view_manager', '在线表单', 1, NULL, 3, NULL, 1);
+INSERT INTO sys_function VALUES ('form_view_delete', '删除', 0, '/portal/form/view/delete', 'form_view_manager', '在线表单', 1, NULL, 5, NULL, 1);
+INSERT INTO sys_function VALUES ('form_view_manager', '在线表单', 0, '/portal/form/view', 'sys', '网站后台管理', 0, 'layui-icon-templeate-1', 6, NULL, 1);
+INSERT INTO sys_function VALUES ('form_view_update', '修改', 0, '/portal/form/view/update', 'form_view_manager', '在线表单', 1, NULL, 4, NULL, 1);
 -- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
