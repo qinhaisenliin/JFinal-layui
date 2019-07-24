@@ -215,7 +215,11 @@ layui.define(['element', 'common'], function (exports) {
                 for (var j = 0; j < data[i].children.length; j++) {
                 	//第三级菜单
                     if(data[i].children[j].children.length>0){
-                    	ulHtml += '<dd title="' + data[i].children[j].title + '" style="margin-left:10px;">';
+                    	if(data[i].children[j].spread){
+                    		ulHtml += '<dd title="' + data[i].children[j].title + '" style="margin-left:10px;" class="layui-nav-itemed">';    
+                    	}else{
+                    		ulHtml += '<dd title="' + data[i].children[j].title + '" style="margin-left:10px;">';                  		
+                    	}
                     	ulHtml += '<a href="javascript:;"';
                     	if (data[i].children[j].icon !== null && data[i].children[j].icon !== undefined && data[i].children[j].icon !== '') {
                             if (data[i].icon.indexOf('fa-') !== -1) {
