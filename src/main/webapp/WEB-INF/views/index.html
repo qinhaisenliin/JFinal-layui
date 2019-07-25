@@ -124,7 +124,29 @@
                     $('#passwd').on('click', function () {
                     	openDialog('修改密码','#(path)/portal/core/sysUser/myPassword?id='+userId,false,450,300,null);
                     });
-
+                    
+                    for(var i=0;i<navData.length;i++){
+                        //打开一级菜单tab
+                		if(navData[i].spread&&navData[i].children.length==0){
+                			setTimeout("openTab('"+navData[i].title+"','"+navData[i].href+"')",100);   						
+   						}else {
+							for(var j=0;j<navData[i].children.length;j++){
+								//打开二级菜单tab
+								if(navData[i].children[j].spread&&navData[i].children[j].children.length==0){
+									setTimeout("openTab('"+navData[i].children[j].title+"','"+navData[i].children[j].href+"')",100);								
+								}else{
+									for(var k=0;k<navData[i].children[j].children.length;k++){
+										//打开三级菜单tab
+										if(navData[i].children[j].children[k].spread){
+											setTimeout("openTab('"+navData[i].children[j].children[k].title+"','"+navData[i].children[j].children[k].href+"')",100);
+										}
+									}
+								}
+							}
+       					}
+                    	
+                    }
+                    
 				});
 
 				//添加选项卡
@@ -140,7 +162,7 @@
 					var id=tab.getCurrentTabId();
 					tab.deleteTab(id);
 				}
-								
+	
 			</script>
 		</div>
 	</body>
