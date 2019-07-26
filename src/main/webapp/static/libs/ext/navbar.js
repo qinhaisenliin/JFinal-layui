@@ -232,7 +232,12 @@ layui.define(['element', 'common'], function (exports) {
                     	ulHtml += '</a>';
                     	ulHtml += '<dl class="layui-nav-child">'
                     	for(var k=0;k<data[i].children[j].children.length;k++){
-                    		ulHtml += '<dd title="' + data[i].children[j].children[k].title + '">';
+                    		if(data[i].children[j].children[k].spread){
+                    			ulHtml=ulHtml.replace("class=\"layui-this\"","");
+                    			ulHtml += '<dd title="' + data[i].children[j].children[k].title + '" class="layui-this">';
+                    		}else{
+                    			ulHtml += '<dd title="' + data[i].children[j].children[k].title + '">';
+                    		}
                     		ulHtml += '<a href="javascript:;" data-url="' + data[i].children[j].children[k].href + '">';
                     		if (data[i].children[j].children[k].icon != null && data[i].children[j].children[k].icon !== undefined && data[i].children[j].children[k].icon !== '') {
                                 if (data[i].children[j].children[k].icon.indexOf('fa-') !== -1) {
@@ -248,7 +253,12 @@ layui.define(['element', 'common'], function (exports) {
                     	ulHtml += '</dl>';
                     }else{        
                     	ulHtml += '<dd title="' + data[i].children[j].title + '">';
-                    	ulHtml += '<a href="javascript:;" data-url="' + data[i].children[j].href + '">';
+                    	if(data[i].children[j].spread){
+                    		ulHtml=ulHtml.replace("class=\"layui-this\"","");
+                    		ulHtml += '<a href="javascript:;" data-url="' + data[i].children[j].href + '" class="layui-this">';  
+                    	}else{
+                    		ulHtml += '<a href="javascript:;" data-url="' + data[i].children[j].href + '">';                   		
+                    	}
                     	if (data[i].children[j].icon != null && data[i].children[j].icon !== undefined && data[i].children[j].icon !== '') {
                     		if (data[i].children[j].icon.indexOf('fa-') !== -1) {
                     			ulHtml += '<i class="fa ' + data[i].children[j].icon + '" data-icon="' + data[i].children[j].icon + '" aria-hidden="true"></i>';
@@ -264,6 +274,10 @@ layui.define(['element', 'common'], function (exports) {
                 ulHtml += '</dl>';
             } else {
                 var dataUrl = (data[i].href !== undefined && data[i].href !== '') ? 'data-url="' + data[i].href + '"' : '';
+                if(data[i].spread){
+                	ulHtml=ulHtml.replace("class=\"layui-this\"","");
+                	dataUrl+=' class="layui-this"';
+                }
                 ulHtml += '<a href="javascript:;" ' + dataUrl + '>';
                 if (data[i].icon !== null && data[i].icon !== undefined && data[i].icon !== '') {
                     if (data[i].icon.indexOf('fa-') !== -1) {
