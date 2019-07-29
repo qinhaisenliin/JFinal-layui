@@ -9,7 +9,7 @@
 #define colStart(lable,xs)
  		<div class="layui-col-xs#(xs??4)">
 			<div class="layui-form-item">
-				<label class="layui-form-label" for="#(lable??)_id" >#(lable??)</label>
+				<label class="layui-form-label" for="#(lable??)_id" >#(lable??)#@star()</label>
 				<div class="layui-input-block">
 #end
 			
@@ -18,7 +18,15 @@
 			</div>
 		</div>
 #end
-<!-- layui div 默认样式输出函数 end -->	
+<!-- layui div 默认样式输出函数 end -->
+	
+<!-- 输出星号 -->
+#define star()
+	#if(req)
+		<font color="red">&nbsp;*</font>
+		#set(req=false)
+	#end
+#end
 
 <!-- form提交按钮 -->
 #define submitButton()
