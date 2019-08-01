@@ -2,6 +2,7 @@
 	<input type="hidden" class="layui-input" name="sysUser.id" value="#(sysUser.id??)"/>
 
 	<div class="layui-row layui-col-space1 task-row">
+		#set(req=true)
 		#@colStart('用户编号',6)		
 		<input type="text" class="layui-input #if(sysUser.user_code??&&!e)layui-disabled #end" 
 		name="sysUser.userCode" value="#(sysUser.user_code??)" 
@@ -18,6 +19,7 @@
 	</div>
 	
 	<div class="layui-row layui-col-space1 task-row">	
+		#set(req=true)
 		#@colStart('用户名称',6)
 		<input type="text" class="layui-input" name="sysUser.userName" value="#(sysUser.user_name??'')" 
 		lay-verType='tips'lay-verify="required|" maxlength="50" placeHolder="必填"

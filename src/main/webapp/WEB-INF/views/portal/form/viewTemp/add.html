@@ -14,6 +14,7 @@
 		</div>
 		
 		<div class="layui-row layui-col-space1 task-row">
+		#set(req=true)
 		#@colStart("名称",12)
 			<input type="text" name="name"  value="" class="layui-input"  lay-verType='tips' lay-verify="required|" maxlength="50" placeHolder="必填" required />
 		#@colEnd()

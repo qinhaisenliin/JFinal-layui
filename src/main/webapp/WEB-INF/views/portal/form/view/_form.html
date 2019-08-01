@@ -22,10 +22,12 @@
 				<input type="text"  id="tree_name" value="#(treeName)" class="layui-input layui-disabled" lay-verType='tips'lay-verify="" readonly="readonly"    maxlength="50"/>
 			#@colEnd()
 			
+			#set(req=true)
 			#@colStart("名称",3)
 			<input type="text" name="name"  value="" class="layui-input"  lay-verType='tips' lay-verify="required" required maxlength="50" placeHolder="必填" />
 			#@colEnd()
-	
+			
+			#set(req=true)
 			#@colStart("编号",3)
 				<input type="text" name="code" value="" class="layui-input" lay-verType='tips'lay-verify="required" required maxlength="50" placeHolder="必填"  />
 			#@colEnd()	
