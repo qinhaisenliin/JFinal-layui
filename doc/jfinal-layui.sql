@@ -175,8 +175,8 @@ CREATE TABLE sys_org  (
   mobile varchar(20)  COMMENT '部门负责人手机号',
   email varchar(40)  COMMENT '部门负责人邮件',
   descript text  COMMENT '描述',
-  level decimal(8, 0)   COMMENT '级别',
-  isstop decimal(8, 0)   COMMENT '是否停用\r\n1：停用；\r\n0：启用；',
+  level int(11)   COMMENT '级别',
+  isstop int(11)   COMMENT '是否停用\r\n1：停用；\r\n0：启用；',
   PRIMARY KEY (id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '部门表' ROW_FORMAT = Dynamic;
 

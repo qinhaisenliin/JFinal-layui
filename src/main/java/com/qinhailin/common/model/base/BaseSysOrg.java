@@ -99,21 +99,21 @@ public abstract class BaseSysOrg<M extends BaseSysOrg<M>> extends Model<M> imple
 		return getStr("descript");
 	}
 
-	public M setLevel(java.math.BigDecimal level) {
+	public M setLevel(java.lang.Integer level) {
 		set("level", level);
 		return (M)this;
 	}
 	
-	public java.math.BigDecimal getLevel() {
+	public java.lang.Integer getLevel() {
 		return get("level");
 	}
 
-	public M setIsstop(java.math.BigDecimal isstop) {
+	public M setIsstop(java.lang.Integer isstop) {
 		set("isstop", isstop);
 		return (M)this;
 	}
 	
-	public java.math.BigDecimal getIsstop() {
+	public java.lang.Integer getIsstop() {
 		return get("isstop");
 	}
 

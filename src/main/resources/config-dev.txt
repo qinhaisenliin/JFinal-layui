@@ -3,6 +3,7 @@ dbType=mysql
 jdbcUrl=jdbc:mysql://localhost/jfinal-layui?characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull
 user=root
 password=root
+
 devMode=true
 engineDevMode=true
 
@@ -13,5 +14,10 @@ baseDownloadPath=WEB-INF/temp/download
 copyright=琴海森林(中国)科技有限公司
 
 
-
+#oracle数据源配置
+#oracle
+#dbType=oracle
+#jdbcUrl=jdbc\:oracle\:thin\:@192.168.0.79\:1521\:orcl
+#user=JFinal
+#password=JFinal
 

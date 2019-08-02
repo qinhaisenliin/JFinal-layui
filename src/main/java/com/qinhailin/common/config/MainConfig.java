@@ -30,6 +30,7 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
 import com.jfinal.plugin.activerecord.SqlReporter;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
+import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 
 public class MainConfig extends JFinalConfig {
 
@@ -108,8 +109,13 @@ public class MainConfig extends JFinalConfig {
 		// sql输出到日志
 		SqlReporter.setLog(!p.getBoolean("devMode"));
 		arp.setShowSql(p.getBoolean("devMode"));
-
-		arp.setDialect(new MysqlDialect());
+		
+		if("oracle".equals(p.get("dbType"))){
+			arp.setDialect(new OracleDialect());			
+		}else {
+			arp.setDialect(new MysqlDialect());		
+		}
+		
 		// 配置属性名(字段名)大小写,true：小写，false:大写,统一小写，切换oracle数据库的时候可以不用改页面字段
 		arp.setContainerFactory(new CaseInsensitiveContainerFactory(true));
 		dbPlugin.setDriverClass(p.get("driverClass"));
