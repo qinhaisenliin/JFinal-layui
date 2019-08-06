@@ -87,9 +87,11 @@ public class IndexController extends BaseController {
 				return sysFuncService.findById("frame_main_view");
 			}
 		    });
-
+		//主页
 		if (sf != null) {
 			setAttr("frameMainView", sf.getLinkPage());
+			setAttr("frameMainViewName", sf.getFuncName());
+			setAttr("frameMainViewIcon", sf.getIcon());
 		}
 		
 		setAttr("funcList", JsonKit.toJson(funcList));
