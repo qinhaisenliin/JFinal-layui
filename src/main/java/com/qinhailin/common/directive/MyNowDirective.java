@@ -18,7 +18,7 @@ public class MyNowDirective extends Directive {
 	@Override
 	public void exec(Env env, Scope scope, Writer writer) {
 		try {
-			writer.write(new Date(), "yyyy-MM-dd HH:mm:ss");
+			writer.write(new Date(), "yyyy-MM-dd");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
