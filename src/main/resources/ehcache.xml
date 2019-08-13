@@ -22,37 +22,37 @@
     
     <!-- 用户权限--> 
     <cache name="userFunc"
-           maxEntriesLocalHeap="90000"
+           maxEntriesLocalHeap="10000"
            eternal="false"
-           timeToIdleSeconds="1800"
-           timeToLiveSeconds="0"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="1800"
            overflowToDisk="false"
             />
             
     <!-- 业务字典--> 
     <cache name="dictionary"
-           maxEntriesLocalHeap="90000"
+           maxEntriesLocalHeap="10000"
            eternal="false"
-           timeToIdleSeconds="1800"
-           timeToLiveSeconds="0"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="1800"
            overflowToDisk="false"
             />
             
     <!-- 功能管理--> 
     <cache name="funcManager"
-           maxEntriesLocalHeap="90000"
+           maxEntriesLocalHeap="10000"
            eternal="false"
-           timeToIdleSeconds="1800"
-           timeToLiveSeconds="0"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="1800"
            overflowToDisk="false"
             />
             
     <!-- 部门管理--> 
     <cache name="orgManager"
-           maxEntriesLocalHeap="90000"
+           maxEntriesLocalHeap="10000"
            eternal="false"
-           timeToIdleSeconds="1800"
-           timeToLiveSeconds="0"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="1800"
            overflowToDisk="false"
             />
             
