@@ -47,11 +47,7 @@ public class LoginController extends BaseController {
 	SysUserService sysUserService;
 
 	public void index() {
-		try {
-			setAttr("returnUrl",URLEncoder.encode(getPara("returnUrl",""),"utf-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		setAttr("returnUrl",encodeReturnUrl(getPara("returnUrl","")));	
 		render("login.html");
 	}
 
@@ -61,20 +57,8 @@ public class LoginController extends BaseController {
 	public void submit() {
 		String userCode = getPara("userCode");
 		String password = getPara("password");
-		String returnUrl=getPara("returnUrl");
-
-		//匹配中文
-		Pattern pattern=Pattern.compile("[\\u4e00-\\u9fa5]");
-		Matcher matcher=pattern.matcher(returnUrl);		
-		//中文转码
-		while(matcher.find()){
-			try {
-				returnUrl=returnUrl.replace(matcher.group(), URLEncoder.encode(matcher.group(),"utf-8"));
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-		}
-		
+		String returnUrl=encodeReturnUrl(getPara("returnUrl"));
+	
 		try {
 			password = RSAKit.decryptionToString(password);
 			loginService.aopLogin(userCode, password, getRequest());
@@ -111,4 +95,23 @@ public class LoginController extends BaseController {
 		}
 	}
 
+	/**
+	 * 中文转码
+	 * @param returnUrl
+	 * @return
+	 */
+	private String encodeReturnUrl(String returnUrl){
+		//匹配中文
+		Pattern pattern=Pattern.compile("[\\u4e00-\\u9fa5]");
+		Matcher matcher=pattern.matcher(returnUrl);		
+		//中文转码
+		while(matcher.find()){
+			try {
+				returnUrl=returnUrl.replace(matcher.group(), URLEncoder.encode(matcher.group(),"utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+		return returnUrl;
+	}
 }
