@@ -357,14 +357,17 @@ public class BaseController extends Controller {
 	 * @author QinHaiLin
 	 * @date 2019年3月6日
 	 */
+	@NotAction
 	public Ret ok(Object data) {
 		return Ret.ok("msg", "成功").set("data", data);
 	}
 	
+	@NotAction
 	public Ret ok() {
 		return Ret.ok("msg", "成功");
 	}
 	
+	@NotAction
 	public Ret fail() {
 		return Ret.fail("msg", "失败");
 	}
@@ -376,6 +379,7 @@ public class BaseController extends Controller {
 	 * @author QinHaiLin
 	 * @date 2019年3月6日
 	 */
+	@NotAction
 	public Ret fail(String msg) {
 		return Ret.fail("msg", msg);
 	}
