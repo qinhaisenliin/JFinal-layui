@@ -16,6 +16,8 @@
 
 package com.qinhailin.portal.core.ctrl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import com.jfinal.aop.Inject;
@@ -82,8 +84,8 @@ public class SysUserController extends BaseController {
 		render("add.html");
 	}
 
-	public void edit() {
-		SysUser entity =(SysUser) service.findById(getPara());
+	public void edit() throws UnsupportedEncodingException {
+		SysUser entity =(SysUser) service.findById(URLDecoder.decode(getPara(),"utf-8"));
 		entity.setUserName(entity.getUserName().trim());
 		entity.setPasswd("******");
 		setAttr("sysUser", entity);
