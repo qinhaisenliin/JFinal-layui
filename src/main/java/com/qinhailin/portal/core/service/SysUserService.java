@@ -83,7 +83,7 @@ public class SysUserService extends BaseService {
 	}
 	
 	public SysUser findByUserCode(String userCode) {
-		return dao.findById(userCode.toLowerCase());
+		return (SysUser) findByPk("user_code", userCode.toLowerCase());
 	}
 
 	public boolean saveEntity(SysUser entity) {
@@ -137,7 +137,7 @@ public class SysUserService extends BaseService {
 			id=id.toLowerCase();
 			if(!id.equals("superadmin")&&!id.equals("admin")){
 				SysUser entity=(SysUser) findById(id);
-				entity.setPasswd(Md5Kit.md5(id+"123"));
+				entity.setPasswd(Md5Kit.md5(entity.getUserCode()+"123"));
 				entity.update();				
 			}
 		}
