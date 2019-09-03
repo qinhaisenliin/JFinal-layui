@@ -50,7 +50,7 @@ public class ViewTempController extends BaseController{
 	 * @author QinHaiLin
 	 * @date 2019年3月19日
 	 */
-	public void save() {
+	public void toReview() {
 		setSessionAttr("formViewHtml", getPara("html"));
 		renderJson(suc());
 	}

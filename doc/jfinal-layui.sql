@@ -599,3 +599,25 @@ CREATE TABLE w_sys_tree  (
   order_no int(11) NULL DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '测试在线表单用表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for form_sql
+-- ----------------------------
+DROP TABLE IF EXISTS form_sql;
+CREATE TABLE form_sql  (
+  id varchar(64) CHARACTER SET utf8  NOT NULL COMMENT '主键',
+  tree_id varchar(64) CHARACTER SET utf8 NOT NULL COMMENT '树id',
+  code varchar(50) CHARACTER SET utf8  NOT NULL COMMENT 'sql编号',
+  name varchar(50) CHARACTER SET utf8  NOT NULL COMMENT 'sql名称',
+  content varchar(500) CHARACTER SET utf8  NOT NULL COMMENT 'sql内容',
+  create_time datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  descp varchar(255) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT 'sql说明',
+  PRIMARY KEY (id) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '表单自定义查询sql' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of form_sql
+-- ----------------------------
+INSERT INTO form_sql VALUES ('4028830c6b5feeb4016b5ff3bee9000c', '4028830c6b5fcc89016b5fd976fc005a', 'query_user', '查询用户', 'select a.*,b.org_name from sys_user a,sys_org b where a.org_id=b.id group by a.id order by a.id desc ', '2019-06-16 19:02:18', 'test');
+INSERT INTO form_sql VALUES ('4028832c6cf20578016cf209c0300013', '4028830c6b5fcc89016b5fd976fc005a', 'query_org', '部门下拉sql', 'select id value,org_name name from sys_org', '2019-09-02 20:53:41', NULL);
+

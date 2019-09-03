@@ -107,8 +107,8 @@ public class MainConfig extends JFinalConfig {
 		arp.getEngine().setSourceFactory(new ClassPathSourceFactory());
 		arp.addSqlTemplate(WebContant.sqlTemplate);
 		// sql输出到日志
-		SqlReporter.setLog(!p.getBoolean("devMode"));
-		arp.setShowSql(p.getBoolean("devMode"));
+		arp.setShowSql(true);
+		SqlReporter.setLog(true);
 		
 		if("oracle".equals(p.get("dbType"))){
 			arp.setDialect(new OracleDialect());			
@@ -118,7 +118,7 @@ public class MainConfig extends JFinalConfig {
 		
 		// 配置属性名(字段名)大小写,true：小写，false:大写,统一小写，切换oracle数据库的时候可以不用改页面字段
 		arp.setContainerFactory(new CaseInsensitiveContainerFactory(true));
-		dbPlugin.setDriverClass(p.get("driverClass"));
+
 		/******** 在此添加数据库 表-Model 映射 *********/
 		_MappingKit.mapping(arp);
 		

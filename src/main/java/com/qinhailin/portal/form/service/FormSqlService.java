@@ -16,28 +16,23 @@
 
 package com.qinhailin.portal.form.service;
 
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
-import com.jfinal.plugin.activerecord.Record;
 import com.qinhailin.common.base.service.DbService;
 import com.qinhailin.common.vo.Grid;
 
 /**
+ * 在线表单自定义自定义sql
  * @author QinHaiLin
- * @date 2019年3月14日  
+ * @date 2019年6月16日  
  */
-public class BusinessService extends DbService{
-
-	@Inject
-	FormSqlService formSqlService;
-	
+public class FormSqlService extends DbService{
+		
 	/* (non-Javadoc)
 	 * @see com.qinhailin.common.base.service.DbService#getTable()
 	 */
 	@Override
 	public String getTable() {
-		// TODO Auto-generated method stub
-		return null;
+		return "form_sql";
 	}
 
 	/* (non-Javadoc)
@@ -45,39 +40,14 @@ public class BusinessService extends DbService{
 	 */
 	@Override
 	public String getPrimaryKey() {
-		// TODO Auto-generated method stub
-		return null;
+		return "id";
 	}
 	
-	public Grid queryPage(int pageNumber,int pageSize,String table,Kv columns){
-		//自定义查询接口
-		if(columns.get("sqlCode")!=null){
-			table=createSql(columns);
-			columns.remove("sqlCode");
-		}
-		return page(pageNumber,pageSize,table,getKv(columns));
-	}
-
-	/**
-	 * 模糊查询
-	 * @param columns
-	 * @return
-	 */
-	private Kv getKv(Kv columns) {
+	public Grid queryPage(int pageNumber,int pageSize,Kv columns){
 		Kv kv=new Kv();
-		for(Object key:columns.keySet()) {
-			if(columns.get(key)!=null&&!columns.get(key).equals("")) {				 
-				kv.set(key+" like",columns.get(key));						
-			}
-		}
-		return kv;
-	}
-	
-	private String createSql(Kv columns){
-		Record sqlForm=formSqlService.findPk("code", columns.get("sqlCode"));
-		if(sqlForm!=null){
-			 return "("+sqlForm.getStr("content")+") z";			
-		}
-		return null;
+		kv.set("name like", columns.get("name"));
+		kv.set("code like",columns.get("code"));
+		kv.set("tree_id =", columns.get("tree_id"));
+		return page(pageNumber, pageSize, kv,"order by create_time desc");
 	}
 }

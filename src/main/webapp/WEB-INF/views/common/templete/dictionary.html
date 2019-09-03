@@ -1,4 +1,41 @@
 <title>获取业务数据下拉、单选、多选函数</title>
+<!-- 
+1、 	通过自定义sql查询构造下拉、单选、多选函数时，必须要用name和value作为字段别名,
+	如部门下拉自定义sql,自定义sql编号命名为query_org:
+	select id value,org_name name from sys_org
+	
+2、	查询的结果集如下：
+
+	[
+	    {
+	        "name": "人事部",
+	        "value": "40288ae767ee75f70167ee7bae0a0001"
+	    },
+	    {
+	        "name": "财务部",
+	        "value": "40288ae767ee75f70167ee7c06ba0002"
+	    },
+	    {
+	        "name": "组织机构",
+	        "value": "sys"
+	    }
+	]
+
+3、	则调用如下函数即可：
+#--
+	<div class="layui-row layui-col-space1 task-row">
+		#@colStart("部门",12)
+			#@getSelectBySql('query_org','org_id','请选择部门')
+		#@colEnd()
+        #@colStart("部门",12)
+			#@getCheckboxBySql('query_org','org_id','请选择部门')
+		#@colEnd()
+        #@colStart("部门",12)
+			#@getRadioBySql('query_org','org_id','请选择部门')
+		#@colEnd()
+	</div>
+--#
+ -->
 
 <!-- 业务字典下拉函数 ，code:字典编号，name:元素name属性,text:选项名称 -->
 #define getSelect(code,name,text)
@@ -7,7 +44,19 @@
 </select>
 <script type="text/javascript">
 	$(function(){
-		getOption('#(code)','select',"#(value)","#(name)");
+		getOption('#(code)','select',"#(value)","#(name)",false);
+	});
+</script>
+#end
+
+<!-- 自定义SQL下拉函数，code:字典编号，name:元素name属性,text:选项名称 -->
+#define getSelectBySql(code,name,text)
+<select id="select_#(code)" name="#(name)" class="layui-input" lay-search>
+	<option value="">#(text)</option>
+</select>
+<script type="text/javascript">
+	$(function(){
+		getOption('#(code)','select',"#(value)","#(name)",true);
 	});
 </script>
 #end
@@ -17,7 +66,16 @@
 <div id="radio_#(code)"></div>
 <script type="text/javascript">
 	$(function(){
-		getOption("#(code)","radio","#(value)","#(name)");
+		getOption("#(code)","radio","#(value)","#(name)",false);
+	});
+</script>
+#end
+<!-- 自定义SQL单选函数，code:字典编号，name:元素name属性,text:选项名称 -->
+#define getRadioBySql(code,name,text)
+<div id="radio_#(code)"></div>
+<script type="text/javascript">
+	$(function(){
+		getOption("#(code)","radio","#(value)","#(name)",true);
 	});
 </script>
 #end
@@ -27,7 +85,17 @@
 <div id="checkbox_#(code)"></div>
 <script type="text/javascript">
 	$(function(){
-		getOption("#(code)","checkbox","#(value)","#(name)");
+		getOption("#(code)","checkbox","#(value)","#(name)",false);
+	});
+</script>
+#end
+
+<!-- 自定义SQL多选函数，code:字典编号，name:元素name属性,text:选项名称 -->
+#define getCheckboxBySql(code,name,text)
+<div id="checkbox_#(code)"></div>
+<script type="text/javascript">
+	$(function(){
+		getOption("#(code)","checkbox","#(value)","#(name)",true);
 	});
 </script>
 #end
@@ -37,10 +105,14 @@
 <script type="text/javascript">
 	
 	//获取业务字典数据 
-	function getOption(code,type,value,name){	
+	function getOption(code,type,value,name,isSql){	
+		var url='#(path)/portal/core/dictionary/value/getOption';
+		if(isSql){
+			url='#(path)/portal/form/sql/getOption';
+		}
 		var checkboxValue=value.split(',');
 		$.ajax({
-			url:'#(path)/portal/core/dictionary/value/getOption',
+			url:url,
 			data:{
 				"code":code
 			},

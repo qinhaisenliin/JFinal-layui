@@ -56,5 +56,12 @@
            overflowToDisk="false"
             />
             
-   
+    <!-- 表单自定义查询sql--> 
+    <cache name="cusSql"
+           maxEntriesLocalHeap="10000"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="1800"
+           overflowToDisk="false"
+            />
 </ehcache>

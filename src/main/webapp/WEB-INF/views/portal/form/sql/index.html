@@ -1,0 +1,321 @@
+#@layout()
+#define css()
+<style type="text/css"> 
+
+/** 树图标样式 */
+body .layui-tree-skin-skin .layui-tree-branch{
+	color: #00C5CD;
+}
+/** 隐藏树图标 */
+.layui-tree-branch/*, .layui-tree-leaf ,.layui-xtree-icon-null  */{
+    display: none;
+}  
+#maingrid {
+	border: none;
+}
+
+.l-accordion-header{
+	display:none;
+}
+.div-scroll{
+	overflow:auto;
+	border:1px solid #DCDCDC;
+	min-height: 550px;
+	position: relative;
+	width:290px;
+}
+.l-layout-header {
+    position: relative;
+    padding-left: 10px;
+    color: #183152;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    background: #E5EFFE;
+    overflow: hidden;
+    cursor: pointer;
+}
+.cite{
+   color:#5FB878;
+}
+</style>
+#end
+#define main()
+<div id='container' class="layui-row">	
+	<!-- 左侧树 -->
+	<div class="layui-col-xs3 div-scroll" position="left" id="accordion1"> 
+	     <div class="l-layout-header">sql分类
+	     	<div class="layui-btn-group" style="float: right">
+		   		#if(vs.funcMap.get('sql_sys_tree_add'))
+				<button id='addBtn_1' class="layui-btn layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe608;</i> 新增
+				</button>
+				#end
+				#if(vs.funcMap.get('sql_sys_tree_update'))
+				<button id='updateBtn_1' class="layui-btn layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe642;</i> 修改
+				</button>		
+				#end
+				#if(vs.funcMap.get('sql_sys_tree_delete'))
+				<button id='deleteBtn_1' class="layui-btn  layui-btn-normal layui-btn-sm">
+				  <i class="layui-icon">&#xe640;</i> 删除
+				</button>			
+				#end
+			</div>
+	     </div>
+         <div title="功能列表" class="l-scroll"style="left: 0px;  top: 0px;">
+             <ul id="leftLayout" style="margin-top:0px;margin-bottom:10px;">
+             </ul>
+         </div>
+     </div>
+    
+    <!-- 右侧表格 -->
+	<div class="layui-col-xs9" position='center'  id="tablelist"style="border:1px solid #DCDCDC;min-height: 550px;">
+    	<!-- 表头按钮 -->  
+		<div class='layui-row f-index-toolbar'>
+			<div class='layui-col-xs12'>
+				<div class="layui-btn-group">
+				    #if(vs.funcMap.get('form_sql_add'))
+					<button style="margin-top: -2px" id='addBtn_' type="button" class="layui-btn layui-btn-mini layui-btn-normal layui-btn-sm">
+						<i class="layui-icon">&#xe608;</i> 添加
+					</button>
+					#end
+					#if(vs.funcMap.get('form_sql_delete'))
+					<button style="margin-top: -2px" id='deleteBtn_' type="button" class="layui-btn layui-btn-mini layui-btn-normal layui-btn-sm">
+						<i class="layui-icon">&#xe640;</i> 删除
+					</button>
+					#end
+				</div>
+			</div>
+		</div>
+		
+		<!-- 列表条件查询 -->
+		#@formStart()
+			#@queryStart('名称')
+			   <input type="search" name="name" autocomplete="off" class="layui-input" placeholder="名称"/>
+			#@queryEnd()
+			#@queryStart('编号')
+			   <input type="search" name="code" autocomplete="off" class="layui-input" placeholder="编号"/>
+			#@queryEnd()						
+		#@formEnd()
+		
+		<!-- 列表表格 -->
+      	<table id="maingrid" lay-filter="maingrid"></table>
+    </div>
+	
+ </div>
+#end
+
+#define js()
+<!-- 表格行按钮 -->
+<script type="text/html" id="bar_maingrid">
+	#if(vs.funcMap.get('form_sql_update'))
+  	<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+	#end
+	<a class="layui-btn layui-btn-xs" lay-event="review">预览</a>
+	#if(vs.funcMap.get('form_sql_delete'))
+  	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+	#end
+</script>
+
+<script type="text/javascript">
+var leftOtions,leftNodes,itemId="",itemName="";
+//openDialog关闭回调
+var option={
+		end : function() {
+			reloadLeftTree();
+		}
+	}
+
+$(function(){
+	setHight();queryLeftTree();getTableList();
+	
+	$("#addBtn_1").click(function(){
+		var url='#(path)/portal/form/sysTree/add?itemId='+itemId+'&type=sql';
+		openDialog("添加sql分类",url,false,650,400,option);
+	});
+	
+	$("#updateBtn_1").click(function(){
+		if(itemId==""){
+			warn("请选择sql分类");
+			return;
+		}
+		var url='#(path)/portal/form/sysTree/edit?itemId='+itemId;
+		openDialog("修改-"+itemName,url,false,650,400,option);
+	});
+	 
+	$("#deleteBtn_1").click(function(){	
+		if(itemId==""){
+			warn("请选择sql分类");
+			return;
+		}		
+		jsConfirm('确定要删除 '+itemName+' 吗？',function(){
+			$.ajax({
+				url:"#(path)/portal/form/sysTree/delete?ids[0]="+itemId,
+				type:"POST",
+				success:function(data){
+					reloadLeftTree();
+					success(data.msg);
+				}
+			});
+		});
+	});
+	
+});
+
+function setHight(){
+	var contentHeight=$(window).height()-5;
+	var width =$('#container').width();
+	$("#accordion1").css("height",contentHeight);
+	$("#tablelist").css("height",contentHeight);
+	$("#tablelist").css("width",width-295);
+}
+
+//预览
+function reviewFunc(obj){	
+	var data=obj.data;
+	var sqlId=data.id;
+	openDialog("SQL预览","#(path)/portal/form/sql/review?sqlId="+sqlId,false,null,null,null);	
+}
+	
+
+//表格数据
+function getTableList(){
+	gridArgs.title='SQL';
+	gridArgs.dataId='id';
+	gridArgs.deleteUrl='#(path)/portal/form/sql/delete?treeId='+itemId;
+	gridArgs.updateUrl='#(path)/portal/form/sql/edit?id=';
+	gridArgs.addUrl='#(path)/portal/form/sql/add?treeId='+itemId+"&treeName="+itemName;
+	gridArgs.gridDivId ='maingrid';
+	gridArgs.heightDiff=85;
+	initGrid({id : 'maingrid',
+			elem : '#maingrid',
+			cols : [ [
+				{title : '主键',field : 'id',width : 35,checkbox : true},
+				{title:'序号',type:'numbers',width:35},
+	   			{title: '名称', field: 'name'},
+	   			{title: '编号', field: 'code'},     			      				      			
+	   			{title: 'SQL', field: 'content'},     			      				      			
+	   			{title: '创建时间', field: 'create_time'},
+				{title: '操作',fixed:'right',width : 180,align : 'left',toolbar : '#bar_maingrid'} // 这里的toolbar值是模板元素的选择器
+			] ],
+			url:"#(path)/portal/form/sql/list",
+			where:{"tree_id":itemId},
+			searchForm : 'searchForm'
+		},{review:reviewFunc});
+}
+
+//查询左侧树菜单数据
+function queryLeftTree(){
+	leftNodes="";
+	$.ajax({
+		url:"#(path)/portal/form/sysTree/tree?type=sql",  
+	    type:"POST", 
+	    data: {
+	    },
+	    success:function(data){
+	    	if(data.length>0){
+	    		showLeftTree(data[0],0,true);
+	    		leftTree();
+	    	}
+	    }	
+	});
+}
+
+var nodeNum=0;
+/**
+ * spred：true-展开，false-不展开
+ */
+function showLeftTree(treeNode,num,spred){
+  	var id=treeNode.id;
+	var text=treeNode.text;
+	if(num!=0){
+		leftNodes+=",";
+	}
+	nodeNum++;
+	if(nodeNum>2){
+		spred=false;
+	}
+	leftNodes+="{name:'"+text+"',spread:"+spred+",id:'"+id+"',children:[";
+	var children=treeNode.children;
+	if(children.length>0){
+		for(var i=0;i<children.length;i++){			
+			showLeftTree(children[i],i,spred);
+		}
+	}
+	leftNodes+="]}";
+}
+
+    
+function strToJson(str){
+    var json = (new Function("return " + str ))();
+    return json;
+  }
+
+function reloadLeftTree(){
+	nodeNum=0;
+	queryLeftTree();
+}
+
+//左侧树
+function leftTree(){
+	layui.use('tree',function(){
+		var node=[strToJson(leftNodes.replace("undefined",""))];
+		leftOtions={
+				elem: '#leftLayout' //传入元素选择器
+				,skin: 'skin'			
+				,click: function(item){ //点击节点回调
+				      treeClick(item);
+				      $("#addBtn_").off("click");//去掉添加按钮重复绑定事件	      			     
+				      getTableList();	
+				 }
+				,nodes: node				
+		}	
+		$('ul li').remove();
+		layui.tree(leftOtions);
+	});
+}
+
+//添加树选中样式 
+function treeClick(item){
+	itemName=item.name;
+	itemId=item.id;
+	var cite=document.getElementsByTagName('cite');
+	var event=window.event||arguments.callee.caller.arguments[0];//消除浏览器差异
+    for(var i=0;i<cite.length;i++){
+  	  if(cite[i]==event.srcElement){
+		 cite[i].classList.add("cite")
+  	  }else{
+	     cite[i].classList.remove("cite")  
+  	  }
+    }
+}
+</script>
+#end
+
+#define layuiFunc()
+ 	//监听表单操作
+	  form.on('switch(isStopFilter)', function(obj){
+		 var id = obj.value;
+		 var checked=obj.elem.checked;
+		 var status="DEPLOYED";
+		 if(!checked){
+		    status="INIT"
+		 }
+		
+        $.post("#(path)/portal/form/sql/update"
+        ,param({
+			'id' : id
+			,'status':status
+		}),function(ret) {
+			if (ret.state=='ok') {
+				layer.tips("修改成功", obj.othis);
+			} else {
+				layer.alert(ret.msg);
+			}
+			$(".layui-laypage-btn").click();
+		});
+	  });
+	  
+ #end
+ 
