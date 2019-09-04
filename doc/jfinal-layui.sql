@@ -134,6 +134,16 @@ INSERT INTO sys_function VALUES ('form_view_add', '添加', 0, '/portal/form/vie
 INSERT INTO sys_function VALUES ('form_view_delete', '删除', 0, '/portal/form/view/delete', 'form_view_manager', '在线表单', 1, NULL, 5, NULL, 1);
 INSERT INTO sys_function VALUES ('form_view_manager', '在线表单', 0, '/portal/form/view', 'sys', '网站后台管理', 0, 'layui-icon-templeate-1', 6, NULL, 1);
 INSERT INTO sys_function VALUES ('form_view_update', '修改', 0, '/portal/form/view/update', 'form_view_manager', '在线表单', 1, NULL, 4, NULL, 1);
+-- 新增自定义sql菜单
+INSERT INTO sys_function VALUES ('form_sql_add', '添加', 0, '/portal/form/sql/save', 'sys_cus_sql', '自定义SQL', 1, NULL, 1, NULL, 1);
+INSERT INTO sys_function VALUES ('form_sql_delete', '删除', 0, '/portal/form/sql/delete', 'sys_cus_sql', '自定义SQL', 1, NULL, 3, NULL, 1);
+INSERT INTO sys_function VALUES ('form_sql_update', '修改', 0, '/portal/form/sql/update', 'sys_cus_sql', '自定义SQL', 1, NULL, 2, NULL, 1);
+INSERT INTO sys_function VALUES ('sql_sys_tree', 'sql分类树', 0, NULL, 'sys_cus_sql', '自定义SQL', 1, NULL, 4, NULL, 1);
+INSERT INTO sys_function VALUES ('sql_sys_tree_add', '添加', 0, '/portal/form/sysTree/save', 'sql_sys_tree', 'sql分类树', 1, NULL, 5, NULL, 1);
+INSERT INTO sys_function VALUES ('sql_sys_tree_delete', '删除', 0, '/portal/form/sysTree/delete', 'sql_sys_tree', 'sql分类树', 1, NULL, 7, NULL, 1);
+INSERT INTO sys_function VALUES ('sql_sys_tree_update', '修改', 0, '/portal/form/sysTree/update', 'sql_sys_tree', 'sql分类树', 1, NULL, 6, NULL, 1);
+INSERT INTO sys_function VALUES ('sys_cus_sql', '自定义SQL', 0, '/portal/form/sql', 'sys_manager', '系统管理', 0, NULL, 6, NULL, 1);
+
 -- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
@@ -487,6 +497,32 @@ INSERT INTO sys_role_function VALUES ('sys_form_view_add', 'form_view_add', 'sys
 INSERT INTO sys_role_function VALUES ('sys_form_view_delete', 'form_view_delete', 'sys');
 INSERT INTO sys_role_function VALUES ('sys_form_view_manager', 'form_view_manager', 'sys');
 INSERT INTO sys_role_function VALUES ('sys_form_view_update', 'form_view_update', 'sys');
+-- 自定义SQL权限
+INSERT INTO sys_role_function VALUES ('admin-form_sql_add', 'form_sql_add', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_sql_delete', 'form_sql_delete', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-form_sql_update', 'form_sql_update', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-sql_sys_tree', 'sql_sys_tree', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-sql_sys_tree_add', 'sql_sys_tree_add', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-sql_sys_tree_delete', 'sql_sys_tree_delete', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-sql_sys_tree_update', 'sql_sys_tree_update', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-sys_cus_sql', 'sys_cus_sql', 'admin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_sql_add', 'form_sql_add', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_sql_delete', 'form_sql_delete', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_form_sql_update', 'form_sql_update', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_sql_sys_tree', 'sql_sys_tree', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_sql_sys_tree_add', 'sql_sys_tree_add', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_sql_sys_tree_delete', 'sql_sys_tree_delete', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_sql_sys_tree_update', 'sql_sys_tree_update', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_sys_cus_sql', 'sys_cus_sql', 'superadmin');
+INSERT INTO sys_role_function VALUES ('sys_form_sql_add', 'form_sql_add', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_sql_delete', 'form_sql_delete', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_form_sql_update', 'form_sql_update', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_sql_sys_tree', 'sql_sys_tree', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_sql_sys_tree_add', 'sql_sys_tree_add', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_sql_sys_tree_delete', 'sql_sys_tree_delete', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_sql_sys_tree_update', 'sql_sys_tree_update', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_sys_cus_sql', 'sys_cus_sql', 'sys');
+
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
@@ -585,6 +621,7 @@ CREATE TABLE sys_tree  (
 -- Records of sys_tree
 -- ----------------------------
 INSERT INTO sys_tree VALUES ('107400000000002215', NULL, '流程表单', 'form', '2019-04-25 14:00:52', 1);
+INSERT INTO sys_tree VALUES ('4028830c6b5fcc89016b5fd976fc005a', NULL, '用户部门查询', 'sql', '2019-09-04 09:00:52', 1);
 
 -- ----------------------------
 -- Table structure for w_sys_tree
