@@ -18,6 +18,7 @@ package com.qinhailin.portal.form.ctrl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import com.jfinal.aop.Inject;
@@ -72,6 +73,7 @@ public class SysTreeController extends BaseController {
 	public void save() {
 		Record record=new Record().setColumns(getKv());
 		record.set(service.getPrimaryKey(), createUUID());
+		record.set("create_time",new Date());
 		boolean b=service.save(service.getTable(),service.getPrimaryKey(), record);
 		if(!b) {
 			renderJson(fail());
