@@ -49,7 +49,7 @@
 </script>
 #end
 
-<!-- 自定义SQL下拉函数，code:字典编号，name:元素name属性,text:选项名称 -->
+<!-- 自定义SQL下拉函数，code:sql编号，name:元素name属性,text:选项名称 -->
 #define getSelectBySql(code,name,text)
 <select id="select_#(code)" name="#(name)" class="layui-input" lay-search>
 	<option value="">#(text)</option>
@@ -70,7 +70,7 @@
 	});
 </script>
 #end
-<!-- 自定义SQL单选函数，code:字典编号，name:元素name属性,text:选项名称 -->
+<!-- 自定义SQL单选函数，code:sql编号，name:元素name属性,text:选项名称 -->
 #define getRadioBySql(code,name,text)
 <div id="radio_#(code)"></div>
 <script type="text/javascript">
@@ -90,7 +90,7 @@
 </script>
 #end
 
-<!-- 自定义SQL多选函数，code:字典编号，name:元素name属性,text:选项名称 -->
+<!-- 自定义SQL多选函数，code:sql编号，name:元素name属性,text:选项名称 -->
 #define getCheckboxBySql(code,name,text)
 <div id="checkbox_#(code)"></div>
 <script type="text/javascript">
