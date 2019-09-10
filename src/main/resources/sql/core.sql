@@ -91,7 +91,7 @@
 查询用户访问权限,请求权限控制
 #sql("getUserPermissions")
 	select a.link_page from sys_function a where a.id IN (select rf.function_id from sys_role_function rf where rf.role_code in (
-			select ur.role_code from sys_user_role ur where ur.user_code = ? )) and a.link_page is not null
+			select ur.role_code from sys_user_role ur where ur.user_code = ? )) and a.link_page is not null and a.is_stop=0
 #end
 
 查询系统权限,需要权限认证的请求路径
