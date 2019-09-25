@@ -647,7 +647,7 @@ CREATE TABLE form_sql  (
   code varchar(50) CHARACTER SET utf8  NOT NULL COMMENT 'sql编号',
   name varchar(50) CHARACTER SET utf8  NOT NULL COMMENT 'sql名称',
   content varchar(500) CHARACTER SET utf8  NOT NULL COMMENT 'sql内容',
-  create_time datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  create_time datetime DEFAULT NULL COMMENT '创建时间',
   descp varchar(255) CHARACTER SET utf8  NULL DEFAULT NULL COMMENT 'sql说明',
   PRIMARY KEY (id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '表单自定义查询sql' ROW_FORMAT = Dynamic;
