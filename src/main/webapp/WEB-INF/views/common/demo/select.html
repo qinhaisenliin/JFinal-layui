@@ -1,0 +1,171 @@
+#@layoutT("select 多选和无限级联动")
+#define main()
+<form action="" class="layui-form layui-form-pane f-form" method="post" autocomplete="off">
+	<div class="layui-row layui-col-spacel task-row">
+	  #@colStart('多级1',12)
+			<div id="cat_ids1">			
+      #@colEnd()
+    </div>
+    <div class="layui-row layui-col-spacel task-row">
+	  #@colStart('多级2',12)
+			<div id="cat_ids2">			
+      #@colEnd()
+    </div>
+    <div class="layui-row layui-col-spacel task-row">
+	  #@colStart('多选1',12)
+			<div id="tag_ids1">
+   	  #@colEnd()
+     </div>
+    <div class="layui-row layui-col-spacel task-row">
+	  #@colStart('多选2',12)
+			<div id="tag_ids2">
+  	  #@colEnd()         
+	</div>
+    
+    #@submitButton()
+</form>
+  
+  <div id="btn-wrap">
+    <button type="button" class="layui-btn set1">设置多级1</button>
+    <button type="button" class="layui-btn set2">设置多选1</button>
+  </div>
+ 
+#end
+
+  #define js()
+  <script>
+
+  var tagData = [{"id":12,"name":"长者","status":0},{"id":13,"name":"工厂"},{"id":14,"name":"小学生"},{"id":15,"name":"大学生"},{"id":16,"name":"研究生"},{"id":17,"name":"教师"},{"id":18,"name":"记者"}];    
+  var catData = [{"id":1,"name":"周边旅游","children":[{"id":24,"name":"广东","status":0,"children":[{"id":7,"name":"广州"},{"id":23,"name":"潮州"}]}]},{"id":5,"name":"国内旅游","children":[{"id":8,"name":"华北地区","children":[{"id":9,"name":"北京"}]}]},{"id":6,"name":"出境旅游","children":[{"id":10,"name":"东南亚","children":[{"id":11,"name":"马来西亚","children":[{"id":20,"name":"沙巴","children":[{"id":21,"name":"美人鱼岛","children":[{"id":22,"name":"潜水"}]}]}]}]}]}];
+
+  layui.extend({
+	  selectN: '#(path)/static/libs/layui_extends/selectN',
+  	  selectM: '#(path)/static/libs/layui_extends/selectM',
+  }).use(['layer','form','jquery','selectN','selectM'],function(){
+    $ = layui.jquery;	
+    var form = layui.form
+    ,selectN = layui.selectN
+    ,selectM = layui.selectM;
+
+
+    //无限级分类-基本配置
+    var catIns1 = selectN({
+      //元素容器【必填】
+      elem: '#cat_ids1'
+      ,search:[false,true]
+      //候选数据【必填】
+      ,data: catData
+    });     
+         
+
+    //无限级分类-所有配置
+    var catIns2 = selectN({
+      //元素容器【必填】
+      elem: '#cat_ids2'
+      //候选数据【必填】
+      ,data: catData 
+      //设置了长度
+      ,width:null
+      //默认值
+      ,selected: [6,10,11] 
+      
+      //为真只取最后一个值
+      ,last:true       
+  
+		//空值项提示，可设置为数组['请选择省','请选择市','请选择县']
+		,tips: '请选择'
+
+		//事件过滤器，lay-filter名 不设置与选择器相同(去#.)
+		,filter: ''
+
+		//input的name 不设置与选择器相同(去#.)
+		,name: 'cat2'
+		
+		//数据分隔符
+		,delimiter: ','
+		
+		//数据的键名
+		,field:{idName:'id',titleName:'name',childName:'children'}
+		
+		//表单区分 form.render(type, filter); 为class="layui-form" 所在元素的 lay-filter="" 的值 
+		,formFilter: null      
+      
+    }); 
+
+         
+    //多选标签-基本配置
+    var tagIns1 = selectM({
+      //元素容器【必填】
+      elem: '#tag_ids1'
+      //候选数据【必填】
+      ,data: tagData
+      ,max:2
+      ,width:400
+      //添加验证
+      ,verify:'required'      
+    }); 
+    
+
+    //多选标签-所有配置
+    var tagIns2 = selectM({
+      //元素容器【必填】
+      elem: '#tag_ids2'
+      
+      //候选数据【必填】
+      ,data: tagData
+      
+      //默认值
+      ,selected: [12,17] 			
+      
+      //最多选中个数，默认5
+		,max : 6
+	    
+		//input的name 不设置与选择器相同(去#.)
+		,name: 'tag2'
+		
+		//值的分隔符
+		,delimiter: ','
+	    
+		//候选项数据的键名
+		,field: {idName:'id',titleName:'name'}
+      
+      
+    });
+
+			
+    form.on('submit(demo)',function(data){			
+      console.log('catIns1 当前选中的值名：',catIns1.selected);
+      console.log('catIns1 当前选中的值：',catIns1.values);
+      console.log('catIns1 当前选中的名：',catIns1.names);
+      console.log('catIns1 当前最后一个选中值：',catIns1.lastValue);
+      console.log('catIns1 当前最后一个选中名：',catIns1.lastName);
+      console.log('catIns1 当前最后一个是否已选：',catIns1.isSelected);
+      console.log('');
+
+      
+      console.log('tagIns1 当前选中的值名：',tagIns1.selected);
+      console.log('tagIns1 当前选中的值：',tagIns1.values);
+      console.log('tagIns1 当前选中的名：',tagIns1.names);      
+      
+      console.log('');
+      
+      var formData = data.field;
+      console.log('表单对象：',formData);
+    })
+     
+		//通过js动态选择
+    $('.set1').click(function(){
+      catIns1.set([6,10]);
+      
+    });
+		//通过js动态选择
+    $('.set2').click(function(){
+      tagIns1.set([12,13,14,15]);
+    });
+  });
+      
+ 
+
+    
+</script>
+#end

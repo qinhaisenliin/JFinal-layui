@@ -70,6 +70,10 @@ public class SessionInterceptor implements Interceptor {
 				if(actionKey.equals("/portal/core/sysOrg/detail")){
 					actionKey="/portal/core/sysOrg";
 				}
+				//公共路由
+				if(actionKey.equals("/portal/go")){					
+					actionKey+="/"+controller.getRequest().getAttribute("view");
+				}
 				//重新登录，携带重定向地址
 				controller.redirect("/pub/login?returnUrl="+actionKey+para);
 				return;
