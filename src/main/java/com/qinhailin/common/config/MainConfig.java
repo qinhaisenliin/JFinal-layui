@@ -106,9 +106,9 @@ public class MainConfig extends JFinalConfig {
 		//sql模板
 		arp.getEngine().setSourceFactory(new ClassPathSourceFactory());
 		arp.addSqlTemplate(WebContant.sqlTemplate);
-		// sql输出到日志
+		// sql输出
 		arp.setShowSql(true);
-		SqlReporter.setLog(true);
+		SqlReporter.setLog(false);
 		
 		if("oracle".equals(p.get("dbType"))){
 			arp.setDialect(new OracleDialect());			
