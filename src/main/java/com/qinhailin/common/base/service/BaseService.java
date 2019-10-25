@@ -23,6 +23,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.alibaba.fastjson.JSONObject;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.DbPro;
 import com.jfinal.plugin.activerecord.Model;
@@ -427,5 +429,109 @@ public abstract class BaseService {
 	 */
 	private String getQuerySql() {			
 		return "select * from "+getTable()+" ";
+	}
+	
+	/**
+	 * 自定义sql查询，sql定义在sql模板文件中 
+	 * @param dbName 数据库配置名称，用于切换多数据源查询，为null时查询主数据源
+	 * @param params 查询参数（JSONObject）
+	 * @param sqlTemplateName sql唯一名称（命名空间.sql语句名称）
+	 * @param orderBygroupBySql 排序语句
+	 * @return 
+	 */	
+	public Grid queryForListBySqlTemplate(String dbName,Integer pageNumber,Integer pageSize,JSONObject params,String sqlTemplateName,String orderBygroupBySql) {
+		DbPro dbPro = Db.use();
+		//切换数据源
+		if(StrKit.notBlank(dbName)) {
+			dbPro = Db.use(dbName);
+		}
+		SqlPara sqlPara = dbPro.getSqlPara(sqlTemplateName,params);
+		if(StrKit.notBlank(orderBygroupBySql)) {//如果有排序语句，则追加
+			sqlPara.setSql(sqlPara.getSql() + " " + orderBygroupBySql);
+		}
+		Page<Record> page = dbPro.paginate(pageNumber,pageSize, sqlPara);
+		return new Grid(page.getList(),pageNumber,pageSize,page.getTotalRow());
+	}	
+	
+	/**
+	 * 自定义sql查询，sql定义在sql模板文件中
+	 * @param grid 封装的layui表格对象
+	 * @param params 查询参数（JSONObject）
+	 * @param sqlTemplateName sql唯一名称（命名空间.sql语句名称）
+	 * @param orderBygroupBySql 排序语句
+	 * @return 
+	 */
+	public Grid queryForListBySqlTemplate(Integer pageNumber,Integer pageSize,JSONObject params,String sqlTemplateName,String orderBygroupBySql) {
+		return queryForListBySqlTemplate(null, pageNumber, pageSize, params, sqlTemplateName, orderBygroupBySql);
+	}
+	
+	public Grid queryForListByRecord(String dbConfig,int pageNumber,int pageSize,Record params,String orderBySql,String groupBySql) {
+		return getGrid(dbConfig,pageNumber,pageSize,params,orderBySql,groupBySql);
+	}
+	
+	public Grid queryForListByRecord(int pageNumber,int pageSize,Record params,String orderBySql) {
+		return getGrid(null,pageNumber,pageSize,params,orderBySql,null);
+	}
+	
+	/**
+	 * 单表分页条件查询，支持多数据源
+	 * @param dbConfig 数据源名称
+	 * @param pageNumber 页码 
+	 * @param pageSize 分页大小
+	 * @param params 查询条件
+	 * @param orderBySql orderBy语句
+	 * @param groupBySql groupBy语句
+	 * @return
+	 */
+	private Grid getGrid(String dbConfig,int pageNumber,int pageSize,Record params,String orderBySql,String groupBySql) {
+		//拼接sql中的from部分
+		StringBuilder from =new StringBuilder("from ");
+		from.append(getTable()).append(" where 1=1");
+		//这个用来存值不为空的value集合
+		List<Object> notNullValues = new ArrayList<>();
+		if(params!=null && params.getColumnNames().length > 0) {
+			//查询条件前置部分集合（字段+匹配符号，如 name like,id = ）
+			//也可以直接写全查询条件，这时不需要value,如(id = 1 or parent_id = 1)
+			String columnNames[] = params.getColumnNames();
+			//查询条件后置部分集合（每个查询条件匹配的值，如"张三",20）
+			Object[] columnValues = params.getColumnValues();
+			for(int i = 0;i<columnNames.length;i++) {
+				String columnName = columnNames[i];
+				Object columnValue = columnValues[i];
+				if(columnValue != null && StrKit.notBlank(String.valueOf(columnValue))) {
+					//处理不带?号的查询条件，这类查询条件，value一律传"withoutValue"
+					if("withoutValue".equals(columnValue)) {
+						from.append(" and ").append(columnName);
+					}else {						
+						if(columnName.contains("like")) {
+							columnValue = "%"+columnValue+"%";							
+						}
+						from.append(" and ").append(columnName).append(" ?");
+						notNullValues.add(columnValue);
+					}
+				}
+			}
+		}
+		Object[] notNullValueArr = new Object[notNullValues.size()];
+		notNullValues.toArray(notNullValueArr);
+		//计数语句
+		String totalRowSql = "select count(*) " + from.toString();
+		
+		if(StrKit.notBlank(groupBySql)) {
+			totalRowSql += " " + groupBySql;
+		}
+		//查询语句
+		String findSql = "select * " + from.toString() ;
+		if(StrKit.notBlank(orderBySql)) {
+			findSql += " " + orderBySql; 
+		}
+		Page<Record> page = new Page<Record>();
+		if(StrKit.notBlank(dbConfig)) {
+			page = Db.use(dbConfig).paginateByFullSql(pageNumber, pageSize,totalRowSql,findSql,notNullValueArr);
+		}else {
+			page = Db.paginateByFullSql(pageNumber, pageSize,totalRowSql,findSql,notNullValueArr);
+		}
+		
+		return new Grid(page.getList(), pageNumber, pageSize,page.getTotalRow());	
 	}
 }

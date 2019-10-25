@@ -88,9 +88,8 @@ public class BusinessController extends BaseController{
 		renderJson(service.queryPage(getParaToInt("pageNumber"), getParaToInt("pageSize"),tableNameSpace+getPara("object"),kv));
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void save() {
-		Record record=new Record().setColumns(getKv());
+		Record record=getAllParamsToRecord();
 		//获取表对象和主键
 		String table=record.get("object");
 		if(table==null){
@@ -114,7 +113,7 @@ public class BusinessController extends BaseController{
 	}
 	
 	public void getModel() {
-		List<Record> list=service.find(tableNameSpace+getPara("object"), Kv.by(getPara("primaryKey")+"=", getPara("id")));
+		List<Record> list=service.find(tableNameSpace+getPara("object"), byKv(getPara("primaryKey")+"=", getPara("id")));
 		if(list.size()==0) {
 			renderJson(fail());
 			return;
@@ -122,9 +121,8 @@ public class BusinessController extends BaseController{
 		renderJson(ok(list.get(0)));
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void update() {
-		Record record=new Record().setColumns(getKv());
+		Record record=getAllParamsToRecord();
 		//获取表对象和主键
 		String table=record.get("object");
 		String primaryKey=record.get("primaryKey","id");

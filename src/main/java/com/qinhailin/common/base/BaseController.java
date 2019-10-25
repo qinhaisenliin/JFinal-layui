@@ -23,12 +23,16 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jfinal.aop.Aop;
 import com.jfinal.core.Controller;
 import com.jfinal.core.NotAction;
+import com.jfinal.kit.Kv;
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Record;
@@ -382,5 +386,54 @@ public class BaseController extends Controller {
 	@NotAction
 	public Ret fail(String msg) {
 		return Ret.fail("msg", msg);
+	}
+	
+	/**
+	 * 获取请求参数,转化为JSONObject 
+	 * @return
+	 */
+	@NotAction
+    public JSONObject getAllParamsToJson(){
+        JSONObject result=new JSONObject();
+        Map<String,String[]> map=getParaMap();
+        Set<String> keySet=map.keySet();
+        for(String key:keySet){
+            if(map.get(key) instanceof String[]){
+                String[] value=map.get(key);
+                if(value.length==0){
+                    result.put(key,null);
+ 
+                }else if(value.length==1){
+                    result.put(key,value[0]);
+                }else{
+                    result.put(key,value);
+                }
+            }else{
+                result.put(key,map.get(key));
+            }
+        }
+        return result;
+    }
+    
+	/** 
+	 * 获取请求参数,转化为JFinal的Record对象 
+	 * @return
+	 */
+	@NotAction
+    public Record getAllParamsToRecord(){
+    	@SuppressWarnings("unchecked")
+		Record result=new Record().setColumns(getKv());      
+        return result;
+    }	    
+	
+	/**
+	 * 够造Kv对象
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	@NotAction
+	public Kv byKv(Object key,Object value){
+		return Kv.by(key, value);
 	}
 }

@@ -19,7 +19,7 @@
 		<input type="hidden" name="id" value="" class="layui-input" />
 			#@colStart("分类",3)
 				<input type="hidden"  name="tree_id" value="#(treeId)" class="layui-input" lay-verType='tips'lay-verify=""    maxlength="50"/>
-				<input type="text"  id="tree_name" value="#(treeName)" class="layui-input layui-disabled" lay-verType='tips'lay-verify="" readonly="readonly"    maxlength="50"/>
+				<input type="text"  name="tree_name" value="#(treeName)" class="layui-input layui-disabled" lay-verType='tips'lay-verify="" disabled="disabled"    maxlength="50"/>
 			#@colEnd()
 			
 			#set(req=true)
@@ -40,7 +40,7 @@
 		<!-- 文本编辑器 -->
 		<div class="layui-row layui-col-space1 task-row"style="height: 100%">
 			<textarea id="editor" style="display: block;"></textarea>
-			<textarea id="ddlSql" name="content" style="display: none;">
+			<textarea id="ddlSql" name="template_view" style="display: none;">
 
 
 </textarea>

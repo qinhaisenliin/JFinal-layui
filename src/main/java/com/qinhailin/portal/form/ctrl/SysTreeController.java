@@ -69,9 +69,8 @@ public class SysTreeController extends BaseController {
 	 * @author QinHaiLin
 	 * @date 2019年3月13日
 	 */
-	@SuppressWarnings("unchecked")
 	public void save() {
-		Record record=new Record().setColumns(getKv());
+		Record record=getAllParamsToRecord();
 		record.set(service.getPrimaryKey(), createUUID());
 		record.set("create_time",new Date());
 		boolean b=service.save(service.getTable(),service.getPrimaryKey(), record);
@@ -87,7 +86,7 @@ public class SysTreeController extends BaseController {
 	}
 	
 	public void getModel() {
-		List<Record> list=service.find(service.getTable(), Kv.by(service.getPrimaryKey()+"=", getPara(0)));
+		List<Record> list=service.find(service.getTable(), byKv(service.getPrimaryKey()+"=", getPara(0)));
 		if(list.size()==0) {
 			renderJson(fail());
 			return;
@@ -101,9 +100,8 @@ public class SysTreeController extends BaseController {
 	 * @author QinHaiLin
 	 * @date 2019年3月13日
 	 */
-	@SuppressWarnings("unchecked")
 	public void update() {
-		Record record=new Record().setColumns(getKv());
+		Record record=getAllParamsToRecord();
 		boolean b=service.update(service.getTable(), service.getPrimaryKey(), record);
 		if(!b) {
 			renderJson(fail());

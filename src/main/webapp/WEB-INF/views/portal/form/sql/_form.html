@@ -19,7 +19,7 @@
 		<input type="hidden" name="id" value="" class="layui-input" />
 			#@colStart("分类",3)
 				<input type="hidden"  name="tree_id" value="#(treeId)" class="layui-input" lay-verType='tips'lay-verify=""    maxlength="50"/>
-				<input type="text"  id="tree_name" value="#(treeName)" class="layui-input layui-disabled" lay-verType='tips'lay-verify="" readonly="readonly"    maxlength="50"/>
+				<input type="text"  name="tree_name" value="#(treeName)" class="layui-input layui-disabled" lay-verType='tips'lay-verify="" disabled="disabled"    maxlength="50"/>
 			#@colEnd()
 			
 			#@colStart("名称",3)

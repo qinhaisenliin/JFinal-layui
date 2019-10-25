@@ -86,9 +86,8 @@ public class ViewController extends BaseController {
 		render("add.html");
 	}
 		
-	@SuppressWarnings("unchecked")
 	public void save() {	
-		Record record=new Record().setColumns(getKv());
+		Record record=getAllParamsToRecord();
 		if(service.isExit("code", record.get("code"))){
 			renderJson(fail("编号已存在，请重新输入！"));
 			return;	
@@ -124,9 +123,8 @@ public class ViewController extends BaseController {
 		renderJson(ok(formView));
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void update() {
-		Record record=new Record().setColumns(getKv());
+		Record record=getAllParamsToRecord();
 		record.set("update_time", new Date());
 		boolean b=service.update(record);
 		if(!b) {
