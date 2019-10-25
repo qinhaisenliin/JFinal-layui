@@ -40,12 +40,16 @@
 		<!-- 文本编辑器 -->
 		<div class="layui-row layui-col-space1 task-row"style="height: 100%">
 			<textarea id="editor" style="display: block;"></textarea>
-			<textarea id="editorValue" name="template_view"style="resize:none;width:100%;min-height:400px;"></textarea>
+			<textarea id="ddlSql" name="content" style="display: none;">
+
+
+</textarea>
 		</div>
 		<button id="submitBtn_"></button>
 	</form>
 #define js()
 <script type="text/javascript">
+	
 	var layedit;
 	var layeditIndex;
 	layui.use('layedit', function(){
@@ -60,17 +64,16 @@
 		.append('<i class="layui-icon layui-icon-table" title="列表页模板" onclick="generateTextArea(\'index\')"></i>');
 
 	  $(".layui-layedit-iframe").hide();
-	  $("#editorValue").css("height",$(window).height()-150);
 	});
-
+	
   function generateTextArea(temp) {
      $.post("#(path)/portal/form/viewTemp?temp="+temp,function(data){
-    	$("#editorValue").val(data);
+    	ddlSql.setValue(data);
      });
    };
    
    function review(){	
-	var html=$("#editorValue").val();
+	var html=ddlSql.getValue();
 
 	$.ajax({
 		url:"#(path)/portal/form/viewTemp/toReview",
@@ -87,6 +90,7 @@
    function save(){
 	   	 $("#submitBtn_").click(); 
    }
+
 </script>
 #end
 	

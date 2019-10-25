@@ -23,8 +23,7 @@ $(function(){
 			//页面赋值
 			$.each(data,function(key,val){
 				$('input[name="'+key+'"]').val(val);
-				$('textarea[name="'+key+'"]').val(val);
-				$('#'+key).val(val);
+				if(key=="content")ddlSql.setValue(val);
 			});
 			$('input[name="code"]').attr("readonly","readonly");
 			$('input[name="code"]').attr("class","layui-input layui-disabled");

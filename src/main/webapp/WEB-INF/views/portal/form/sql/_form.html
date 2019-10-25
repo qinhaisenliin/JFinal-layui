@@ -37,20 +37,25 @@
 		
 		<!-- 文本编辑器 -->
 		<div class="layui-row layui-col-space1 task-row"style="height: 100%">
-			<textarea id="content" name="content"style="resize:none;width:100%;min-height:400px;"lay-verify="required" required ></textarea>
+		<textarea id="ddlSql" title="" name="content" placeholder="输入sql..." class="form-control btn-lg" style="height: 250px; display: none;">
+
+
+</textarea>
 		</div>
 		<button id="submitBtn_"></button>
 	</form>
 
 #define js()
 <script type="text/javascript">
-   function review(){	
-		var html=$("#content").val();
-		openDialog("SQL预览","#(path)/portal/form/sql/review?sql="+html,false,null,null,null);
-   }
    
-   function save(){
+   function review(){	
+		var ddlSqlvalue=ddlSql.getValue();
+		openDialog("SQL预览","#(path)/portal/form/sql/review?sql="+ddlSqlvalue,false,null,null,null);
+  }
+  
+  function save(){
 	   	 $("#submitBtn_").click(); 
-   }
+  }
+  
 </script>
 #end

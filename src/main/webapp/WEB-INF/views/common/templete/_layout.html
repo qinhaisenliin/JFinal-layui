@@ -28,6 +28,7 @@
 		#@main()
 	</div>
 	#@footer()
+	#@ddlSql()
 	#@js?()
 	#@layui()
 </body>
@@ -42,8 +43,10 @@
 	<link rel="stylesheet" href="#(path)/static/css/main/global.css?t=#now()" media="all">
 	<link rel="stylesheet" href="#(path)/static/libs/font-awesome/css/font-awesome.min.css?t=#now()">
 	<link rel="stylesheet" href="#(path)/static/libs/dwallslider/css/lightbox.min.css?t=#now()">
+	<link href="#(path)/static/libs/ddlsql/codemirror.min.css" rel="stylesheet">
 	<script src="#(path)/static/libs/jquery/jquery-2.1.4.min.js?t=#now()" type="text/javascript" ></script>
 	<script src="#(path)/static/libs/jquery/jquery.form.js?t=#now()" type="text/javascript" ></script>
+
 #end
 
 <!-- 引入js文件 -->
@@ -58,6 +61,8 @@
 	<script src="#(path)/static/libs/common/grid-init.js?t=#now()" type="text/javascript" ></script>
 	<script src="#(path)/static/libs/dwallslider/js/lightbox.min.js?t=#now()" type="text/javascript"></script>
 	<script src="#(path)/static/libs/xtree/layui_xtree.js?t=#now()" type="text/javascript"></script>
+	<script src="#(path)/static/libs/ddlsql/codemirror.min.js?t=#now()" type="text/javascript"></script>
+	<script src="#(path)/static/libs/ddlsql/sql.min.js?t=#now()" type="text/javascript"></script>
 #end
 
 <!-- 输出异常信息 -->
@@ -126,6 +131,31 @@
 #define token()
    	 <input type="hidden" name="tokenKey" value="#(tokenKey)">
    	 <input type="hidden" name="tokenValue" value="#(tokenValue)">
+#end
+
+<!--table sql 文本域-->
+#define ddlSql()
+<script type="text/javascript">
+	var ddlSqlId=document.getElementById("ddlSql");
+	if(ddlSqlId){
+		/**
+	    * 初始化 table sql 3
+	    */
+	   var ddlSql = CodeMirror.fromTextArea(ddlSqlId, {
+	       lineNumbers: true,
+	       matchBrackets: true,
+	       mode: "text/x-sql",
+	       lineWrapping:false,
+	       readOnly:false,
+	       foldGutter: true,
+	       gutters:["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+	   });
+	   ddlSql.setSize('auto','auto');		
+	}
+
+//	ddlSql.getValue();//取文本域值
+//	ddlSql.setValue(...);//给文本域赋值
+</script>
 #end
 
 
