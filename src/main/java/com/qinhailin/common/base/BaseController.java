@@ -403,7 +403,7 @@ public class BaseController extends Controller {
                 if(value.length==0){
                     result.put(key,null);
  
-                }else if(value.length==1){
+                }else if(value.length==1 && key.indexOf("[]")<0){
                     result.put(key,value[0]);
                 }else{
                     result.put(key,value);
@@ -427,7 +427,7 @@ public class BaseController extends Controller {
     }	    
 	
 	/**
-	 * 够造Kv对象
+	 * 构造Kv对象
 	 * @param key
 	 * @param value
 	 * @return
