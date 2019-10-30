@@ -5,6 +5,8 @@ rem
 rem 使用说明：
 rem
 rem 1: 该脚本用于别的项目时只需要修改 MAIN_CLASS 即可运行
+rem	
+rem 2: 使用命令行 ./jfinal.bat start | stop | restart 可启动/关闭/重启项目  
 rem
 rem 2: JAVA_OPTS 可通过 -D 传入 undertow.port 与 undertow.host 这类参数覆盖
 rem    配置文件中的相同值此外还有 undertow.resourcePath, undertow.ioThreads
@@ -12,7 +14,6 @@ rem    undertow.workerThreads 共五个参数可通过 -D 进行传入
 rem
 rem 3: JAVA_OPTS 可传入标准的 java 命令行参数,例如 -Xms256m -Xmx1024m 这类常用参数
 rem
-rem 4: 注意，如果是用@controllerBind注解路由时，启动前要拷贝一份源码的jar到webapp\WEB-INF\lib目录，避免出现出现404
 rem -------------------------------------------------------------------------
 
 setlocal & pushd
@@ -25,13 +26,45 @@ rem Java 命令行参数,根据需要开启下面的配置,改成自己需要的
 rem set "JAVA_OPTS=-Xms256m -Xmx1024m -Dundertow.port=80 -Dundertow.host=0.0.0.0"
 rem set "JAVA_OPTS=-Dundertow.port=80 -Dundertow.host=0.0.0.0"
 
-set APP_BASE_PATH=%~dp0
-set CP=%APP_BASE_PATH%config;%APP_BASE_PATH%lib\*;%APP_BASE_PATH%webapp\WEB-INF\lib
-java -Xverify:none %JAVA_OPTS% -cp %CP% %MAIN_CLASS%
 
+if "%1"=="start" goto normal
+if "%1"=="stop" goto normal
+if "%1"=="restart" goto normal
+
+goto error
+
+
+:error
+echo Usage: jfinal.bat start | stop | restart
+goto :eof
+
+
+:normal
+if "%1"=="start" goto start
+if "%1"=="stop" goto stop
+if "%1"=="restart" goto restart
+goto :eof
+
+
+:start
+set APP_BASE_PATH=%~dp0
+set CP=%APP_BASE_PATH%config;%APP_BASE_PATH%lib\*
+echo starting jfinal undertow
+java -Xverify:none %JAVA_OPTS% -cp %CP% %MAIN_CLASS%
+goto :eof
+
+
+:stop
+set "PATH=%JAVA_HOME%\bin;%PATH%"
+echo stopping jfinal undertow
+for /f "tokens=1" %%i in ('jps -l ^| find "%MAIN_CLASS%"') do ( taskkill /F /PID %%i )
+goto :eof
+
+
+:restart
+call :stop
+call :start
+goto :eof
 
 endlocal & popd
 pause
-
-
-
