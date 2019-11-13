@@ -138,6 +138,7 @@ public class LoginService {
 		loginUser.setUserCode(user.getUserCode());
 		loginUser.setUserName(user.getUserName());
 		loginUser.setIp(IpKit.getRealIp(req));
+		loginUser.setOrgId(user.getOrgId());
 		VisitorImpl vistor = new VisitorImpl(loginUser);
 		
 		// 权限

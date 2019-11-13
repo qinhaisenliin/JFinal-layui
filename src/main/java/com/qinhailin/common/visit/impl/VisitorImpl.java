@@ -3,6 +3,7 @@ package com.qinhailin.common.visit.impl;
 import java.util.Map;
 
 import com.qinhailin.common.entity.ILoginUser;
+import com.qinhailin.common.model.SysOrg;
 import com.qinhailin.common.visit.Visitor;
 
 
@@ -16,6 +17,7 @@ public class VisitorImpl implements Visitor {
 	private long loginTime;
 	private String orgName;
 	private Map<String,Boolean> funcMap;
+	private static final SysOrg orgDao=new SysOrg().dao();
 	
 	public VisitorImpl(ILoginUser user) {
 		super();
@@ -70,6 +72,10 @@ public class VisitorImpl implements Visitor {
 	 */
 	@Override
 	public String getOrgName() {
+		SysOrg sysOrg=orgDao.findById(user.getOrgId());
+		if(sysOrg!=null){
+			orgName=sysOrg.getOrgName();
+		}
 		return orgName;
 	}
 
