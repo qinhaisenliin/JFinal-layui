@@ -214,7 +214,7 @@ public class PortalController extends BaseController {
 	 */
 	public void ueditor(){
 		if ("config".equals(getPara("action"))) {
-			render("/static/pub/ueditor/jsp/config.json");
+			render("/static/libs/ueditor/jsp/config.json");
 			return;
 		}
 		/**
