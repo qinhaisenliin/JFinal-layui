@@ -24,8 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.core.JFinal;
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Ret;
+import com.jfinal.render.JsonRender;
 import com.jfinal.upload.UploadFile;
 import com.qinhailin.common.model.FileUploaded;
 import com.qinhailin.common.routes.ControllerBind;
@@ -203,5 +205,36 @@ public class PortalController extends BaseController {
 			return;
 		}
 		renderNull();
+	}
+	
+	/**
+	 * ueditor上传接口
+	 * @author QinHaiLin
+	 * @date 2019年11月17日
+	 */
+	public void ueditor(){
+		if ("config".equals(getPara("action"))) {
+			render("/static/pub/ueditor/jsp/config.json");
+			return;
+		}
+		/**
+		 * 对应 config.json 配置的 imageActionName: "uploadimage"
+		 */
+		if ( ! "uploadimage".equals(getPara("action"))) {
+			renderJson("state", "UploadController 只支持图片类型的文件上传");
+			return ;
+		}
+		
+		UploadFile uploadFile = getFile();
+		String url=saveFile(uploadFile, getVisitor().getCode());
+		
+		Ret ret=Ret.create("state", "SUCCESS")
+		.set("url", JFinal.me().getContextPath()+"/portal/download/"+url)
+		.set("title", uploadFile.getFileName())
+		.set("original", uploadFile.getOriginalFileName())
+		.set("type", uploadFile.getContentType())
+		.set("size", uploadFile.getFile().length());
+		
+		render(new JsonRender(ret).forIE());	// 防止 IE 下出现文件下载现象
 	}
 }
