@@ -16,10 +16,12 @@
 打包部署到服务器：
 1：eclipse 打包：run as -->maven package
 
-2：打包完后，进入 JFinal-layu/target/JFinal-layu-release/JFinal-layui/config 目录，
+2：打包完后，进入 JFinal-layu/target/JFinal-layu-release/JFinal-layui 目录
      
-3：windows 下双击 start.bat 启动项目，
-	linux 下运行 start.sh 脚本启动项目， 运行 stop.sh 关闭项目 
+3：windows ：cmd运行命令： jfinal.bat start启动项目
+   linux ： jfinal.sh start 启动项目， 
+            jfinal.sh stop 关闭项目 ,
+            jfinal.sh restart 重启项目
       
 注意 JFinal-layui/target 目录下面还会有一个 JFinal-layui-release.zip 文件
 	只需要把JFinal-layui-release.zip拷贝到服务器，然后解压,安装打包部署步骤配置运行即可。
