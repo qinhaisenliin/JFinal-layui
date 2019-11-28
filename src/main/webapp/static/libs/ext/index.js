@@ -82,31 +82,53 @@ layui.config({
             location.reload();//刷新
         });
     });
-
+        
     $('.admin-side-toggle').on('click', function () {
         var sideWidth = $('#admin-side').width();
-        if (sideWidth === 200) {
-            $('#admin-body').animate({
-                left: '0'
-            }); //admin-footer
-            $('#admin-footer').animate({
-                left: '0'
-            });
-            $('#admin-side').animate({
-                width: '0'
-            });
+        var itemed=$('ul>li.layui-nav-itemed');
+        var lasItemed=$('ul>li.check');
+        if (sideWidth === 200) {        	
+        	setDivWidth(60);
+        	showAndHide('none');
+        	if(lasItemed.length>0){
+        		$('ul>li.check').removeClass('check');
+        	}
+        	itemed.addClass('check');
+        	itemed.removeClass('layui-nav-itemed');
         } else {
-            $('#admin-body').animate({
-                left: '200px'
-            });
-            $('#admin-footer').animate({
-                left: '200px'
-            });
-            $('#admin-side').animate({
-                width: '200px'
-            });
+        	lasItemed.addClass('layui-nav-itemed');
+        	showAndHide('');
+        	setDivWidth(200);
         }
     });
+    
+    $('ul.beg-navbar>li').on('click',function () {
+    	var sideWidth = $('#admin-side').width();
+    	if(sideWidth<200){
+    		setDivWidth(200);
+    		showAndHide('');    		
+    	}
+    });
+    //TODO,鼠标悬浮事件，显示菜单标题
+    $('ul.beg-navbar>li').hover(function (event) {
+    	console.log($(this)[0].innerText)
+    	
+    });
+    function showAndHide(display){
+      	 $('ul>li>a>cite').css('display',display);
+      }
+    function setDivWidth(w){
+    	$('#admin-body').animate({
+    		left: w+'px'
+    	});
+    	$('#admin-footer').animate({
+    		left: w+'px'
+    	});
+    	$('#admin-side').animate({
+    		width: w+'px'
+    	});
+    }
+    
     $('.admin-side-full').on('click', function () {
         var docElm = document.documentElement;
         //W3C  
