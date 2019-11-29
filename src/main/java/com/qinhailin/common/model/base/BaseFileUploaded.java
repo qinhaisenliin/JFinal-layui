@@ -55,12 +55,12 @@ public abstract class BaseFileUploaded<M extends BaseFileUploaded<M>> extends Mo
 	}
 
 	public M setObjectId(java.lang.String objectId) {
-		set("objectId", objectId);
+		set("object_id", objectId);
 		return (M)this;
 	}
 	
 	public java.lang.String getObjectId() {
-		return getStr("objectId");
+		return getStr("object_id");
 	}
 
 	public M setUrl(java.lang.String url) {

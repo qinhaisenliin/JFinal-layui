@@ -99,13 +99,13 @@ public abstract class BaseSysOrg<M extends BaseSysOrg<M>> extends Model<M> imple
 		return getStr("descript");
 	}
 
-	public M setLevel(java.lang.Integer level) {
-		set("level", level);
+	public M setLev(java.lang.Integer lev) {
+		set("lev", lev);
 		return (M)this;
 	}
 	
-	public java.lang.Integer getLevel() {
-		return get("level");
+	public java.lang.Integer getLev() {
+		return getInt("lev");
 	}
 
 	public M setIsstop(java.lang.Integer isstop) {
@@ -114,7 +114,7 @@ public abstract class BaseSysOrg<M extends BaseSysOrg<M>> extends Model<M> imple
 	}
 	
 	public java.lang.Integer getIsstop() {
-		return get("isstop");
+		return getInt("isstop");
 	}
 
 }

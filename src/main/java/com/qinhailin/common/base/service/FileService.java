@@ -55,7 +55,7 @@ public class FileService  {
 	}
 
 	public FileUploaded queryFileUploadedByObjectId(String objectId) {
-		List<FileUploaded> list = dao.find("select * from file_uploaded where objectid=?", objectId);
+		List<FileUploaded> list = dao.find("select * from file_uploaded where object_id=?", objectId);
 		if (list.size() > 0) {
 			return list.get(0);
 		}
@@ -63,7 +63,7 @@ public class FileService  {
 	}
 
 	public List<FileUploaded> queryFileUploadedListByObjectId(String objectId) {
-		return dao.find("select * from file_uploaded where objectid=?", objectId);
+		return dao.find("select * from file_uploaded where object_id=?", objectId);
 	}
 
 	public void delete(FileUploaded entity) {
@@ -111,7 +111,7 @@ public class FileService  {
 	}
 
 	public void deleteFileByObjectId(String objectId) {
-		List<FileUploaded> list = dao.find("select * from file_uploaded where objectid=?", objectId);
+		List<FileUploaded> list = dao.find("select * from file_uploaded where object_id=?", objectId);
 		this.delete(list);	
 	}
 

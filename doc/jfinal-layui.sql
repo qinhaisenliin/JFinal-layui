@@ -64,7 +64,7 @@ CREATE TABLE file_uploaded  (
   file_name varchar(200) ,
   file_size bigint(20) COMMENT 'KB',
   save_path varchar(300),
-  objectId varchar(200),
+  object_id varchar(200),
   url varchar(255),
   PRIMARY KEY (id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '附件表' ROW_FORMAT = Dynamic;
@@ -185,7 +185,7 @@ CREATE TABLE sys_org  (
   mobile varchar(20)  COMMENT '部门负责人手机号',
   email varchar(40)  COMMENT '部门负责人邮件',
   descript text  COMMENT '描述',
-  level int(11)   COMMENT '级别',
+  lev int(11)   COMMENT '级别',
   isstop int(11)   COMMENT '是否停用\r\n1：停用；\r\n0：启用；',
   PRIMARY KEY (id) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8  COMMENT = '部门表' ROW_FORMAT = Dynamic;

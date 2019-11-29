@@ -17,7 +17,7 @@ copyright=琴海森林(中国)科技有限公司
 #oracle数据源配置
 #oracle
 #dbType=oracle
-#jdbcUrl=jdbc\:oracle\:thin\:@192.168.0.79\:1521\:orcl
-#user=JFinal
-#password=JFinal
+#jdbcUrl=jdbc\:oracle\:thin\:@192.168.0.173\:1521\:orcl
+#user=jfinal_layui
+#password=jfinal_layui
 

@@ -1,6 +1,7 @@
 环境条件:jdk8,eclipse,maven，mysql
 
-1、创建数据库：执行jfinal-layui.sql文件
+1、创建数据库：执行jfinal-layui.sql文件,
+(如果用oracle数据库，则新建jfinal_layui用户，导入jfinal_layui.dmp文件)
 
 2、修改config-dev.txt数据库配置参数
 

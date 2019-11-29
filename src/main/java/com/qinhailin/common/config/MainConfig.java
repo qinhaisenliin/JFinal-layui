@@ -111,14 +111,13 @@ public class MainConfig extends JFinalConfig {
 		SqlReporter.setLog(false);
 		
 		if("oracle".equals(p.get("dbType"))){
+			// 配置属性名(字段名)大小写,true：小写，false:大写,统一小写，切换oracle数据库的时候可以不用改页面字段
+			arp.setContainerFactory(new CaseInsensitiveContainerFactory(true));
 			arp.setDialect(new OracleDialect());			
 		}else {
 			arp.setDialect(new MysqlDialect());		
 		}
 		
-		// 配置属性名(字段名)大小写,true：小写，false:大写,统一小写，切换oracle数据库的时候可以不用改页面字段
-		arp.setContainerFactory(new CaseInsensitiveContainerFactory(true));
-
 		/******** 在此添加数据库 表-Model 映射 *********/
 		_MappingKit.mapping(arp);
 		
