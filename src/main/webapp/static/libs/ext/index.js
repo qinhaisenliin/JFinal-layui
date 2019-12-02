@@ -106,7 +106,8 @@ layui.config({
     	var sideWidth = $('#admin-side').width();
     	if(sideWidth<200){
     		setDivWidth(200);
-    		showAndHide('');    		
+    		showAndHide('');   
+    		layer.close(sideTips);
     	}
     });
     //TODO,鼠标悬浮事件，显示菜单标题
@@ -127,9 +128,6 @@ layui.config({
     function showAndHide(display){
       	 $('ul>li>a>cite').css('display',display);
       	 $('ul>li>a>span').css('display',display);
-      	 if(display==''){
-      		layer.close(sideTips);
-      	 }
       }
     function setDivWidth(w){
     	$('#admin-body').animate({
