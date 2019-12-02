@@ -127,6 +127,9 @@ layui.config({
     function showAndHide(display){
       	 $('ul>li>a>cite').css('display',display);
       	 $('ul>li>a>span').css('display',display);
+      	 if(display==''){
+      		layer.close(sideTips);
+      	 }
       }
     function setDivWidth(w){
     	$('#admin-body').animate({
