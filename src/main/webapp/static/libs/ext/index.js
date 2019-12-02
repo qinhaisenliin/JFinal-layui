@@ -110,12 +110,23 @@ layui.config({
     	}
     });
     //TODO,鼠标悬浮事件，显示菜单标题
-    $('ul.beg-navbar>li').hover(function (event) {
-    	console.log($(this)[0].innerText)
-    	
+    $('ul.beg-navbar>li').on({
+        mouseenter:function(){
+        	var aEl = $(this).children('a');
+        	var citeEl = aEl.children('cite');
+        	if(citeEl.css('display') == 'none'){
+        		sideTips = layer.tips(citeEl.text(), aEl, {
+                    tips: [2, '#000'],time:0
+                });
+        	}
+        },
+        mouseleave:function(){
+        	layer.close(sideTips);
+        }
     });
     function showAndHide(display){
       	 $('ul>li>a>cite').css('display',display);
+      	 $('ul>li>a>span').css('display',display);
       }
     function setDivWidth(w){
     	$('#admin-body').animate({
@@ -125,6 +136,9 @@ layui.config({
     		left: w+'px'
     	});
     	$('#admin-side').animate({
+    		width: w+'px'
+    	});
+    	$('#admin-side .layui-nav-tree').animate({
     		width: w+'px'
     	});
     }
