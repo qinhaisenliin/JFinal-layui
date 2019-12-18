@@ -41,7 +41,7 @@
 
 <!-- 业务字典下拉函数 ，code:字典编号，name:元素name属性,text:选项名称 -->
 #define getSelect(code,name,text)
-<select id="select_#(code)_#(name)" name="#(name)" class="layui-input" lay-verType='tips' lay-verify="#(required)" #if(!disabled)lay-search#end #(disabled)>
+<select id="select_#(code)_#(name==null?'':name.replace('.','_'))" name="#(name)" class="layui-input" lay-verType='tips' lay-verify="#(required)" #if(!disabled)lay-search#end #(disabled)>
 	<option value="">#(text)</option>
 </select>
 <script type="text/javascript">
@@ -55,7 +55,7 @@
 
 <!-- 自定义SQL下拉函数，code:sql编号，name:元素name属性,text:选项名称 -->
 #define getSelectBySql(code,name,text)
-<select id="select_#(code)_#(name)" name="#(name)" class="layui-input" lay-verType='tips' lay-verify="#(required)" #if(!disabled)lay-search#end #(disabled)>
+<select id="select_#(code)_#(name==null?'':name.replace('.','_'))" name="#(name)" class="layui-input" lay-verType='tips' lay-verify="#(required)" #if(!disabled)lay-search#end #(disabled)>
 	<option value="">#(text)</option>
 </select>
 <script type="text/javascript">
@@ -68,7 +68,7 @@
 
 <!-- 业务字典单选函数 ，code:字典编号，name:元素name属性,text:选项名称-->
 #define getRadio(code,name,text)
-<div id="radio_#(code)_#(name)"></div>
+<div id="radio_#(code)_#(name==null?'':name.replace('.','_'))"></div>
 <script type="text/javascript">
 	$(function(){
 		getOption("#(code)","radio","#(value)","#(name)",false,"#(disabled)");
@@ -78,7 +78,7 @@
 #end
 <!-- 自定义SQL单选函数，code:sql编号，name:元素name属性,text:选项名称 -->
 #define getRadioBySql(code,name,text)
-<div id="radio_#(code)_#(name)"></div>
+<div id="radio_#(code)_#(name==null?'':name.replace('.','_'))"></div>
 <script type="text/javascript">
 	$(function(){
 		getOption("#(code)","radio","#(value)","#(name)",true,"#(disabled)");
@@ -89,7 +89,7 @@
 
 <!-- 业务字典多选函数，code:字典编号，name:元素name属性,text:选项名称 -->
 #define getCheckbox(code,name,text)
-<div id="checkbox_#(code)_#(name)"></div>
+<div id="checkbox_#(code)_#(name==null?'':name.replace('.','_'))"></div>
 <script type="text/javascript">
 	$(function(){
 		getOption("#(code)","checkbox","#(value)","#(name)",false,"#(disabled)");
@@ -100,7 +100,7 @@
 
 <!-- 自定义SQL多选函数，code:sql编号，name:元素name属性,text:选项名称 -->
 #define getCheckboxBySql(code,name,text)
-<div id="checkbox_#(code)_#(name)"></div>
+<div id="checkbox_#(code)_#(name==null?'':name.replace('.','_'))"></div>
 <script type="text/javascript">
 	$(function(){
 		getOption("#(code)","checkbox","#(value)","#(name)",true,"#(disabled)");
@@ -160,7 +160,7 @@
 						}
 					}	
 				}					
-	
+				name=name.replace(/\./g,"_");
 				$('#'+type+"_"+code+"_"+name).append(option);
 				//立即渲染元素，防止有些情况渲染不成功
 				layui.use('form', function() {
