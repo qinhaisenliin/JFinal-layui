@@ -9,7 +9,8 @@ layui.config({
     var element = layui.element,
         $ = layui.jquery,
         layer = layui.layer,
-        navbar = layui.navbar();
+        navbar = layui.navbar(),
+        sideTips;
     tab = layui.tab({
         elem: '.admin-nav-card' //设置选项卡容器
         ,

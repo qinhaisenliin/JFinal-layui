@@ -6,7 +6,7 @@
 var Echart=function(){
 	this.config={
 		//容器
-		divId:"",
+		divId:null,
 		//主标题
 		title:"",
 		//副标题
@@ -45,7 +45,9 @@ var Echart=function(){
 		title_x:null,
 		//图例位置:left,center,right
 		legend_x:null,
-		legend_y:null
+		legend_y:null,
+		//警戒值
+		markLineNum:100
 	}
 }
 
@@ -55,7 +57,7 @@ var Echart=function(){
 	<!--  默认div容器配置 -->
 	<div id="chart"></div>
  */
-Echart.prototype.getData=function(url,params){
+Echart.prototype.getData=function(url,params,divId){
 	$.ajax({
     	url:url,
     	type:"POST",
@@ -73,11 +75,13 @@ Echart.prototype.getData=function(url,params){
    			    config.yName=data.yName;
    			    config.legend=data.legend;
    			    config.xAxis=data.xAxis;
-   			    config.divId="chart";
+   			    config.divId=divId||"chart";
    			    config.series=data.series;
    			    config.seriesName=data.seriesName;
    				config.tooltipText=data.tooltipText;
-   				config.seriesPieData=data.seriesPieData;	
+   				config.seriesData=data.seriesData;
+   				config.seriesPieData=data.seriesPieData;
+   				config.markLineNum=data.markLineNum||100;
    				var chartType=data.type;
 	    		if(chartType=='bar'){
 	    			echart.bar(config);
@@ -189,12 +193,32 @@ function getOption(config,type){
 			series: [{
 				name: config.seriesName,
 				type: type,
+				markLine : {   //添加警戒线
+                    //symbol:"none",               //去掉警戒线最后面的箭头
+                    name:"警戒线",
+                    silent:true,
+                    label:{
+                        position:"end",         //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
+                        formatter: "警戒线(" +config.markLineNum+ ")",
+                        color:"red",
+                        fontSize:14
+                    },
+                    data : [{
+                        silent:true,             //鼠标悬停事件  true没有，false有
+                        lineStyle:{               //警戒线的样式  ，虚实  颜色
+                            type:"solid",
+                            color:"red"
+                        },
+                        name: '警戒线',
+                        yAxis: config.markLineNum
+                    }]
+                },
 				data: config.seriesData
 			}		
 			]
 	};
-	
-	if(config.series.length>0){
+
+	if(config.series.length>1){
 		option.series=config.series;
 	}
 

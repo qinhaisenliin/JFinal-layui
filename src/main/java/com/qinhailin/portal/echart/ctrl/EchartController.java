@@ -59,7 +59,7 @@ public class EchartController extends Controller {
 		String sql="select b.org_name x ,count(*) y from sys_user a,sys_org b where a.org_id=b.id group by b.org_name";//统计部门人数sql
 		Object[] params=new Object[0];
 		Chart data =new Chart(title, subtitle, xAxis, yAxis, chartType, xName, yName, seriesName, tooltipText, sql, params);
-		
+		data.setMarkLineNum(2);
 		List<EchartData> list=new ArrayList<>();
 		list.add(service.getEchartData(data));
 		renderJson(list);

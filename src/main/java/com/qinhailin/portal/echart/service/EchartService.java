@@ -71,7 +71,8 @@ public class EchartService {
 		echartData.setSeries(seriesList);			
 		//饼图数据
 		echartData.createSeriesPieData();
-		
+		//警戒线数值
+		echartData.setMarkLineNum(data.getMarkLineNum());
 		return echartData;
 	}
 }

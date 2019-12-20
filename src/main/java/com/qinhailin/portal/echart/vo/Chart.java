@@ -48,6 +48,8 @@ public class Chart {
     private String sql;
     /** sql参数 **/
     private Object[] params;
+    /** 警戒线数值**/
+    private double markLineNum;
     
 	public Chart() {
 	}
@@ -178,9 +180,17 @@ public class Chart {
 		this.params = params;
 	}
 
+	public double getMarkLineNum() {
+		return markLineNum;
+	}
+
+	public void setMarkLineNum(double markLineNum) {
+		this.markLineNum = markLineNum;
+	}
+
 	@Override
 	public String toString() {
-		return "Chart [id=" + id + ", title=" + title + ", subtitle=" + subtitle 
+		return "Chart [id=" + id + ", title=" + title + ", subtitle=" + subtitle +", markLineNum=" + markLineNum
 				+ ", xAxis=" + xAxis + ", yAxis=" + yAxis + ", chartType=" + chartType 
 				+ ", xName=" + xName + ", yName=" + yName + ", seriesName=" + seriesName
 				+ ", tooltipText=" + tooltipText + ", sql=" + sql + ", params=" + Arrays.toString(params) + "]";

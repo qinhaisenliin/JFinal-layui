@@ -70,7 +70,9 @@ public class EchartData {
 	/**图例位置:left,center,right**/
 	private String legend_x;
 	/** 图例名称**/
-	private String[] legend;	
+	private String[] legend;
+	/** 警戒线数值**/
+	private double markLineNum;
 	
 	public EchartData() {
 		super();
@@ -296,6 +298,17 @@ public class EchartData {
 		this.legend = legend;
 	}
 
+	public double getMarkLineNum() {
+		return markLineNum;
+	}
+
+
+	public void setMarkLineNum(double markLineNum) {
+		this.markLineNum = markLineNum;
+	}
+
+
+
 	/**
 	 * x轴,y轴map对象
 	 * @param xAixs
@@ -359,7 +372,7 @@ public class EchartData {
 				+ ", seriesName=" + seriesName + ", seriesData=" + Arrays.toString(seriesData) + ", seriesPieData="
 				+ seriesPieData + ", type=" + type + ", tooltipText=" + tooltipText + ", stack=" + stack
 				+ ", stackName=" + stackName + ", stackData=" + stackData + ", isAlignWithLabel=" + isAlignWithLabel
-				+ ", title_x=" + title_x + ", legend_x=" + legend_x + ", legend=" + Arrays.toString(legend) + "]";
+				+ ", title_x=" + title_x + ", legend_x=" + legend_x + ", legend=" + Arrays.toString(legend) + ", markLineNum=" + markLineNum +"]";
 	}
 
 	
