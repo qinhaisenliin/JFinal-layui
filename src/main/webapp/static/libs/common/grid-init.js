@@ -109,9 +109,9 @@ function initGrid(options, events, initGridArgs) {
 			var tr = obj.tr; // 获得当前行 tr 的DOM对象
 			if (layEvent === 'detail') { // 查看
 				var id = data[gridArgs_.dataId];
-				currentLayer=openDialog(gridArgs_.title + '详情', gridArgs_.detailUrl + id, gridArgs_.isMax, gridArgs_.width, gridArgs_.height,gridArgs_.option);
+				currentLayer=openDialog(gridArgs_.title + '详情', gridArgs_.detailUrl + id, gridArgs_.isMax, gridArgs_.width, gridArgs_.height,gridArgs_.options);
 			} else if (layEvent === 'detail_') {
-				currentLayer=openDialog(gridArgs_.title + '详情', gridArgs_.detailUrl + id, false, 650, 400,gridArgs_.option);
+				currentLayer=openDialog(gridArgs_.title + '详情', gridArgs_.detailUrl + id, false, 650, 400,gridArgs_.options);
 			} else if (layEvent === 'del') { // 删除			
 				layer.confirm('确认删除？', {icon: 3},function(index) {
 					jQuery.post(gridArgs_.deleteUrl, {
