@@ -13,8 +13,15 @@ var gridArgs = {
 	/**特殊的ajax请求**/
 	ajaxUrl:null,
 	/**提示信息**/
-	resetTitle:null
-
+	resetTitle:null,
+	//弹窗是否最大化
+	isMax:false,
+	//弹窗宽度
+	width:null,
+	//弹窗高度
+	height:null,
+	//弹窗回调函数
+	options:null
 };
 /**
  * 表格初始化
@@ -102,9 +109,9 @@ function initGrid(options, events, initGridArgs) {
 			var tr = obj.tr; // 获得当前行 tr 的DOM对象
 			if (layEvent === 'detail') { // 查看
 				var id = data[gridArgs_.dataId];
-				currentLayer=openDialog(gridArgs_.title + '详情', gridArgs_.detailUrl + id, false, null, null,null);
+				currentLayer=openDialog(gridArgs_.title + '详情', gridArgs_.detailUrl + id, gridArgs_.isMax, gridArgs_.width, gridArgs_.height,gridArgs_.option);
 			} else if (layEvent === 'detail_') {
-				currentLayer=openDialog(gridArgs_.title + '详情', gridArgs_.detailUrl + id, false, 650, 400,null);
+				currentLayer=openDialog(gridArgs_.title + '详情', gridArgs_.detailUrl + id, false, 650, 400,gridArgs_.option);
 			} else if (layEvent === 'del') { // 删除			
 				layer.confirm('确认删除？', {icon: 3},function(index) {
 					jQuery.post(gridArgs_.deleteUrl, {
@@ -120,7 +127,7 @@ function initGrid(options, events, initGridArgs) {
 					// 向服务端发送删除指令
 				});
 			} else if (layEvent === 'edit') { // 编辑
-				currentLayer=openDialog('编辑' + gridArgs_.title, gridArgs_.updateUrl + data[gridArgs_.dataId], false, null, null, {
+				currentLayer=openDialog('编辑' + gridArgs_.title, gridArgs_.updateUrl + data[gridArgs_.dataId], gridArgs_.isMax, gridArgs_.width, gridArgs_.height, {
 					end : function() {
 						refreshData();//刷新当前页数据
 					}
@@ -201,7 +208,7 @@ function initGrid(options, events, initGridArgs) {
 		// 添加
 		$(addBtn).off('click');
 		$(addBtn).click(function() {
-			currentLayer=openDialog('添加' + gridArgs_.title, gridArgs_.addUrl, false, null, null, {
+			currentLayer=openDialog('添加' + gridArgs_.title, gridArgs_.addUrl, gridArgs_.isMax, gridArgs_.width, gridArgs_.height, {
 				end : function() {
 					var button = $(".layui-laypage-btn");
 					if (button.length > 0) {
