@@ -56,13 +56,13 @@ public class PortalController extends BaseController {
 	}
 
 	/**
-	 * 上传页面
+	 * 独立上传页面
 	 * 
 	 * @author QinHaiLin
 	 * @date 2018年8月13日
 	 */
 	public void toUpload() {
-		String objectId = getPara();
+		String objectId = getPara(0);
 		if (objectId == null) {
 			objectId = getVisitor().getCode();
 		}
@@ -70,6 +70,18 @@ public class PortalController extends BaseController {
 		render("common/upload/upload.html");
 	}
 
+	/**
+	 * 用于嵌套在表单中上传<br/>
+	 */
+	public void toFormUpload() {
+		String objectId = getPara(0);
+		if (objectId == null) {
+			objectId = getVisitor().getCode();
+		}
+		setAttr("objectId", objectId);
+		render("common/upload/formUpload.html");
+	}
+	
 	/**
 	 * 上传文件,可多附件上传
 	 * 

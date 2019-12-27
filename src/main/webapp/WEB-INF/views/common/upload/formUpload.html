@@ -1,19 +1,11 @@
-#@layoutT("公共上传")
-#define main()
-</h1>
-<div class="form_box">
 
-	<fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 10px;">
-  		<legend>多文件上传&nbsp;<span id="fileNumber" style="font-size: 18px;color:#424041"></span></legend>
-	</fieldset> 
- 	<div class="layui-progress layui-hide" lay-showpercent="true" lay-filter="upload" style="margin-bottom:5px">
- 	 	<div class="layui-progress-bar" lay-percent="0%"></div>
-	</div>
+<div class="form_box">
 
 	<div class="layui-upload">
 	  <button type="button" class="layui-btn layui-btn-normal" id="fileList">选择文件</button> 
-	  <button type="button" class="layui-btn" id="fileListAction">开始上传</button>
-	  <div class="layui-upload-list" style="overflow-y:auto">
+	  <button type="button" class="layui-btn layui-hide" id="fileListAction">开始上传</button>
+	  <a href="javascript:" title="附件详情"><span id="fileNumber" style="font-size: 18px;color:#424041"></span></a>
+	  <div class="layui-upload-list layui-hide" style="overflow-y:auto">
 	    <table class="layui-table">
 	      <thead>
 	      	<tr>
@@ -30,9 +22,9 @@
 	</div> 
 
 </div>
-#end
 
-#define js()
+
+
 <script type="text/javascript">
 layui.use(['upload','element'], function(){
 	  var $ = layui.jquery
@@ -58,6 +50,7 @@ layui.use(['upload','element'], function(){
 	//计算触发事件
 	  ,fileNum:function(othis){
 			var timer = setInterval(function(){
+				$('#fileListAction').removeClass('layui-hide');
 				$('#fileNumber').html('('+fished+'/'+allNum+')');
 				if(fished==allNum&&allNum!=0){
 					 clearInterval(timer);
@@ -69,9 +62,20 @@ layui.use(['upload','element'], function(){
 
 	 //监听上传按钮
 	  $('#fileListAction').on('click', function(){
-		 if(allNum>0){
-		  	$('.layui-progress').removeClass('layui-hide');
-		    active['loading'].call(this, $(this));
+		  if(allNum>0){
+			    active['loading'].call(this, $(this));
+			}
+	});
+
+		var n=0;
+	//附件详情按钮
+	$('#fileNumber').on('click', function(){
+	    if(n==0){
+	  		$('.layui-upload-list').removeClass('layui-hide');
+	  		n=1;
+		}else{
+			$('.layui-upload-list').addClass('layui-hide');
+			n=0;
 		}
 	});
 	  
@@ -155,4 +159,3 @@ layui.use(['upload','element'], function(){
 });
 </script>
 
-#end
