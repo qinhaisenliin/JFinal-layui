@@ -140,7 +140,7 @@ public class LoginService {
 		loginUser.setIp(IpKit.getRealIp(req));
 		loginUser.setOrgId(user.getOrgId());
 		VisitorImpl vistor = new VisitorImpl(loginUser);
-		
+		vistor.setType(user.getSex());
 		// 权限
 		Map<String, Boolean> funcMap = sysUserService.getUserFuncMap(user.getUserCode());
 		vistor.setFuncMap(funcMap);

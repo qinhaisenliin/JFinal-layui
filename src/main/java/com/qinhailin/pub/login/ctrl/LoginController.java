@@ -57,7 +57,7 @@ public class LoginController extends BaseController {
 	public void submit() {
 		String userCode = getPara("userCode");
 		String password = getPara("password");
-		String returnUrl=encodeReturnUrl(getPara("returnUrl"));
+		String returnUrl=encodeReturnUrl(getPara("returnUrl",""));
 	
 		try {
 			password = RSAKit.decryptionToString(password);

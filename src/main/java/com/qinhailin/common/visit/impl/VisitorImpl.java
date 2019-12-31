@@ -8,7 +8,8 @@ import com.qinhailin.common.visit.Visitor;
 
 
 /**
- * @author hhs
+ * 访问者接口类
+ * @author QinHaiLin
  * @date 2018年1月23日
  */
 public class VisitorImpl implements Visitor {
@@ -16,6 +17,7 @@ public class VisitorImpl implements Visitor {
 	ILoginUser user;
 	private long loginTime;
 	private String orgName;
+	private Integer type;
 	private Map<String,Boolean> funcMap;
 	private static final SysOrg orgDao=new SysOrg().dao();
 	
@@ -28,7 +30,7 @@ public class VisitorImpl implements Visitor {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see com.xunyijia.auth.visit.Visitor#getLoginTime()
+	 * @see com.qinhailin.common.visit.Visitor#getLoginTime()
 	 */
 	@Override
 	public long getLoginTime() {
@@ -38,7 +40,7 @@ public class VisitorImpl implements Visitor {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see com.xunyijia.auth.visit.Visitor#getUserData()
+	 * @see com.qinhailin.common.visit.Visitor#getUserData()
 	 */
 	@Override
 	public ILoginUser getUserData() {
@@ -48,7 +50,7 @@ public class VisitorImpl implements Visitor {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see com.xunyijia.auth.visit.Visitor#getName()
+	 * @see com.qinhailin.common.visit.Visitor#getName()
 	 */
 	@Override
 	public String getName() {
@@ -58,7 +60,7 @@ public class VisitorImpl implements Visitor {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see com.xunyijia.auth.visit.Visitor#getCode()
+	 * @see com.qinhailin.common.visit.Visitor#getCode()
 	 */
 	@Override
 	public String getCode() {
@@ -68,7 +70,7 @@ public class VisitorImpl implements Visitor {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see com.xunyijia.auth.visit.Visitor#getOrgName()
+	 * @see com.qinhailin.common.visit.Visitor#getOrgName()
 	 */
 	@Override
 	public String getOrgName() {
@@ -90,8 +92,10 @@ public class VisitorImpl implements Visitor {
 
 	@Override
 	public Integer getType() {
-		return null;
+		return type;
 	}
 
-
+	public void setType(Integer type){
+		this.type=type;
+	}
 }

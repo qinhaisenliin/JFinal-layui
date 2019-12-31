@@ -222,7 +222,7 @@ layui.define(['element', 'common'], function (exports) {
                     	}
                     	ulHtml += '<a href="javascript:;"';
                     	if (data[i].children[j].icon !== null && data[i].children[j].icon !== undefined && data[i].children[j].icon !== '') {
-                            if (data[i].icon.indexOf('fa-') !== -1) {
+                            if (data[i].children[j].icon.indexOf('fa-') !== -1) {
                                 ulHtml += '<i class="fa ' + data[i].children[j].icon + '" aria-hidden="true" data-icon="' + data[i].children[j].icon + '"></i>';
                             } else {
                                 ulHtml += '<i class="layui-icon ' + data[i].children[j].icon + '"></i>';
