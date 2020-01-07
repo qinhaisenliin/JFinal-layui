@@ -86,10 +86,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="layui-footer footer" id="admin-footer">
+			<div class="layui-footer footer" id="admin-footer" style="z-index:999">
 				<div class="layui-main">
 					<p>
-						<a href="#">Copyright &copy;2019 #(copyright)</a>
+						<a href="https://www.qinhaisenlin.com" target="_bank">Copyright &copy;2019 #(copyright)</a>
 					</p>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 			<script type="text/template" id="lock-temp">
 				<div class="admin-header-lock" id="lock-box">
 					<div class="admin-header-lock-img">
-						<img src="#(path)/static/img/0.jpg"/>
+						<img src="#(path)/static/img/#(vs.type).png"/>
 					</div>
 					<div class="admin-header-lock-name" id="lockUserName">#(vs.name)</div>
 					<input type="text" class="admin-header-lock-input" value="输入密码解锁.." name="password" id="lockPwd" />
