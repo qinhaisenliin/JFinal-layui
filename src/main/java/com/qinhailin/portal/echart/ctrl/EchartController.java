@@ -51,7 +51,7 @@ public class EchartController extends Controller {
 		EchartData echartDataResult =new EchartData();
 		List<Map<String,Object>> series=new ArrayList<>();
 		//TODO 根据具体业务给下面的变量赋值即可
-		String[] legend=new String[]{"男生","女生"};//统计实例
+		String[] legend=new String[]{"女生","男生"};//统计实例
 		String title="ECharts入门示例";
 		String subtitle="部门人数统计";
 		String xAxis="x";		//sql中的字段名
