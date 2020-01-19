@@ -67,8 +67,10 @@ public class EchartData {
 	private Boolean isAlignWithLabel;
 	/**标题位置:left,center,right**/
 	private String title_x;
-	/**图例位置:left,center,right**/
+	/**图例x轴位置:left,center,right**/
 	private String legend_x;
+	/**图例y轴位置:top,center,bottom**/
+	private String legend_y;
 	/** 图例名称**/
 	private String[] legend;
 	/** 警戒线数值**/
@@ -285,9 +287,18 @@ public class EchartData {
 		return legend_x;
 	}
 
-	/**图例位置:left,center,right**/
+	/**图例x轴位置:left,center,right**/
 	public void setLegend_x(String legend_x) {
 		this.legend_x = legend_x;
+	}
+
+	public String getLegend_y() {
+		return legend_y;
+	}
+
+	/**图例y轴位置:top,center,bottom**/
+	public void setLegend_y(String legend_y) {
+		this.legend_y = legend_y;
 	}
 
 	public String[] getLegend() {

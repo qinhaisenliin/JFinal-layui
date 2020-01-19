@@ -18,6 +18,7 @@ package com.qinhailin.portal.echart.ctrl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.jfinal.core.Controller;
 import com.qinhailin.common.routes.ControllerBind;
@@ -46,7 +47,11 @@ public class EchartController extends Controller {
 	 * 图表统计业务数据接口
 	 */
 	public void queryData() {
+		List<EchartData> list=new ArrayList<>();
+		EchartData echartDataResult =new EchartData();
+		List<Map<String,Object>> series=new ArrayList<>();
 		//TODO 根据具体业务给下面的变量赋值即可
+		String[] legend=new String[]{"男生","女生"};//统计实例
 		String title="ECharts入门示例";
 		String subtitle="部门人数统计";
 		String xAxis="x";		//sql中的字段名
@@ -54,14 +59,22 @@ public class EchartController extends Controller {
 		String chartType="bar";	//bar,line,pie
 		String xName="部门";		
 		String yName="人数（人）";		
-		String seriesName="部门人数";
 		String tooltipText="";
-		String sql="select b.org_name x ,count(*) y from sys_user a,sys_org b where a.org_id=b.id group by b.org_name";//统计部门人数sql
-		Object[] params=new Object[0];
-		Chart data =new Chart(title, subtitle, xAxis, yAxis, chartType, xName, yName, seriesName, tooltipText, sql, params);
-		data.setMarkLineNum(2);
-		List<EchartData> list=new ArrayList<>();
-		list.add(service.getEchartData(data));
+		
+		for(int i=0;i<2;i++){
+			String seriesName= legend[i];
+			String sql="select b.org_name x ,count(*) y from sys_user a,sys_org b where a.org_id=b.id and a.sex=? group by b.org_name";//统计部门人数sql
+			Object[] params=new Object[]{i};
+			Chart data =new Chart(title, subtitle, xAxis, yAxis, chartType, xName, yName, seriesName, tooltipText, sql, params);
+			echartDataResult=service.getEchartData(data);
+			series.add(echartDataResult.getSeries().get(0));
+		}
+
+		echartDataResult.setLegend_x("left");
+		echartDataResult.setLegend_y("top");
+		echartDataResult.setLegend(legend);
+		echartDataResult.setSeries(series);
+		list.add(echartDataResult);
 		renderJson(list);
 	}
 	
