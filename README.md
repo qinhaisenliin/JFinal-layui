@@ -174,4 +174,16 @@ code:字典编号，name:元素name属性,text:选项名称，需要选中值，
 ![附件上传](https://images.gitee.com/uploads/images/2019/0105/220039_83ff97e3_1692092.png "附件上传.png")
 ![附件下载](https://images.gitee.com/uploads/images/2019/0105/220152_c1c0a0fc_1692092.png "附件下载.png")
 ![echart图表](https://images.gitee.com/uploads/images/2019/0105/220239_fea15866_1692092.png "echart图表.png")
+
+ **4、响应式布局展示：** 
+
+![移动端主菜单](https://images.gitee.com/uploads/images/2020/0121/175529_c0d9ea9e_1692092.png "移动端菜单.png")
+![功能管理菜单树](https://images.gitee.com/uploads/images/2020/0121/175635_e8d6b7c6_1692092.png "功能管理菜单树.png")
+
+![功能管理列表](https://images.gitee.com/uploads/images/2020/0121/175750_8fe89fde_1692092.png "功能管理列表.png")
+![弹窗展示](https://images.gitee.com/uploads/images/2020/0121/175932_f51966c2_1692092.png "弹窗展示.png")
+
+![用户管理列表](https://images.gitee.com/uploads/images/2020/0121/180430_16c9fab1_1692092.png "用户管理列表.png")
+![删除提示](https://images.gitee.com/uploads/images/2020/0121/180754_f657eab0_1692092.png "删除提示.png")
+
 感兴趣的攻城狮可以参考，希望能对你有帮助。
