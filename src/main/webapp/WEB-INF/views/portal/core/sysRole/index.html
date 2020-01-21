@@ -65,7 +65,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 #define main()
 
 	<div id='container' class="layui-row">	
-	<div class="layui-col-xs3 div-scroll" position="left" id="accordion1"> 
+	<div class="layui-col-xs12 layui-col-sm4 layui-col-md3 div-scroll" position="left" id="accordion1"> 
 		 <div class="l-layout-header" onclick="">角色菜单
 		   <div class="layui-btn-group" style="float: right">
 		   		#if(vs.funcMap.get('sys_role_add'))
@@ -94,7 +94,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
          </div>
      </div>
         
-	<div class="layui-col-xs9 function_content" id="maingrid" position='center'>
+	<div class="layui-col-xs12 layui-col-sm8 layui-col-md9 function_content" id="maingrid" position='center'>
       <form class="layui-form" action="">
       
         <div class="l-layout-header" style="margin:0px;height:30px">
@@ -153,7 +153,7 @@ $(function(){
 	
 	$("#addBtn_").click(function(){
 		var url='#(path)/portal/core/sysRole/add?roleCode='+roleCode;
-		openDialog("添加角色",url,false,650,350,option);
+		openDialog("添加角色",url,false,null,null,option);
 	});
 	
 	$("#updateBtn_").click(function(){
@@ -162,7 +162,7 @@ $(function(){
 			return;
 		}
 		var url='#(path)/portal/core/sysRole/edit?roleCode='+roleCode;
-		openDialog("修改-"+roleName,url,false,650,350,option);
+		openDialog("修改-"+roleName,url,false,null,null,option);
 	});
 	
 	$("#userBtn_").click(function(){

@@ -7,7 +7,7 @@
 
 <!-- layui form表单默认样式输出函数 start -->
 #define colStart(lable,xs)
- 		<div class="layui-col-xs#(xs??4)">
+ 		<div class="layui-col-xs12 layui-col-sm6 layui-col-md#(xs??4)">
 			<div class="layui-form-item">
 				<label class="layui-form-label" for="#(lable??)_id" >#(lable??)#@star()</label>
 				<div class="layui-input-block">
@@ -34,10 +34,10 @@
 #end
 #define submitButton2(colNum)
  			<div class="layui-row layui-col-space1 task-row">
-				<div class="layui-col-xs#(colNum??4)">
+				<div class="layui-col-xs12 layui-col-sm12 layui-col-md#(colNum??4)">
 					<div class="layui-input-block"></div>	
 				</div>
-				<div class="layui-col-xs#(12-colNum)">
+				<div class="layui-col-xs12 layui-col-sm12 layui-col-md#(12-colNum)">
 					<div class="layui-input-block">
 							<div class="layui-btn-container" style="margin-top: 10px;margin-left:-25px">
 								<button id='1cdfb502t_589' type="submit" lay-submit	 class='layui-btn  layui-btn-normal '  value="Submit">
@@ -56,7 +56,7 @@
 #define formStart()
 <form class="layui-form layui-form-pane f-form" id='searchForm' lay-filter='searchForm' action="javascript:;">
 	<div class='layui-row layui-col-space1 task-row'>
-		<div class='layui-col-xs12 '> 
+		<div class='layui-col-xs12 layui-col-sm12 layui-col-md12'> 
 			<div class="layui-form-item">
 #end
 #define formEnd()
@@ -90,7 +90,7 @@
  <!-- 分页列表-->
 #define table()
  	<div class='layui-row f-index-toolbar'>
-		<div class='layui-col-xs12'>
+		<div class='layui-col-xs12 layui-col-sm12 layui-col-md12'>
 			<div class="layui-btn-group">
 				<button id='addBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
 				  <i class="layui-icon">&#xe608;</i> 新增
@@ -106,7 +106,7 @@
 		</div>
 	</div>	
 	<div class="layui-row  f-index-toolbar">
-			<div class="layui-col-xs12">
+			<div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
 				<!-- 默认列表 -->
    				<table id="maingrid" lay-filter="maingrid"></table>
    			</div>

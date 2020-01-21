@@ -42,7 +42,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 </style>
 
   <div id='container' class="layui-row">	
-	<div class="layui-col-xs3 div-scroll" position="left" id="accordion1"> 
+	<div class="layui-col-xs12 layui-col-sm4 layui-col-md3 div-scroll" position="left" id="accordion1"> 
 	     <div class="l-layout-header" onclick="reloadOrg()">部门菜单
 	        <div class="layui-btn-group"style="float: right">
 				#if(vs.funcMap.get('sys_org_add'))
@@ -68,7 +68,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
          </div>
      </div>
         
-	<div class="layui-col-xs9" position='center' id="orgDetail" 
+	<div class="layui-col-xs12 layui-col-sm8 layui-col-md9" position='center' id="orgDetail" 
 		style="border:1px solid #DCDCDC;height: 595px;">
 		<div id="orgInfor"></div>
 		<div id="orgUser" style="display: none">
@@ -132,7 +132,7 @@ $(function(){
 	
 	$("#addBtn_1").click(function(){
 		var url='#(path)/portal/core/sysOrg/add?orgCode='+orgCode;
-		openDialog("添加部门",url,false,650,350,option);
+		openDialog("添加部门",url,false,null,null,option);
 	});
 	
 	$("#updateBtn_").click(function(){
@@ -141,7 +141,7 @@ $(function(){
 			return
 		}
 		var url='#(path)/portal/core/sysOrg/edit?orgCode='+orgCode;
-		openDialog("修改部门",url,false,650,350,option);		
+		openDialog("修改部门",url,false,null,null,option);		
 	});
 	
 	$("#deleteBtn_1").click(function(){	

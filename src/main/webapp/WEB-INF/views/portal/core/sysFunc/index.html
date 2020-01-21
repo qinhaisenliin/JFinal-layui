@@ -41,7 +41,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 #end
 #define main()
 <div id='container' class="layui-row">	
-	<div class="layui-col-xs3 div-scroll" position="left" id="accordion1"> 
+	<div class="layui-col-xs12 layui-col-sm4 layui-col-md3 div-scroll" position="left" id="accordion1"> 
 	     <div class="l-layout-header" onclick="reloadFunc()">功能菜单</div>
          <div title="功能列表" class="l-scroll"style="left: 0px;  top: 0px;">
              <ul id="leftLayout" style="margin-top:0px;margin-bottom:10px;">
@@ -49,14 +49,14 @@ body .layui-tree-skin-skin .layui-tree-branch{
          </div>
      </div>
         
-	<div class="layui-col-xs9" position='center'  id="tablelist"
+	<div class="layui-col-xs12 layui-col-sm8 layui-col-md9" position='center'  id="tablelist"
 		style="border:1px solid #DCDCDC;">
 		<form class="layui-form layui-form-pane f-form" id='searchForm' lay-filter='searchForm' action="javascript:void(0);">
 		<div class='layui-row f-index-toolbar'>
 					<div class='layui-col-xs12'>
 						<div class="layui-btn-group">
 						    #if(vs.funcMap.get('sys_func_add'))
-							<button style="margin-top: -2px" id='addBtn_2' type="button" class="layui-btn layui-btn-mini layui-btn-normal layui-btn-sm">
+							<button style="margin-top: -2px" id='addBtn_' type="button" class="layui-btn layui-btn-mini layui-btn-normal layui-btn-sm">
 								<i class="layui-icon">&#xe608;</i> 添加
 							</button>
 							#end
@@ -77,7 +77,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 #define js()
 <script type="text/html" id="bar_maingrid">
 	#if(vs.funcMap.get('sys_func_update'))
-  	<a class="layui-btn layui-btn-xs" lay-event="edit_">编辑</a>
+  	<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 	#end
 	#if(vs.funcMap.get('sys_func_delete'))
   	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>

@@ -8,9 +8,6 @@
 <script src="#(path)/static/libs/echarts/ecstat/ecStat.min.js"></script><!-- 工具条js -->
 <script src="#(path)/static/libs/echarts/echarts.tool.js"></script>
 <style type="text/css">
-	 	#chart{
-	 		width:100%;height:550px;margin-top:30px;
-		}
 		.chart{
 	 		width:50%;height:250px;margin-top:30px;float: left;display: none;
 		}	
@@ -18,10 +15,10 @@
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="bar" style="width: 50%;height:400px;float: left"></div>
-    <div id="line" style="width: 50%;height:400px;float: left"></div>
-    <div id="pie" style="width: 50%;height:400px;float: left"></div>
-    <div id="chart" style="width: 50%;height:400px;float: left"></div>
+    <div id="bar" class="layui-col-xs12 layui-col-sm6 layui-col-md6" style="height:400px;float: left"></div>
+    <div id="line" class="layui-col-xs12 layui-col-sm6 layui-col-md6" style="height:400px;float: left"></div>
+    <div id="pie" class="layui-col-xs12 layui-col-sm6 layui-col-md6" style="height:400px;float: left"></div>
+    <div id="chart" class="layui-col-xs12 layui-col-sm6 layui-col-md6"  style="height:400px;float: left"></div>
     <div id="chart0" class="chart"></div>
 	<div id="chart1" class="chart"></div>
 	<div id="chart2" class="chart"></div>

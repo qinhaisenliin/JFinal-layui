@@ -43,7 +43,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 #define main()
 <div id='container' class="layui-row">	
 	<!-- 左侧树 -->
-	<div class="layui-col-xs3 div-scroll" position="left" id="accordion1"> 
+	<div class="layui-col-xs12 layui-col-sm4 layui-col-md3 div-scroll" position="left" id="accordion1"> 
 	     <div class="l-layout-header">表单分类
 	     	<div class="layui-btn-group" style="float: right">
 		   		#if(vs.funcMap.get('form_sys_tree_add'))
@@ -70,7 +70,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
      </div>
     
     <!-- 右侧表格 -->
-	<div class="layui-col-xs9" position='center'  id="tablelist"style="border:1px solid #DCDCDC;">
+	<div class="layui-col-xs12 layui-col-sm8 layui-col-md9" position='center'  id="tablelist"style="border:1px solid #DCDCDC;">
     	<!-- 表头按钮 -->  
 		<div class='layui-row f-index-toolbar'>
 			<div class='layui-col-xs12'>
@@ -156,7 +156,7 @@ $(function(){
 	
 	$("#addBtn_1").click(function(){
 		var url='#(path)/portal/form/sysTree/add?itemId='+itemId+'&type=form';
-		openDialog("添加表单视图分类",url,false,650,400,option);
+		openDialog("添加表单视图分类",url,false,null,null,option);
 	});
 	
 	$("#updateBtn_1").click(function(){
@@ -165,7 +165,7 @@ $(function(){
 			return;
 		}
 		var url='#(path)/portal/form/sysTree/edit?itemId='+itemId;
-		openDialog("修改-"+itemName,url,false,650,400,option);
+		openDialog("修改-"+itemName,url,false,null,null,option);
 	});
 	 
 	$("#deleteBtn_1").click(function(){	
