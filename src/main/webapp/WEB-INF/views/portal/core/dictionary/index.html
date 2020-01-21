@@ -20,7 +20,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 .div-scroll{
 	overflow:auto;
 	border:1px solid #DCDCDC;
-	min-height: 595px;
+	height: 595px;
 	position: relative;
 	min-width:345px;
 }
@@ -70,7 +70,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
      </div>
         
 	<div class="layui-col-xs9" position='center'  id="tablelist"
-		style="border:1px solid #DCDCDC;min-height: 595px;">
+		style="border:1px solid #DCDCDC;">
 		<form class="layui-form layui-form-pane f-form" id='searchForm' lay-filter='searchForm' action="javascript:;">
 		<div class='layui-row f-index-toolbar'>
 					<div class='layui-col-xs12'>
@@ -110,7 +110,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 
 var leftOtions,leftNodes,code="",name="";
 
-function setHight(){
+function setHeight(){
 	var contentHeight=$(window).height()-5;
 	var width =$('#container').width();
 	var col3=$('#accordion1').width();
@@ -130,8 +130,10 @@ var option={
 
 $(function(){
 	queryDictionaryTree();
-	setHight();
-	
+	setHeight();
+	$(window).resize(function(){
+		setHeight();
+	});
 	
 	//添加字典 
 	$("#addBtn_1").click(function(){

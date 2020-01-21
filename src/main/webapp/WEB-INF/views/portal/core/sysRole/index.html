@@ -129,9 +129,8 @@ function setHeight(){
 
 	$("#accordion1").css("height",height);
 	$("#maingrid").css("height",height);
-	$("#maingrid").css("height",height);
-	if(col3<=345  ){
-		$("#maingrid").css("width",width-col3-2);	
+	if(col3<=345){
+		$("#maingrid").css("width",width-col3-2);		
 	}
 	
 	$(".func_tree").css("height",height-32);
@@ -147,6 +146,10 @@ $(function(){
 	queryRoleTree();
 	queryFuncTree();
 	setHeight();
+	
+	$(window).resize(function(){
+		setHeight();
+	});
 	
 	$("#addBtn_").click(function(){
 		var url='#(path)/portal/core/sysRole/add?roleCode='+roleCode;

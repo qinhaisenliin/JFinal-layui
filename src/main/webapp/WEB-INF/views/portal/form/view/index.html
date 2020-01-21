@@ -20,9 +20,9 @@ body .layui-tree-skin-skin .layui-tree-branch{
 .div-scroll{
 	overflow:auto;
 	border:1px solid #DCDCDC;
-	min-height: 550px;
+	height: 550px;
 	position: relative;
-	width:290px;
+	min-width:280px;
 }
 .l-layout-header {
     position: relative;
@@ -70,7 +70,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
      </div>
     
     <!-- 右侧表格 -->
-	<div class="layui-col-xs9" position='center'  id="tablelist"style="border:1px solid #DCDCDC;min-height: 550px;">
+	<div class="layui-col-xs9" position='center'  id="tablelist"style="border:1px solid #DCDCDC;">
     	<!-- 表头按钮 -->  
 		<div class='layui-row f-index-toolbar'>
 			<div class='layui-col-xs12'>
@@ -148,7 +148,11 @@ var option={
 	}
 
 $(function(){
-	setHight();queryLeftTree();getTableList();
+	setHeight();queryLeftTree();getTableList();
+	
+	$(window).resize(function(){
+		setHeight();
+	});
 	
 	$("#addBtn_1").click(function(){
 		var url='#(path)/portal/form/sysTree/add?itemId='+itemId+'&type=form';
@@ -183,12 +187,15 @@ $(function(){
 	
 });
 
-function setHight(){
+function setHeight(){
 	var contentHeight=$(window).height()-5;
 	var width =$('#container').width();
 	$("#accordion1").css("height",contentHeight);
 	$("#tablelist").css("height",contentHeight);
-	$("#tablelist").css("width",width-295);
+	var col3=$('#accordion1').width();
+	if(col3<=280){
+		$("#tablelist").css("width",width-col3-2);	
+	}
 }
 
 //预览

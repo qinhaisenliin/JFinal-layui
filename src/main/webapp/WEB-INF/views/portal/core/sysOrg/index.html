@@ -106,7 +106,7 @@ body .layui-tree-skin-skin .layui-tree-branch{
 
 var leftOtions,orgName,orgCode="sys",index;
 
-function setHight(){
+function setHeight(){
 	var contentHeight=$(window).height()-5;
 	var width =$('#container').width();
 	var col3=$('#accordion1').width();
@@ -118,7 +118,10 @@ function setHight(){
 }
 $(function(){
 	queryOrgTree();
-	setHight();
+	setHeight();
+	$(window).resize(function(){
+		setHeight();
+	});
 	//关闭弹窗的回调函数
 	var option={
 		end : function() {

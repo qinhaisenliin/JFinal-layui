@@ -4,7 +4,7 @@
 	<groupId>com.qinhailin</groupId>
 	<artifactId>jfinal-layui</artifactId>
 	<packaging>jar</packaging>
-	<version>1.4</version>
+	<version>1.4.1</version>
 	<name>jfinal-layui</name>
 	
 	<properties>
