@@ -127,8 +127,8 @@ layui.config({
         }
     });
     function showAndHide(display){
-      	 $('ul>li>a>cite').css('display',display);
-      	 $('ul>li>a>span').css('display',display);
+      	 $('ul.beg-navbar>li>a>cite').css('display',display);
+      	 $('ul.beg-navbar>li>a>span').css('display',display);
       }
     function setDivWidth(w){
     	$('#admin-body').animate({
