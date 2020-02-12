@@ -55,10 +55,16 @@
 				var num=0;
 				$('#submitBtn').click(function() {
 					if(num==1){
-						$('#submitBtn').attr("disabled",true);
+						$('#submitBtn').attr("disabled",true);						
 					}
 					num=1;
+					//解决表单验证不通过的情况
+					var timer = window.setInterval(function(){						
+						$('#submitBtn').attr("disabled",false);
+						num=0;window.clearInterval(timer);
+					},3000);
 				});
+				
      		</script>
           
  #end
