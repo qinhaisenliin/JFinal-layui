@@ -256,14 +256,19 @@ function showLeftTree(treeNode,num){
 }
 
 //构造功能树节点
+var n=0;
 function showRightTree(treeNode,num){
   	var a=0;
   	var id=treeNode.id;
 	var text=treeNode.text;
+	var isopen=true;
 	if(a!=0||num!=0){
 		rightNodes+=",";
 	}
-	rightNodes+="{title:'"+text+"',value:'"+id+"',data:[";
+	if(n++>2){
+		isopen=false;
+	}
+	rightNodes+="{title:'"+text+"',isopen:"+isopen+",value:'"+id+"',data:[";
 	var children=treeNode.children;
 	if(children!=null&&children.length>0){
 		for(var i=0;i<children.length;i++){
@@ -300,7 +305,7 @@ function leftTree(){
 		layui.tree(leftOtions);
 	});
 }
-function treeClick(item){
+function treeClick(item){n=0;
 	$("#roleName").html(item.name);
 	roleName=item.name;
     roleCode=item.id;  

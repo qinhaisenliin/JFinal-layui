@@ -84,7 +84,7 @@ function layuiXtree(options) {
  this.Rendering();
 
 }
-
+var totalData=[],sum=0;
 //生产结构
 
 layuiXtree.prototype.dataBind = function (d) {
@@ -93,6 +93,11 @@ layuiXtree.prototype.dataBind = function (d) {
      for (i in d) {
          var xtree_isend = '';
          _this._domStr += '<div class="layui-xtree-item">';
+         
+         if(d[i].isopen!=null){
+        	 _this._isopen=d[i].isopen;      	 
+        }
+         totalData[sum]=_this._isopen;sum++;
          if (d[i].data.length > 0)
              _this._domStr += '<i class="layui-icon layui-xtree-icon" data-xtree="' + (_this._isopen ? '1' : '0') + '">' + (_this._isopen ? _this._iconOpen : _this._iconClose) + '</i>';
          else {
@@ -118,11 +123,12 @@ layuiXtree.prototype.Rendering = function () {
  var xtree_nullicons = document.getElementsByClassName('layui-xtree-icon-null');
 
  for (var i = 0; i < xtree_items.length; i++) {
+	 
      if (xtree_items[i].parentNode == _this._container)
          xtree_items[i].style.margin = '5px 0 0 10px';
      else {
          xtree_items[i].style.margin = '5px 0 0 45px';
-         if (!_this._isopen) xtree_items[i].style.display = 'none';
+         if (!totalData[i]) xtree_items[i].style.display = 'none';
      }
  }
  for (var i = 0; i < xtree_icons.length; i++) {
@@ -132,7 +138,16 @@ layuiXtree.prototype.Rendering = function () {
      xtree_icons[i].style.fontSize = "18px";
      xtree_icons[i].style.color = _this._color;
      xtree_icons[i].style.cursor = "pointer";
-
+     
+     var childNodes=xtree_icons[i].parentNode.childNodes;
+     if(xtree_icons[i].getAttribute('data-xtree') == 1){
+    	 for (var j = 0; j < childNodes.length; j++) {
+             if (childNodes[j].getAttribute('class') == 'layui-xtree-item'){
+            	 childNodes[j].style.display = 'block';      	 
+             }
+         }
+     }
+     
      xtree_icons[i].onclick = function () {
          var xtree_chi = this.parentNode.childNodes;
          if (this.getAttribute('data-xtree') == 1) {
