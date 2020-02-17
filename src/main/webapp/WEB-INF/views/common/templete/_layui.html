@@ -50,25 +50,27 @@
 					</div>
 				</div>
 			</div>
-			<!-- 防止重复提交数据 -->
-			<script type="text/javascript">
-				var num=0;
-				$('#submitBtn').click(function() {
-					if(num==1){
-						$('#submitBtn').attr("disabled",true);						
-					}
-					num=1;
-					//解决表单验证不通过的情况
-					var timer = window.setInterval(function(){						
-						$('#submitBtn').attr("disabled",false);
-						num=0;window.clearInterval(timer);
-					},3000);
-				});
-				
-     		</script>
-          
+			#@submitFunction()   
  #end
-
+ 
+#define submitFunction()
+<!-- 防止重复提交数据 -->
+<script type="text/javascript">
+		var num=0;
+		$('#submitBtn').click(function() {
+			if(num==1){
+				$('#submitBtn').attr("disabled",true);						
+			}
+			num=1;
+			//解决表单验证不通过的情况
+			var timer = window.setInterval(function(){						
+				$('#submitBtn').attr("disabled",false);
+				num=0;window.clearInterval(timer);
+			},3000);
+		});
+		
+</script>
+#end
 <!-- 分页条件查询表单 start -->
 #define formStart()
 <form class="layui-form layui-form-pane f-form" id='searchForm' lay-filter='searchForm' action="javascript:;">
