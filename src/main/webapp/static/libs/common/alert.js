@@ -72,6 +72,12 @@ function openDialog(dialogTitle,dialogUrl,isMax,w,h,option){
 			width_=w+'px';
 		}
 	}
+	
+	if(windowWidth<500){
+		width_="90%";
+		height_=Math.floor(windowHeight*0.9)+'px';
+	}
+	
 	var option_=null;
 	if(option){
 		option_=option;
