@@ -56,6 +56,7 @@ layui.use([ 'table', 'form', 'jquery' ], function() {
 var currentLayer;
 function openDialog(dialogTitle,dialogUrl,isMax,w,h,option){
 	var windowHeight = $(window).height();
+	var windowWidth = $(window).width();
 	var height_=Math.floor(windowHeight*0.9)+'px';
 	var width_='90%';
 	if(h){
