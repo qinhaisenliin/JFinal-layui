@@ -101,6 +101,101 @@ function initGrid(options, events, initGridArgs) {
 
 		// 执行渲染
 		table.render(tableOptions);
+		//监听头工具栏事件
+		  table.on('toolbar(' + options.id + ')', function(obj){
+		    var checkStatus = table.checkStatus(obj.config.id)
+		    ,data = checkStatus.data; //获取选中的数据
+		    switch(obj.event){
+		      case 'add':
+		    	  currentLayer=openDialog('添加' + gridArgs_.title, gridArgs_.addUrl, gridArgs_.isMax, gridArgs_.width, gridArgs_.height, {
+						end : function() {
+							refreshData();//刷新当前页数据
+						}
+					});
+		      break;
+		      case 'update':
+		        if(data.length === 0){
+		          layer.msg('请选择一行');
+		        } else if(data.length > 1){
+		          layer.msg('只能同时编辑一个');
+		        } else {
+		        	currentLayer=openDialog('编辑' + gridArgs_.title, gridArgs_.updateUrl + data[0][gridArgs_.dataId], gridArgs_.isMax, gridArgs_.width, gridArgs_.height, {
+						end : function() {
+							refreshData();//刷新当前页数据
+						}
+					});
+		        }
+		      break;
+		      case 'delete':
+		        if(data.length === 0){
+		          layer.msg('请选择一行');
+		        } else {
+		        	var checkStatus = table.checkStatus(options.id); // test即为基础参数id对应的值
+
+					if(checkStatus.data.length>0){
+						layer.confirm('确认删除？', {icon: 3}, function(index) {
+							var ids = [];
+							for (var i = 0; i < checkStatus.data.length; i++) {
+								ids[i] = checkStatus.data[i][gridArgs_.dataId];
+							}
+							// 向服务端发送删除指令
+							jQuery.post(gridArgs_.deleteUrl, param({
+								'ids' : ids
+							}), function(feedback) {
+								if (feedback.success) {
+									refreshData();
+								} else {
+									layer.alert(feedback.msg,{icon: 2});
+								}
+							});
+							layer.close(index);
+						});
+					}else{
+						layer.alert('请选择行',{icon: 7});
+					}
+		        }
+		      break;
+		      case 'refresh':
+		    	  var keyDownEvt = $.Event('keydown', {
+						keyCode : 13
+					});
+						
+					var button = $(".layui-laypage-btn");
+					if (button.length > 0) {
+						refreshData();
+					}else{				
+						$('#' + tableOptions.searchForm).trigger(keyDownEvt);			
+					}
+			  break;
+		      case 'reset':
+		    	  var checkStatus = table.checkStatus(options.id); // test即为基础参数id对应的值
+
+					if(checkStatus.data.length>0){
+						layer.confirm(gridArgs_.resetTitle||'确认重置密码？', {icon: 3, title:'提示'}, function(index) {
+							var ids = [];
+							for (var i = 0; i < checkStatus.data.length; i++) {
+								ids[i] = checkStatus.data[i][gridArgs_.dataId];
+							}
+							// 向服务端发送删除指令
+							jQuery.post(gridArgs_.resetUrl, param({
+								'ids' : ids
+							}), function(feedback) {
+								if (feedback.success) {
+									refreshData();
+									layer.msg(feedback.msg);
+								} else {
+									layer.alert(feedback.msg,{icon: 2});
+								}
+							});
+							layer.close(index);
+						});			
+					}else{
+						layer.alert('请选择行',{icon: 7});
+					}
+				break;
+		    };
+		  });
+		  
 		// 监听工具条
 		table.on('tool(' + options.id + ')', function(obj) { // 注：tool是工具条事件名，operations是table原始容器的属性,这里设置为跟ID一样
 			// lay-filter="对应的值"

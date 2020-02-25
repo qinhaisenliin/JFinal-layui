@@ -26,36 +26,39 @@
 
 	#@formEnd()
 	
-	 	<div class='layui-row f-index-toolbar'>
-		<div class='layui-col-xs12'>
-			<div class="layui-btn-group">
-				#if(vs.funcMap.get('sys_user_add'))
-				<button id='addBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
-				  <i class="layui-icon">&#xe608;</i> 新增
-				</button>
-				#end
-				#if(vs.funcMap.get('sys_user_reset'))
-				<button id='resetBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
-				  <i class="layui-icon">&#xe673;</i> 重置密码
-				</button>
-				#end
-				<button id='refreshBtn_' class="layui-btn layui-btn-normal layui-btn-sm">
-				  <i class="layui-icon">&#xe669;</i> 刷新
-				</button>
-				#if(vs.funcMap.get('sys_user_delete'))					
-				<button id='deleteBtn_' class="layui-btn  layui-btn-normal layui-btn-sm">
-				  <i class="layui-icon">&#xe640;</i> 删除
-				</button>		
-				#end	
-			</div>
-		</div>
-	</div>
 	<div class="layui-row  f-index-toolbar">
 			<div class="layui-col-xs12">
    				<table id="maingrid" lay-filter="maingrid"></table>
    			</div>
    	</div>
-   	
+   	<!-- 表头工具栏 -->
+   	<script type="text/html" id="table_toolbar">
+  		<div class="layui-btn-group">
+			#if(vs.funcMap.get('sys_user_add'))
+				<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add">
+				  <i class="layui-icon">&#xe608;</i> 新增
+				</button>
+			#end
+			#if(vs.funcMap.get('sys_user_update'))
+				<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="update">
+				  <i class="layui-icon">&#xe608;</i> 编辑
+				</button>
+			#end
+			#if(vs.funcMap.get('sys_user_delete'))					
+				<button class="layui-btn  layui-btn-normal layui-btn-sm" lay-event="delete">
+				  <i class="layui-icon">&#xe640;</i> 删除
+				</button>		
+			#end	
+			#if(vs.funcMap.get('sys_user_reset'))
+				<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="reset">
+				  <i class="layui-icon">&#xe673;</i> 重置密码
+				</button>
+			#end
+				<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refresh">
+				  <i class="layui-icon">&#xe669;</i> 刷新
+				</button>
+		</div>
+	</script>
    	<!-- 	每行的操作按钮 -->
 	<script type="text/html" id="bar_maingrid">
 	#if(vs.funcMap.get('sys_user_update'))
@@ -94,9 +97,11 @@
 	gridArgs.addUrl='#(path)/portal/core/sysUser/add';
 	gridArgs.resetUrl='#(path)/portal/core/sysUser/resetPassword';
 	gridArgs.gridDivId ='maingrid';
+	gridArgs.heightDiff=54;//调整表格高度
 	initGrid({id : 'maingrid'
 			,elem : '#maingrid'
 			,cellMinWidth: 80
+			,toolbar:'#table_toolbar'			
 			,cols : [ [
 					{title: '主键',field : 'id',width : 35,checkbox : true},						
 					{title:'序号',type:'numbers',width:35},

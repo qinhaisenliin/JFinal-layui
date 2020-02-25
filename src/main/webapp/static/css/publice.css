@@ -41,3 +41,24 @@ span.layui-breadcrumb a.item-this{
 	background:black;
     color: rgb(255,255,255);
 }
+/* 修改默认头工具栏 */
+.layui-table-tool{
+	background:#eff6fe;
+	padding:0px 0px 2px 0px;
+	border-bottom:1px solid #e1e1e1;
+	min-height: 30px;
+}
+.layui-table-tool-self {
+    position: absolute;
+    right: 17px;
+    top: 0px;
+}
+.layui-table-tool .layui-inline[lay-event] {
+    width: 30px;
+    height: 30px;
+    color: #efe9e9;
+    background-color: #1e9fff;
+}
+.layui-table-tool-panel{
+	color: #1e9fff;
+}
