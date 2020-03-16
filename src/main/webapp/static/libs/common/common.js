@@ -62,7 +62,7 @@ function autoLoad(){
 }
 // 表单关闭按钮
 $(function(){
-	if(top.openTab){//是否web端打开
+	if(top&&top.openTab){//是否web端打开
 		$('#closeWinBtn').bind('click',function(){
 			closeParentWin();
 			if(top&&top.f_addTab)top.closeCurrentTab();
