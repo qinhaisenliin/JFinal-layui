@@ -16,6 +16,7 @@
 		
 	<form action="javascript:void(0)" class="layui-form layui-form-pane f-form" method="post" id="saveForm" lay-filter='saveForm'>
 		<div class="layui-row layui-col-space1 task-row">
+			#(token)
 		<input type="hidden" name="id" value="" class="layui-input" />
 			#@colStart("分类",3)
 				<input type="hidden"  name="tree_id" value="#(treeId)" class="layui-input" lay-verType='tips'lay-verify=""    maxlength="50"/>
