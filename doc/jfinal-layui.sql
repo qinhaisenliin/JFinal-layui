@@ -143,7 +143,8 @@ INSERT INTO sys_function VALUES ('sql_sys_tree_add', '添加', 0, '/portal/form/
 INSERT INTO sys_function VALUES ('sql_sys_tree_delete', '删除', 0, '/portal/form/sysTree/delete', 'sql_sys_tree', 'sql分类树', 1, NULL, 7, NULL, 1);
 INSERT INTO sys_function VALUES ('sql_sys_tree_update', '修改', 0, '/portal/form/sysTree/update', 'sql_sys_tree', 'sql分类树', 1, NULL, 6, NULL, 1);
 INSERT INTO sys_function VALUES ('sys_cus_sql', '自定义SQL', 0, '/portal/form/sql', 'sys_manager', '系统管理', 0, NULL, 6, NULL, 1);
-
+--代码器
+INSERT INTO sys_function VALUES ('generator_manager', '代码生成器', 0, '/portal/generator/code', 'sys', '网站后台管理', 0, 'layui-icon-fonts-code', 2, NULL, 1);
 -- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
@@ -522,7 +523,10 @@ INSERT INTO sys_role_function VALUES ('sys_sql_sys_tree_add', 'sql_sys_tree_add'
 INSERT INTO sys_role_function VALUES ('sys_sql_sys_tree_delete', 'sql_sys_tree_delete', 'sys');
 INSERT INTO sys_role_function VALUES ('sys_sql_sys_tree_update', 'sql_sys_tree_update', 'sys');
 INSERT INTO sys_role_function VALUES ('sys_sys_cus_sql', 'sys_cus_sql', 'sys');
-
+--代码器
+INSERT INTO sys_role_function VALUES ('admin-generator_manager', 'generator_manager', 'admin');
+INSERT INTO sys_role_function VALUES ('superadmin_generator_manager', 'generator_manager', 'superadmin');
+INSERT INTO sys_role_function VALUES ('sys_generator_manager', 'generator_manager', 'sys');
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
