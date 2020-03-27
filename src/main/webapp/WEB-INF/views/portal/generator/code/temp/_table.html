@@ -1,0 +1,8 @@
+#for(x:columnMetas)
+		#if(x.name==primaryKey)
+				 {title: '主键',field : '#(primaryKey)',width : 35,checkbox : true},
+				 {title:'序号',type:'numbers',width:35},
+		#else
+				 {title:'#(x.remarks)',field:'#(x.name)'},
+		#end
+#end 

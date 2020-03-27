@@ -1,0 +1,9 @@
+/**代码模板*/
+#namespace("code")
+	#include("controller.sql")
+	#include("service.sql")
+	#include("index.sql")
+	#include("add.sql")
+	#include("edit.sql")
+	#include("_form.sql")
+#end
