@@ -94,6 +94,8 @@ public class SessionInterceptor implements Interceptor {
 		
 		//用于页面按钮权限控制
 		controller.setAttr("vs", vs);
+		
+		//演示系统的对增、删、改操作权限拦截，很简单的实现
 //		String method="save.*|update.*|delete.*|upload*|resetPassword.*|is.*|";
 //		String methodName=inv.getMethodName();
 //		Pattern pattern=Pattern.compile(method);
@@ -101,14 +103,15 @@ public class SessionInterceptor implements Interceptor {
 //		if(b){	
 //			b="XMLHttpRequest".equalsIgnoreCase(controller.getHeader("X-Requested-With"));
 //			if (b) {
-////				controller.renderJson(Feedback.error("权限异常，请联系管理员"));		
-////				controller.renderJson(Ret.fail("code", "error").set("msg", "权限异常，请联系管理员"));	
-////				return;
+//				controller.renderJson(Feedback.error("权限异常，请联系管理员"));		
+//				controller.renderJson(Ret.fail("code", "error").set("msg", "权限异常，请联系管理员"));	
+//				return;
 //			}else{
-////				controller.getResponse().setStatus(403);
-////				controller.renderError(403);
+//				controller.getResponse().setStatus(403);
+//				controller.renderError(403);
 //			}
 //		}
+		
 		inv.invoke();
 	}
 
