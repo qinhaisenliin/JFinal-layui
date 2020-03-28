@@ -24,7 +24,7 @@
     gridArgs.gridDivId ='maingrid';
     initGrid({id : 'maingrid'
         ,elem : '#maingrid'
-        ,toolbar:'default'
+        //,toolbar:'default'
         ,cellMinWidth: 100
         ,cols : [ [
 ${tableCols}
