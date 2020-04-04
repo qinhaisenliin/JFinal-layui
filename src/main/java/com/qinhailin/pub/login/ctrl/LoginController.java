@@ -28,7 +28,9 @@ import com.qinhailin.common.base.BaseController;
 import com.qinhailin.common.kit.RSAKit;
 import com.qinhailin.common.model.SysUser;
 import com.qinhailin.common.routes.ControllerBind;
+import com.qinhailin.common.safe.TokenValidator;
 import com.qinhailin.portal.core.service.SysUserService;
+import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
 import com.qinhailin.pub.login.service.LoginService;
 
@@ -47,6 +49,7 @@ public class LoginController extends BaseController {
 	SysUserService sysUserService;
 
 	public void index() {
+		createToken();
 		setAttr("returnUrl",encodeReturnUrl(getPara("returnUrl","")));	
 		render("login.html");
 	}
@@ -54,6 +57,7 @@ public class LoginController extends BaseController {
 	/**
 	 * 登录认证
 	 */
+	@Before(TokenValidator.class)
 	public void submit() {
 		String userCode = getPara("userCode");
 		String password = getPara("password");
@@ -71,6 +75,7 @@ public class LoginController extends BaseController {
 			}
 			setAttr("returnUrl", returnUrl);
 			setAttr("msg", e.getCause()!=null?e.getCause().getMessage():e.getMessage());
+			createToken();
 			render("login.html");
 		} 
 
