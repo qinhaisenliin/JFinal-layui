@@ -10,7 +10,8 @@ undertow.gzip.enable=true
 undertow.gzip.level=-1
 # 触发压缩的最小内容长度
 undertow.gzip.minLength=1024
-
+#session有效期：60分钟
+undertow.session.timeout=3600
 
 # 下面两行命令生成密钥库
 # keytool -genkeypair -validity 3650 -alias club -keyalg RSA -keystore club.jks
