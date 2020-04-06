@@ -90,6 +90,30 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper{
     private static String getBasicHtmlandimage(String html) {
 	    if (html == null)
 	        return null;
-	    return Jsoup.clean(html, Whitelist.basicWithImages());
+	    return Jsoup.clean(html, createContentWhitelist());
+	}
+    
+    /**
+	 * 用于过滤 content 字段的白名单，需要允许比较多的 tag
+	 */
+    private static Whitelist createContentWhitelist() {
+		return  Whitelist.relaxed()
+		/**
+		 * 必须要删除应用在 a 与 img 上的 protocols，否则就只有使用了这些 protocol 的才不被过滤，比较蛋疼
+		 * 在 remove 的时候，后面的 protocols 要完全一个不露的对应上 jsoup 默认已经添加的，否则仍然会被过滤掉
+		 * 在升级 jsoup 后需要测试这 a 与 img 的过滤是否正常
+		 */
+		.removeProtocols("a", "href", "ftp", "http", "https", "mailto")
+		.removeProtocols("img", "src", "http", "https")
+		.addAttributes("a", "href", "title", "target")  // 官方默认会将 target 给过滤掉
+
+		/**
+		 * 在 Whitelist.relaxed() 之外添加额外的白名单规则
+         */
+		.addTags("div", "span", "embed", "object", "param")
+		.addAttributes(":all", "style", "class", "id", "name")
+		.addAttributes("object", "width", "height", "classid", "codebase")
+		.addAttributes("param", "name", "value")
+		.addAttributes("embed", "src", "quality", "width", "height", "allowFullScreen", "allowScriptAccess", "flashvars", "name", "type", "pluginspage");
 	}
 }
