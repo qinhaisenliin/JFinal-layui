@@ -19,6 +19,7 @@ package com.qinhailin.common.intercepor;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,8 +27,10 @@ import com.jfinal.aop.Inject;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
+import com.jfinal.kit.Ret;
 import com.qinhailin.common.visit.Visitor;
 import com.qinhailin.common.visit.VisitorUtil;
+import com.qinhailin.common.vo.Feedback;
 import com.qinhailin.portal.core.service.SysRoleFuncService;
 
 /**
@@ -91,6 +94,24 @@ public class SessionInterceptor implements Interceptor {
 		
 		//用于页面按钮权限控制
 		controller.setAttr("vs", vs);
+		
+		//演示系统的对增、删、改操作权限拦截，很简单的实现
+//		String method="save.*|update.*|delete.*|upload*|resetPassword.*|is.*|";
+//		String methodName=inv.getMethodName();
+//		Pattern pattern=Pattern.compile(method);
+//		boolean b=pattern.matcher(methodName).matches();
+//		if(b){	
+//			b="XMLHttpRequest".equalsIgnoreCase(controller.getHeader("X-Requested-With"));
+//			if (b) {
+//				controller.renderJson(Feedback.error("权限异常，请联系管理员"));		
+//				controller.renderJson(Ret.fail("code", "error").set("msg", "权限异常，请联系管理员"));	
+//				return;
+//			}else{
+//				controller.getResponse().setStatus(403);
+//				controller.renderError(403);
+//			}
+//		}
+		
 		inv.invoke();
 	}
 

@@ -1,3 +1,18 @@
+/**
+ * Copyright 2019-2020 覃海林(qinhaisenlin@163.com).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */ 
 package com.qinhailin.common.config;
 
 import com.alibaba.druid.filter.stat.StatFilter;
@@ -18,9 +33,11 @@ import com.qinhailin.common.handler.CommonHandler;
 import com.qinhailin.common.intercepor.ExceptionInterceptor;
 import com.qinhailin.common.intercepor.LoggerInterceptor;
 import com.qinhailin.common.intercepor.SessionInterceptor;
+import com.qinhailin.common.intercepor.TokenInterceptor;
 import com.qinhailin.common.kit.DruidKit;
 import com.qinhailin.common.model._MappingKit;
 import com.qinhailin.common.routes.AutoBindRoutes;
+import com.qinhailin.common.safe.XssHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
@@ -88,12 +105,21 @@ public class MainConfig extends JFinalConfig {
 	}
 	
 	/**
+	 * 获取数据库插件
+	 * 抽取成独立的方法，便于重用该方法，减少代码冗余
+	 */
+	public static DruidPlugin createDruidPlugin() {
+		loadConfig();
+		return new DruidPlugin(p.get("jdbcUrl"), p.get("user"), p.get("password").trim());
+	}
+	
+	/**
 	 * 配置JFinal插件 数据库连接池 ORM 缓存等插件 自定义插件
 	 */
 	@Override
 	public void configPlugin(Plugins me) {
 		// 配置数据库连接池插件
-		DruidPlugin dbPlugin = new DruidPlugin(p.get("jdbcUrl"), p.get("user"), p.get("password").trim());
+		DruidPlugin dbPlugin = createDruidPlugin();
 
 		/** 配置druid监控 **/
 		dbPlugin.addFilter(new StatFilter());
@@ -106,6 +132,8 @@ public class MainConfig extends JFinalConfig {
 		//sql模板
 		arp.getEngine().setSourceFactory(new ClassPathSourceFactory());
 		arp.addSqlTemplate(WebContant.sqlTemplate);
+		// 代码器模板
+		arp.addSqlTemplate(WebContant.codeTemplate);
 		// sql输出
 		arp.setShowSql(true);
 		SqlReporter.setLog(false);
@@ -138,6 +166,7 @@ public class MainConfig extends JFinalConfig {
 		me.addGlobalActionInterceptor(new SessionInViewInterceptor());
 		me.addGlobalActionInterceptor(new SessionInterceptor());
 		me.addGlobalActionInterceptor(new ExceptionInterceptor());
+		me.addGlobalActionInterceptor(new TokenInterceptor());
 		me.addGlobalActionInterceptor(new LoggerInterceptor());
 	}
 	
@@ -150,6 +179,8 @@ public class MainConfig extends JFinalConfig {
 		me.add(DruidKit.getDruidStatViewHandler()); 
 		// 路由处理
 		me.add(new CommonHandler());
+		// XSS过滤
+		me.add(new XssHandler("^\\/portal/form/view.*"));
 	}
 	
 	/**

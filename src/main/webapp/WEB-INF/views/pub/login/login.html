@@ -23,13 +23,14 @@
     
     <div id="signup_forms" class="signup_forms clearfix">
         <form class="signup_form_form" id="signup_form" action="#(path)/pub/login/submit?returnUrl=#(returnUrl)" method="post" autocomplete="off">
+            #(token)
              <div class="form_row first_row">
                  <div id="userCodeMsg" class='tip error'></div>
-                 <input type="text" name="userCode" placeholder="用户名" id="signup_code" />
+                 <input type="text" name="userCode" placeholder="用户名:admin" id="signup_code" />
              </div>
             <div class="form_row">
                 <div id="passwordMsg" class='tip error'></div>
-                <input type="password" name="password" placeholder="密码" id="signup_password"/>
+                <input type="password" name="password" placeholder="密码:123456" id="signup_password"/>
             </div>
             <div class="form_row" id="show_verifyCode" #if(vc??)style='display:block'#end >
                 <div id="verifyCodeMsg" class='tip error'></div>

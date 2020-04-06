@@ -20,13 +20,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
 
+import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Record;
 import com.qinhailin.common.base.BaseController;
+import com.qinhailin.common.intercepor.TokenInterceptor;
 import com.qinhailin.common.kit.RSAKit;
 import com.qinhailin.common.model.SysOrg;
 import com.qinhailin.common.model.SysUser;
 import com.qinhailin.common.routes.ControllerBind;
+import com.qinhailin.common.safe.TokenValidator;
 import com.qinhailin.common.visit.Visitor;
 import com.qinhailin.common.vo.Feedback;
 import com.qinhailin.portal.core.service.SysOrgService;
@@ -129,6 +132,7 @@ public class SysUserController extends BaseController {
 	}
 	
 	public void my(){
+		createToken();
 		SysUser entity=service.findByUserCode(getVisitor().getCode());
 		setAttr("sysUser", entity);
 		SysOrg org=(SysOrg) sysOrgService.findById(entity.getOrgId());
@@ -139,6 +143,7 @@ public class SysUserController extends BaseController {
 	/**
 	 * 修改个人信息
 	 */
+	@Before(TokenValidator.class)
 	public void updateMy(){
 		SysUser sysUser=getBean(SysUser.class);
 		Visitor vs=getVisitor();
@@ -154,7 +159,8 @@ public class SysUserController extends BaseController {
 		render("my/index.html");
 	}
 	
-	public void myPassword(){		
+	public void myPassword(){	
+		createToken();
 		setAttr("userCode",getVisitor().getCode());
 		render("my/password.html");
 	}
@@ -162,6 +168,7 @@ public class SysUserController extends BaseController {
 	/**
 	 * 修改个人密码
 	 */
+	@Before(TokenValidator.class)
 	public void updateMypassword(){
 		Visitor vs=getVisitor();
 		if(!vs.getCode().equals(getPara("userCode"))){		
@@ -180,6 +187,7 @@ public class SysUserController extends BaseController {
 		if(b){
 			setAttr("msg", "密码修改成功");
 		}else{
+			createToken();
 			setException("原密码错误,密码修改失败");
 		}
 

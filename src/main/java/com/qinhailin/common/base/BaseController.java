@@ -40,6 +40,7 @@ import com.jfinal.upload.UploadFile;
 import com.qinhailin.common.base.service.FileService;
 import com.qinhailin.common.kit.IdKit;
 import com.qinhailin.common.model.FileUploaded;
+import com.qinhailin.common.safe.TokenService;
 import com.qinhailin.common.visit.Visitor;
 import com.qinhailin.common.visit.VisitorUtil;
 import com.qinhailin.common.vo.Feedback;
@@ -48,7 +49,8 @@ public class BaseController extends Controller {
 	private static final Logger LOG = Logger.getLogger(BaseController.class);
 
 	FileService fileService =Aop.get(FileService.class);
-
+	TokenService tokenService=Aop.get(TokenService.class);
+	
 	/** 访问者信息 **/
 	@NotAction
 	public Visitor getVisitor(){
@@ -422,7 +424,8 @@ public class BaseController extends Controller {
 	@NotAction
     public Record getAllParamsToRecord(){
     	@SuppressWarnings("unchecked")
-		Record result=new Record().setColumns(getKv());      
+		Record result=new Record().setColumns(getKv());
+    	result.remove("_jfinal_token");
         return result;
     }	    
 	
@@ -435,5 +438,13 @@ public class BaseController extends Controller {
 	@NotAction
 	public Kv byKv(Object key,Object value){
 		return Kv.by(key, value);
+	}
+	
+	/**
+	 * 创建token
+	 */
+	@NotAction
+	public void createToken(){
+		tokenService.createToken(this);
 	}
 }

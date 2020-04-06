@@ -1,0 +1,216 @@
+#@layoutT("代码生成器")
+#define css()
+<style type="text/css">
+.layui-btn-primary{
+	border:0px;
+}
+ .layui-btn-primary:hover{
+    color: #fff;
+    border-color: #1e9fff;
+    background: #1e9fff;
+}
+.end{
+    cursor: pointer;
+    color: #fff;
+    background: #1e9fff;
+}
+</style>
+
+#end
+#define main()
+<form action="javascript:void(0)" class="layui-form layui-form-pane f-form" method="post">
+<div class="layui-row layui-col-space1 task-row">
+	#@colStart("数据库表",6)
+		<input type="text" class="layui-input" name="tableName"  readonly="readonly" placeholder="请选择数据库表"/>
+	#@colEnd()
+<!-- 	#@colStart("备注信息",6)
+		<input type="text" class="layui-input" name="tableComment" />
+	#@colEnd() -->
+	#@colStart("作者名称",6)
+		<input type="text" class="layui-input" name="authorName" value="qinhailin"/>
+	#@colEnd()
+</div>
+<div class="layui-row layui-col-space1 task-row">
+	#@colStart("实体名称",6)
+		<input type="text" class="layui-input" name="modelName" value="" readonly="readonly"/>
+	#@colEnd()
+	#@colStart("package",6)
+		<input type="text" class="layui-input" name="packageName" value="com.qinhailin.portal.business"/>
+	#@colEnd()
+</div>
+
+<div class="layui-row layui-col-space12 task-row" style="text-align: center">
+ 	<button class="layui-btn  layui-btn-normal" id="btnGenCode">生成代码 »</button>
+ 	<button class="layui-btn  layui-btn-normal layui-disabled" id="downloadAll" disabled="disabled">下载代码</button>
+</div>
+
+<div class="layui-row layui-col-space task-row">
+ 	#@colStart("后端代码",12)
+ 		<div id="btnGroupJava">
+			<button  class="btn layui-btn layui-btn-primary" id="Controller.java" onclick="chilckBtn(this)" >Controller.java</button>
+	        <button  class="btn layui-btn layui-btn-primary" id="Service.java" onclick="chilckBtn(this)">Service.java</button>
+			<button  class="btn layui-btn layui-btn-primary" id="Model.java" onclick="chilckBtn(this)">Model.java</button>
+	        <button  class="btn layui-btn layui-btn-primary" id="BaseModel.java" onclick="chilckBtn(this)">BaseModel.java</button>
+	        <button  class="btn layui-btn layui-btn-primary" id="_MappingKit.java" onclick="chilckBtn(this)">_MappingKit.java</button>
+	    </div>
+	#@colEnd()
+	</div>
+
+<div class="layui-row layui-col-space1 task-row">
+ 	#@colStart("前端代码",12)
+ 		<div id="btnGroupHtml">
+	         <button class="btn layui-btn layui-btn-primary" id="index.html" onclick="chilckBtn(this)">index.html</button>
+	         <button class="btn layui-btn layui-btn-primary" id="add.html" onclick="chilckBtn(this)">add.html</button>
+	         <button class="btn layui-btn layui-btn-primary" id="edit.html" onclick="chilckBtn(this)">edit.html</button>
+			 <button class="btn layui-btn layui-btn-primary" id="_form.html" onclick="chilckBtn(this)">_form.html</button>
+	    </div>
+	#@colEnd()
+</div>
+<div class="layui-row layui-col-space1 task-row">
+ 	<textarea id="genCodeArea" class="layui-textarea" style="display: none;"></textarea>
+</div>
+</form>
+#end
+#define js()
+<script>
+//单击事件
+function chilckBtn(dom) {
+   var collection = $(".layui-btn-primary");
+   $.each(collection, function () {
+       $(this).removeClass("end");
+   });
+   $(dom).addClass("end");
+}
+var index=0;
+$('input[name=tableName]').click(function(){
+	index=openDialog('选择数据库表','#(path)/portal/generator/code/tables',false,'50%',null,null);
+});
+
+function getTable(data){
+	var packageName=$('input[name=modelName]').val();
+	var tables="";
+	var modelNames="";
+	for(var i=0;i<data.length;i++){
+		if(tables!=""){
+			tables+=",";
+			modelNames+=",";
+		}
+		tables+=data[i].name;
+		modelNames+=data[i].modelName;
+	}
+	$('input[name=tableName]').val(tables);
+	$('input[name=tableComment]').val(data[0].remarks);
+	$('input[name=modelName]').val(modelNames);
+	layer.close(index);
+}
+    $(function () {
+        var genCodeArea = CodeMirror.fromTextArea(document.getElementById("genCodeArea"), {
+            lineNumbers: true,
+            matchBrackets: true,
+            mode: "text/x-sql",
+            lineWrapping:true,
+            readOnly:true,
+            foldGutter: true,
+            gutters:["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+        });
+        genCodeArea.setSize('auto','auto');
+	    
+		var codeData;
+        /**
+         * 生成代码
+         */
+        $('#btnGenCode').click(function ()  {
+            if($("input[name=tableName]").val()==""){
+				warn("请选择数据库表");return;
+             };
+             var packageName=$('input[name=packageName]').val();
+            $.ajax({
+                type: 'POST',
+                url: "#(path)/portal/generator/code/createCode",
+                data: {
+                    "name": $("input[name=tableName]").val(),
+                    "tableComment":$("input[name=tableComment]").val(),
+                    "modelName":$("input[name=modelName]").val(),
+                    "authorName":$("input[name=authorName]").val(),
+                    "packageName":$("input[name=packageName]").val(),
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.state == "ok") {
+                    	success("代码生成成功");
+                        codeData = data.data[0];
+                        var codeJava=codeData["codeJava"]||[];
+                        var codeHtml=codeData["codeHtml"]||[];
+                        var btn1="",btn2="";
+                        
+                        codeJava.forEach(v=>{                            
+                        	btn1+='<button  class="btn layui-btn layui-btn-primary " onclick="chilckBtn(this);" id="'+v+'" >'+v+'</button>';
+                        });
+                        codeHtml.forEach(v=>{  
+                        	btn2+='<button  class="btn layui-btn layui-btn-primary" onclick="chilckBtn(this);" id="'+v+'" >'+v+'</button>';
+                        });
+                        
+                        if(btn1!=""){                       	
+                       		btn1+='<button class="btn layui-btn layui-btn-primary" onclick="download(\'codeJava\')">下载</button>';
+                        }
+                        if(btn2!=""){
+                        	btn2+='<button class="btn layui-btn layui-btn-primary" onclick="download(\'codeHtml\')">下载</button>';
+                        }          
+                                     
+                        $("#btnGroupJava").html(btn1);
+                       	$("#btnGroupHtml").html(btn2);
+                       	
+                       	$('.btn').bind('click', function () {
+                               if (!$.isEmptyObject(codeData)) {
+                                   genCodeArea.setValue(codeData[this.id]);
+                                   genCodeArea.setSize('auto', 'auto');                                                     
+                               }
+                           });
+                                    
+                        $('#downloadAll').removeClass('layui-disabled');                        
+                        $('#downloadAll').attr("disabled",false);
+                                          
+                       	genCodeArea.setValue(codeData[codeJava[0]||"Controller.java"]);
+                       	genCodeArea.setSize('auto', 'auto');                       
+                    } else {     
+                    	$("#btnGroupJava").html("");
+                       	$("#btnGroupHtml").html("");   
+                       	genCodeArea.setValue("");
+                       	genCodeArea.setSize('auto', 'auto');                     
+                        error(data.msg || '代码生成失败');
+                    }
+                }
+            });
+        });
+    });
+    
+    $('#downloadAll').click(function(){
+    	download("codeAll");
+     });
+
+    function download(type){
+        var text="Java";
+        if(type=="codeHtml"){
+            text="Html";
+        }else if(type=='codeAll'){
+			text="所有";
+        }
+        
+        jsConfirm("确定创建"+text+"文件吗？",function(){
+        	$.ajax({
+				url:"#(path)/portal/generator/code/download",  
+			    type:"POST", 
+			    data: {"type":type},
+			    success:function(ret){
+			    	if(ret.state=='ok'){
+			    		success("代码文件创建成功，请刷新项目!")
+			    	}else{
+			    		error("代码文件创建失败")
+				    }
+			    }	
+			});  	
+         });
+    
+   }
+</script>
+#end
