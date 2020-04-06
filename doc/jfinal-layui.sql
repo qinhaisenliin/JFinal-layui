@@ -99,7 +99,7 @@ INSERT INTO sys_function VALUES ('data_dictionary_value', '字典数据值', 0, 
 INSERT INTO sys_function VALUES ('data_dictionary_value_add', '添加', 0, '/portal/core/dictionary/value/add', 'data_dictionary_value', '字典数据值', 1, NULL, 5, NULL, 1);
 INSERT INTO sys_function VALUES ('data_dictionary_value_delete', '删除', 0, '/portal/core/dictionary/value/delete', 'data_dictionary_value', '字典数据值', 1, NULL, 7, NULL, 1);
 INSERT INTO sys_function VALUES ('data_dictionary_value_update', '修改', 0, '/portal/core/dictionary/update', 'data_dictionary_value', '字典数据值', 1, NULL, 6, NULL, 1);
-INSERT INTO sys_function VALUES ('frame_main_view', '主页', 0, 'http://www.meiwenhome.com/qinhaisenlin/xiaoxi/love.html', 'frame', 'JFinal极速开发企业应用管理系统', 0, 'layui-icon-home', 2, NULL, 1);
+INSERT INTO sys_function VALUES ('frame_main_view', '主页', 0, 'https://www.qinhaisenlin.com/user/reg/2', 'frame', 'JFinal极速开发企业应用管理系统', 0, 'layui-icon-home', 2, NULL, 1);
 INSERT INTO sys_function VALUES ('pub_fileList', '附件列表', 0, '/portal/getFileList', 'sys', '网站后台管理', 0, 'layui-icon-read', 5, NULL, 1);
 INSERT INTO sys_function VALUES ('sys', '网站后台管理', 0, NULL, 'frame', 'JFinal极速开发企业应用管理系统', 0, NULL, 1, NULL, 1);
 INSERT INTO sys_function VALUES ('sys_druid', '性能监控', 0, '/assets/druid', 'sys', '网站后台管理', 0, 'layui-icon-engine', 3, NULL, 1);
@@ -145,6 +145,9 @@ INSERT INTO sys_function VALUES ('sql_sys_tree_update', '修改', 0, '/portal/fo
 INSERT INTO sys_function VALUES ('sys_cus_sql', '自定义SQL', 0, '/portal/form/sql', 'sys_manager', '系统管理', 0, NULL, 6, NULL, 1);
 -- 代码器
 INSERT INTO sys_function VALUES ('generator_manager', '代码生成器', 0, '/portal/generator/code', 'sys', '网站后台管理', 0, 'layui-icon-fonts-code', 2, NULL, 1);
+-- 联级多选
+INSERT INTO sys_function VALUES ('select_more_demo', '联级多选', 0, '/portal/go/common/demo/select', 'sys', '网站后台管理', 0, 'layui-icon-down', 60, NULL, 1);
+
 -- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
@@ -527,6 +530,11 @@ INSERT INTO sys_role_function VALUES ('sys_sys_cus_sql', 'sys_cus_sql', 'sys');
 INSERT INTO sys_role_function VALUES ('admin-generator_manager', 'generator_manager', 'admin');
 INSERT INTO sys_role_function VALUES ('superadmin_generator_manager', 'generator_manager', 'superadmin');
 INSERT INTO sys_role_function VALUES ('sys_generator_manager', 'generator_manager', 'sys');
+-- 联级多选
+INSERT INTO sys_role_function VALUES ('admin-select_more_demo', 'select_more_demo', 'admin');
+INSERT INTO sys_role_function VALUES ('superadmin_select_more_demo', 'select_more_demo', 'superadmin');
+INSERT INTO sys_role_function VALUES ('sys_select_more_demo', 'select_more_demo', 'sys');
+
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
