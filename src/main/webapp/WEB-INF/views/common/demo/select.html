@@ -22,7 +22,24 @@
   	  #@colEnd()         
 	</div>
     
-    #@submitButton()
+     <div class="layui-row layui-col-space1 task-row">
+				<div class="layui-hide-xs layui-col-sm3 layui-col-md4">
+					<div class="layui-input-block"></div>	
+				</div>
+				<div class="layui-col-xs12 layui-col-sm9 layui-col-md8">
+					<div class="layui-input-block">
+							<div class="layui-btn-container" style="margin-top: 10px;margin-left:-25px">
+								<button id='submitBtn' type="submit" lay-submit	 class='layui-btn  layui-btn-normal '  value="Submit">
+									<i class="layui-icon">&#xe605;</i>	提交
+								</button>
+								<button id='closeWinBtn_' type="button" onclick="deleteTab()"	 class='layui-btn  layui-btn-normal  layui-btn-radius' value="Close">
+									<i class="layui-icon">&#x1006;</i>	关闭
+								</button>
+							</div>
+					</div>
+				</div>
+			</div>
+			#@submitFunction()   
 </form>
   
   <div id="btn-wrap">
