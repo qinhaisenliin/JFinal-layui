@@ -362,10 +362,11 @@ function rightTree(){
             }
 
             $.ajax({
-           	url:'#(path)/portal/core/sysRole/saveRoleFunction?funcs='+funcs,
+           	url:'#(path)/portal/core/sysRole/saveRoleFunction',
            	type:'POST',
            	data:{
-           		"roleCode":roleCode
+           		"roleCode":roleCode,
+           		"funcs":funcs.toString()
            	},
            	success:function(data){
            		layer.msg(data.msg);
