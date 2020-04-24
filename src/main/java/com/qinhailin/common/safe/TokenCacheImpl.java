@@ -15,35 +15,39 @@
  */ 
 package com.qinhailin.common.safe;
 
-import com.jfinal.aop.Inject;
-import com.jfinal.core.Const;
-import com.jfinal.core.Controller;
-import com.jfinal.token.TokenManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.jfinal.token.ITokenCache;
+import com.jfinal.token.Token;
 
 /**
- * token
- * @author QinHaiLin
- * @date 2020-02-14
+ * token缓存实现接口
+ * @author qinhailin
+ * @date 2020-04-24
  */
-public class TokenService {
+public class TokenCacheImpl implements ITokenCache{
 
-	@Inject
-	private TokenCacheImpl tokenCache;
+	private List<Token> tokenList=new ArrayList<>();
 	
-	/**
-	 * 创建token
-	 * @param c
-	 */
-	public void createToken(Controller c){
-		TokenManager.init(tokenCache);
-		TokenManager.createToken(c, Const.DEFAULT_TOKEN_NAME, Const.DEFAULT_SECONDS_OF_TOKEN_TIME_OUT);
+	@Override
+	public void put(Token token) {
+		tokenList.add(token);	
 	}
-	
-	/**
-	 * 验证token
-	 * @param c
-	 */
-	public boolean validateToken(Controller c){
-		return TokenManager.validateToken(c, Const.DEFAULT_TOKEN_NAME);
+
+	@Override
+	public void remove(Token token) {
+		tokenList.remove(token);
 	}
+
+	@Override
+	public boolean contains(Token token) {
+		return tokenList.contains(token);
+	}
+
+	@Override
+	public List<Token> getAll() {
+		return tokenList;
+	}
+
 }
