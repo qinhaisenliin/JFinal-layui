@@ -26,6 +26,7 @@ import com.jfinal.token.TokenManager;
  * @date 2020-02-14
  */
 public class TokenService {
+	private static boolean flag=false;
 
 	@Inject
 	private TokenCacheImpl tokenCache;
@@ -35,7 +36,10 @@ public class TokenService {
 	 * @param c
 	 */
 	public void createToken(Controller c){
-		TokenManager.init(tokenCache);
+		if(!flag){
+			TokenManager.init(tokenCache);
+			flag=true;
+		}
 		TokenManager.createToken(c, Const.DEFAULT_TOKEN_NAME, Const.DEFAULT_SECONDS_OF_TOKEN_TIME_OUT);
 	}
 	
