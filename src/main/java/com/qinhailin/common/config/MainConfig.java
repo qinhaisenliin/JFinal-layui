@@ -15,6 +15,7 @@
  */ 
 package com.qinhailin.common.config;
 
+import com.alibaba.druid.filter.logging.Log4jFilter;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.Constants;
@@ -29,6 +30,7 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.template.Engine;
 import com.jfinal.template.source.ClassPathSourceFactory;
 import com.qinhailin.common.directive.MyNowDirective;
+import com.qinhailin.common.filter.MyDruidFilter;
 import com.qinhailin.common.handler.CommonHandler;
 import com.qinhailin.common.intercepor.ExceptionInterceptor;
 import com.qinhailin.common.intercepor.LoggerInterceptor;
@@ -119,8 +121,7 @@ public class MainConfig extends JFinalConfig {
 	@Override
 	public void configPlugin(Plugins me) {
 		// 配置数据库连接池插件
-		DruidPlugin dbPlugin = createDruidPlugin();
-
+		DruidPlugin dbPlugin = createDruidPlugin();		
 		/** 配置druid监控 **/
 		dbPlugin.addFilter(new StatFilter());
 		WallFilter wall = new WallFilter();
@@ -135,8 +136,10 @@ public class MainConfig extends JFinalConfig {
 		// 代码器模板
 		arp.addSqlTemplate(WebContant.codeTemplate);
 		// sql输出
-		arp.setShowSql(true);
-		SqlReporter.setLog(false);
+		//arp.setShowSql(true);
+		//SqlReporter.setLog(!p.getBoolean("devMode"));
+		//处理SQL参数
+		dbPlugin.addFilter(new MyDruidFilter());
 		
 		if("oracle".equals(p.get("dbType"))){
 			// 配置属性名(字段名)大小写,true：小写，false:大写,统一小写，切换oracle数据库的时候可以不用改页面字段

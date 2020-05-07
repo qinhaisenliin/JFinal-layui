@@ -4,7 +4,7 @@
 	<groupId>com.qinhailin</groupId>
 	<artifactId>jfinal-layui</artifactId>
 	<packaging>jar</packaging>
-	<version>1.4.2</version>
+	<version>1.4.3</version>
 	<name>jfinal-layui</name>
 	
 	<properties>
@@ -65,7 +65,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>1.1.12</version>
+			<version>1.1.21</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
