@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
@@ -79,7 +81,7 @@ public class SysUserService extends BaseService {
 	 * @return
 	 */
 	public List<Record> queryOrgIdAndNameRecord(){
-		return queryForList("select id value,org_name text from sys_org");
+		return queryForList("select id value,org_name text from sys_org where isstop=1");
 	}
 	
 	public SysUser findByUserCode(String userCode) {
@@ -171,4 +173,47 @@ public class SysUserService extends BaseService {
 		return map;
 	}
 
+	/**
+	 * 保存用户列表数据
+	 * @param tableList
+	 * @param orgId
+	 * @return
+	 */
+	public boolean saveUserList(JSONArray userList,String orgId){
+		for(int i=0;i<userList.size();i++){
+			JSONObject obj=(JSONObject) userList.get(i);
+			String userCode=obj.getString("user_code");
+			SysUser user=new SysUser();
+			user.setId(userCode)
+			.setUserCode(userCode)
+			.setUserName(obj.getString("user_name"))
+			.setOrgId(orgId)
+			.setSex(Integer.parseInt(getObjectValue(obj.get("sex"))))
+			.setEmail(obj.getString("email"))
+			.setMobile(obj.getString("mobile"))
+			.setTel(obj.getString("tel"))
+			.setAllowLogin(Integer.parseInt(getObjectValue(obj.get("allow_login"))));
+			//存在用户则修改信息
+			if(isExist(userCode)){
+				user.update();
+			}else{
+				user.setPasswd(Md5Kit.md5(userCode)+"123");
+				user.save();
+			}
+		}
+		return true;
+	}
+	
+	public String getObjectValue(Object obj){
+		if(obj instanceof JSONObject){
+			try {
+				return ((JSONObject) obj).get("value").toString();	
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(obj);
+			}			
+		}
+		
+		return obj==null?"":obj.toString();
+	}
 }

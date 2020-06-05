@@ -1,0 +1,169 @@
+
+	<div class="layui-tab layui-tab-card">
+		  <ul class="layui-tab-title">
+			    <li class="layui-this">用户管理</li>
+			    <li class="layui-this layui-hide">用户管理2</li>
+		  </ul>
+		  <div class="layui-tab-content" style="height: calc(55vh)">
+		  		<!-- 内容一 -->
+			    <div class="layui-tab-item layui-show">	   	
+				   	<table class="layui-hide" id="tab_item_1" lay-filter="tab_item_1"></table>  
+				   	<!-- 表头工具栏 -->
+				   	<script type="text/html" id="table_toolbar_1">
+  						<div class="layui-btn-group">
+							<button class="layui-btn layui-btn-normal layui-btn-sm" id="add_btn_1" type="button">
+				  				<i class="layui-icon">&#xe608;</i> 新增
+							</button>
+							<button class="layui-btn layui-btn-normal layui-btn-sm" id="save_btn_1" type="button">
+				  				<i class="layui-icon">&#xe605;</i> 保存
+							</button>
+						</div>
+					</script>
+					<!-- 	每行的操作按钮 -->
+					<script type="text/html" id="table_rowbar_1">
+  						<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del_btn_1">删除</a>
+					</script>	
+			    </div>
+			    <!-- 内容二 -->
+			    <div class="layui-tab-item">
+			    	<table class="layui-hide" id="tab_item_2" lay-filter="tab_item_2"></table>
+			    	<!-- 表头工具栏 -->
+				   	<script type="text/html" id="table_toolbar_2">
+  						<div class="layui-btn-group">
+							<button class="layui-btn layui-btn-normal layui-btn-sm" id="add_btn_2" type="button">
+				  				<i class="layui-icon">&#xe608;</i> 新增
+							</button>
+							<button class="layui-btn layui-btn-normal layui-btn-sm" id="save_btn_2" type="button">
+				  				<i class="layui-icon">&#xe605;</i> 保存
+							</button>
+						</div>
+					</script>
+					<!-- 	每行的操作按钮 -->
+					<script type="text/html" id="table_rowbar_2">
+  						<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del_btn_2">删除</a>
+					</script>	
+			    </div>
+		  </div>
+	</div>
+
+#define js()
+
+<script src="#(path)/static/portal/core/sysOrg/tab-item.js?t=#now()" type="text/javascript" ></script>
+<!-- 分页表格 -->
+<script>
+var orgId="#(sysOrg.id??)";
+var params_sex=[{value:0,name:"女"},{value:1,name:"男"}];
+var params_yesno=[{value:0,name:"是"},{value:1,name:"否"}];
+var params = [{value:1,name:"张三1"},{value:2,name:"张三2"},{value:3,name:"张三3"},{value:4,name:"张三4"},{value:5,name:"张三5"}];
+/*=====表格1=====*/
+//获取默认配置
+var config=editTable.config;
+//查询数据接口
+config.queryUrl="#(path)/portal/core/sysUser/list";
+config.params={"type":"org","orgId":orgId};
+//保存数据接口
+config.saveUrl="#(path)/portal/core/sysOrg/saveTableTata?orgId="+orgId;
+//删除接口
+config.deleteUrl="#(path)/portal/core/sysUser/delete";
+//添加行数据参数，可以给默认值
+config.rowData={
+		"user_code":"test",
+		"user_name":"托尔斯泰",
+		"org_name":null,
+		"sex":"1",
+		"mobile":null,
+		"tel":null,
+		"email":null,
+		"allow_login":0
+};
+
+//表格列表设置
+editTable.render(config,{
+	  elem: '#'+config.tableId
+      ,height: 'full-300'
+      ,toolbar:'#'+config.toolbar
+      ,cols: [[ 
+      		 {field : 'id',type:'checkbox'}
+             ,{title:'序号',type:'numbers',width:35}
+             ,{field:'user_code',title: '用户名',edit:true}
+             ,{field:'user_name',align:'center', title: '姓名',width:120,edit:true}               
+             ,{field:'sex', title: '性别',event:'sex'
+                 ,config:{type:'select',data:params_sex},templet:function(d){
+                 	if(d.sex&&d.sex.name){
+                          return  d.sex.name; 
+                     }
+                     return d.sex == 0 ? '女' : '男';
+                 }
+             }
+             ,{field:'mobile', title: '手机 ',edit:true}
+             ,{field:'tel', title: '电话',edit:true}
+             ,{field:'email', title: '邮箱',edit:true}
+             ,{field:'allow_login', title: '允许登录',event:'allow_login'
+                 ,config:{type:'select',data:params_yesno},templet:function (d) {
+                    if(d.allow_login&&d.allow_login.name){
+                        return  d.allow_login.name;
+                    }
+                     return d.allow_login == 0 ? '是' : '否';
+             	  }
+            }
+		,{fixed: 'right', title:'操作', toolbar: '#'+config.rowbar,width:100 }
+	]]
+});
+
+/**========表格2=========*/
+var editTable2=new EditTable();
+var config=editTable2.config;
+//除了第一个用默认配置,其他表格都要配置自己的参数
+config.tableId='tab_item_2';//表Id
+config.addBtnId='add_btn_2';//添加按钮ID
+config.delEvent='del_btn_2';//删除按钮Even值
+config.toolbar='table_toolbar_2';//表头工具ID
+config.rowbar='table_rowbar_2';//行按钮ID
+config.saveBtnId="save_btn_2";//保存表格接口
+config.queryUrl="#(path)/portal/core/sysUser/list";
+config.params={"type":"org","orgId":orgId};
+config.saveUrl="#(path)/portal/core/sysOrg/saveTableTata?orgId="+orgId;
+config.deleteUrl="#(path)/portal/core/sysUser/delete";
+config.rowData={
+		"user_code":"test2",
+		"user_name":"托尔斯泰2",
+		"org_name":null,
+		"sex":0,
+		"mobile":null,
+		"tel":null,
+		"email":null,
+		"allow_login":1
+};
+editTable2.render(config,{
+	 elem: '#'+config.tableId
+     ,height: 'full-300'
+     ,toolbar:'#'+config.toolbar
+     ,cols: [[ 
+     		{field:'id',type:'checkbox'}
+             ,{title:'序号',type:'numbers',width:35}
+             ,{field:'user_code',title: '用户名',edit:true}
+             ,{field:'user_name',align:'center', title: '姓名',width:120,edit:true}      
+             ,{field:'sex', title: '性别',event:'sex'
+                 ,config:{type:'select',data:params_sex},templet:function(d){
+                 	if(d.sex&&d.sex.name){
+                          return  d.sex.name; 
+                     }
+                     return d.sex == 0 ? '女' : '男';
+                 }
+             } 	                
+             ,{field:'mobile', title: '手机 ',edit:true}
+             ,{field:'tel', title: '电话',edit:true}
+             ,{field:'email', title: '邮箱',edit:true}
+             ,{field:'allow_login', title: '允许登录',event:'allow_login'
+                 ,config:{type:'select',data:params_yesno},templet:function (d) {
+                    if(d.allow_login&&d.allow_login.name){
+                        return  d.allow_login.name;
+                    }
+                     return d.allow_login == 0 ? '是' : '否';
+             }}
+			,{fixed: 'right', title:'操作', toolbar: '#'+config.rowbar,width:100 }
+		]]
+});
+</script>
+
+#end

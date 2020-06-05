@@ -19,6 +19,7 @@ package com.qinhailin.portal.core.ctrl;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.alibaba.fastjson.JSONArray;
 import com.jfinal.aop.Inject;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.jfinal.plugin.ehcache.IDataLoader;
@@ -28,6 +29,7 @@ import com.qinhailin.common.routes.ControllerBind;
 import com.qinhailin.common.vo.Feedback;
 import com.qinhailin.common.vo.TreeNode;
 import com.qinhailin.portal.core.service.SysOrgService;
+import com.qinhailin.portal.core.service.SysUserService;
 
 /**
  * 部门
@@ -40,6 +42,8 @@ public class SysOrgController extends BaseController {
 
 	@Inject
 	SysOrgService service;
+	@Inject
+	SysUserService sysUserService;
 
 	public void index() {
 		render("index.html");
@@ -89,7 +93,7 @@ public class SysOrgController extends BaseController {
 	/**
 	 * 部门树
 	 * 
-	 * @author qinhailin
+	 * @author QinHaiLin
 	 * @date 2018年10月8日
 	 */
 	public void tree() {
@@ -111,4 +115,47 @@ public class SysOrgController extends BaseController {
 		renderJson(nodes);
 	}
 
+	/**
+	 * 添加部门和用户，演示主从表录入操作
+	 * @author QinHaiLin
+	 * @date 2020-06-05
+	 */
+	public void addOrgUser(){
+		SysOrg entity = (SysOrg) service.findById(getPara("orgCode"));
+		set("sysOrg",new SysOrg()
+				.setId(createUUID())
+				.setParentid(entity!=null?entity.getId():"sys")
+				.setParentidName(entity!=null?entity.getOrgName():"组织机构")
+			);
+		render("addOrgUser.html");
+	}
+	
+	/**
+	 * 保存部门信息（主）
+	 * @author QinHaiLin
+	 * @date 2020-06-05
+	 */
+	public void saveFormData(){
+		SysOrg entity=getBean(SysOrg.class);
+		boolean b=entity.setOrgCode(entity.getId()).save();
+		//主表录入成功才录入从表信息
+		if(b){			
+			String json=(String) getSession().getAttribute(entity.getId()+"sysUser");
+			sysUserService.saveUserList(JSONArray.parseArray(json), entity.getId());
+		}
+		setAttr("sysOrg", entity);
+		CacheKit.removeAll("orgManager");
+		render("addOrgUser.html");
+	}
+	
+	/**
+	 * 保存用户信息（从表一）
+	 * @author QinHaiLin
+	 * @date 2020-06-05
+	 */
+	public void saveTableTata(){
+		//暂存从表数据
+		getSession().setAttribute(getPara("orgId")+"sysUser", getPara("tableList"));
+		renderJson(ok());
+	}
 }

@@ -87,13 +87,13 @@
 <!-- layui函数模块 -->
 #define layui()
 <script>
-	layui.use([ 'table', 'form', 'jquery','laydate'], function() {
+	layui.use([ 'table', 'form', 'jquery','laydate','element'], function() {
 		var table = layui.table;
 		var form = layui.form;
 		var layer = layui.layer;
 		var $ = layui.$;
 		var laydate = layui.laydate;
-		
+		var element = layui.element; 
 		//执行一个laydate日期选择控件实例
 		lay('.layui-date').each(function(){
 			laydate.render({

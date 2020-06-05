@@ -86,8 +86,7 @@ public class MainConfig extends JFinalConfig {
 		me.setError403View(WebContant.error403View);
 		me.setError404View(WebContant.error404View);
 		me.setError500View(WebContant.error500View);
-		//Json配置
-		me.setJsonFactory(FastJsonFactory.me());
+
 		//开启依赖注入
 		me.setInjectDependency(true);
 		//附件上传大小设置100M
