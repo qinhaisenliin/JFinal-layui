@@ -13,7 +13,7 @@
 		</div>
 	</script>
 	<!-- 	每行的操作按钮 -->
-	<script type="text/html" id="table_rowbar_2">
+	<script type="text/html" id="table_rowbar_1">
   		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del_btn_1">删除</a>
 	</script>	
 #end
@@ -101,6 +101,7 @@ layui.extend({
                     ,config:{type:'select',data:params},templet:function (d) {
                     return d.rqxiaji && d.rqxiaji.name ? d.rqxiaji.name : '';
                 }}
+                ,{fixed: 'right', title:'操作', toolbar: '#table_rowbar_1',width:100 }
             ]]
         	,done: function (res, curr, count) {
 				var editTableData = res.data;
@@ -164,6 +165,17 @@ layui.extend({
              *中的obj对象是同一个，所以可以如此操作。
              *
              * */
+
+          //2、删除监听
+ 	    	// 当前操作的数据的索引
+ 	    	var nowIndex = parseInt(getQuotationVal(obj.tr.selector)[0]);
+ 	    	if(obj.event === "del_btn_1"){
+ 	        	var confirmIndex = layer.confirm('您确定要删除吗?',{btn: ['确定', '取消'],title:"提示"}, function(){
+ 		       		var editTableData=layui.table.cache["tableId"].deleteOne(nowIndex);
+ 			 		table.reload("tableId",{data:editTableData}); // 重新渲染表格
+ 			 		layer.close(confirmIndex); // 关闭弹窗
+ 				});
+ 	        }
         });
 
 
@@ -209,5 +221,24 @@ layui.extend({
 			    }	
 			});
 	}
+
+	// 给数组添加一个方法，delete方法接受一个参数，根据参数删除数组的一个元素，返回一个删除对应索引元素的新数组，不改变原有数组
+ 	Array.prototype.deleteOne=function(delIndex){
+ 		var temArray=[];
+ 		for(var i=0;i<this.length;i++){
+ 			if(i!=delIndex){
+ 	    		temArray.push(this[i]);
+ 			}
+ 		}
+ 		return temArray;
+ 	}
+ 	
+ 	// 获取双引号""中的值
+ 	function getQuotationVal(str) {
+ 	    var result = str.match(/\"\w*\"/g);
+ 	    return result.map(function(element){
+ 	        return element.replace(/\"/g, '');
+ 	    });
+ 	}
 </script>
 #end

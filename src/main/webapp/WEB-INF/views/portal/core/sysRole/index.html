@@ -103,9 +103,11 @@ body .layui-tree-skin-skin .layui-tree-branch{
            <label>角色权限：</label>
          </div>
          <div class="layui-col-xs8  layui-btn-group">
+         #if(vs.funcMap.get("sys_role_save_function"))
            <button id='saveRoleFunc'type="button" lay-submit class='layui-btn layui-btn-green layui-btn-xs' value="Submit">
 			<i class="layui-icon">&#xe605;</i>	保存
-		  </button>		  
+		  </button>
+		  #end		  
 		  </div>
         </div>
         <div id="layui-xtree-demo1" class="func_tree"></div>
@@ -370,7 +372,7 @@ function rightTree(){
            	},
            	success:function(data){
            		layer.msg(data.msg);
-           	},
+           	}
            });
         } 
 	})

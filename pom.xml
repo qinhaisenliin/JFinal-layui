@@ -112,6 +112,12 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.9.2</version>
 		</dependency>
+		<!--制表插件ureport-->
+		<dependency>
+		    <groupId>com.bstek.ureport</groupId>
+		    <artifactId>ureport2-console</artifactId>
+		    <version>2.2.8</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<!-- <finalName>jfinal-layui</finalName> -->

@@ -15,7 +15,6 @@
  */ 
 package com.qinhailin.common.config;
 
-import com.alibaba.druid.filter.logging.Log4jFilter;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.Constants;
@@ -40,14 +39,13 @@ import com.qinhailin.common.kit.DruidKit;
 import com.qinhailin.common.model._MappingKit;
 import com.qinhailin.common.routes.AutoBindRoutes;
 import com.qinhailin.common.safe.XssHandler;
+import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.server.undertow.UndertowServer;
-import com.jfinal.json.FastJsonFactory;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
-import com.jfinal.plugin.activerecord.SqlReporter;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 
@@ -57,7 +55,17 @@ public class MainConfig extends JFinalConfig {
 	 *运行main方法启动项目
 	 */
 	public static void main(String[] args) {
-		UndertowServer.start(MainConfig.class);
+//		UndertowServer.start(MainConfig.class);
+		UndertowServer.create(MainConfig.class)
+		.configWeb( builder -> {
+	         // 配置 UReport2 Servlet
+	         builder.addServlet("ureportServlet", "com.bstek.ureport.console.UReportServlet");
+	         builder.addServletMapping("ureportServlet", "/ureport/*");
+	         builder.addServletInitParam("ureportServlet", "key", "value");
+	         // 配置 Listener
+	         builder.addListener("org.springframework.web.context.ContextLoaderListener");
+	      })
+		.start();
 	}
 	
 	// 使用 jfinal-undertow 时此处仅保留声明，不能有加载代码
@@ -134,9 +142,7 @@ public class MainConfig extends JFinalConfig {
 		arp.addSqlTemplate(WebContant.sqlTemplate);
 		// 代码器模板
 		arp.addSqlTemplate(WebContant.codeTemplate);
-		// sql输出
-		//arp.setShowSql(true);
-		//SqlReporter.setLog(!p.getBoolean("devMode"));
+
 		//处理SQL参数
 		dbPlugin.addFilter(new MyDruidFilter());
 		
@@ -183,6 +189,8 @@ public class MainConfig extends JFinalConfig {
 		me.add(new CommonHandler());
 		// XSS过滤
 		me.add(new XssHandler("^\\/portal/form/view.*"));
+		// 放开/ureport/开头的请求
+		me.add(new UrlSkipHandler("^\\/ureport.*", true));
 	}
 	
 	/**

@@ -91,6 +91,7 @@ EditTable.prototype.render=function(config,options){
  				$("#"+config.saveBtnId).unbind("click");
  				$("#"+config.saveBtnId).click(function (){
  					console.log(editTableData)
+ 					if(editTableData.length>0)
  					submitData(config.saveUrl,{"tableList":JSON.stringify(editTableData)});
  				});
  				
@@ -118,8 +119,6 @@ EditTable.prototype.render=function(config,options){
  				});*/
  	        }
 		}, options);
- 		
- 		
  		
  		return table.render(tableOptions);
  	}

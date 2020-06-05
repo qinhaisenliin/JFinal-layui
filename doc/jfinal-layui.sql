@@ -147,6 +147,18 @@ INSERT INTO sys_function VALUES ('sys_cus_sql', '自定义SQL', 0, '/portal/form
 INSERT INTO sys_function VALUES ('generator_manager', '代码生成器', 0, '/portal/generator/code', 'sys', '网站后台管理', 0, 'layui-icon-fonts-code', 2, NULL, 1);
 -- 联级多选
 INSERT INTO sys_function VALUES ('select_more_demo', '联级多选', 0, '/portal/go/common/demo/select', 'sys', '网站后台管理', 0, 'layui-icon-down', 60, NULL, 1);
+-- 角色管理中权限分配的保存按钮
+INSERT INTO sys_function VALUES ('sys_role_save_function', '权限分配按钮', 0, '/portal/core/sysRole/saveRoleFunction', 'sys_role_manager', '角色管理', 1, NULL, 4, NULL, 1);
+-- 报表管理菜单
+INSERT INTO sys_function VALUES ('ureport_course', '报表教程', 0, 'https://www.w3cschool.cn/ureport/ureport-dysp2ha7.html', 'ureport_manager', '报表管理', 0, NULL, 4, NULL, 1);
+INSERT INTO sys_function VALUES ('ureport_designer', '报表设计', 0, '/ureport/designer', 'ureport_manager', '报表管理', 0, NULL, 3, NULL, 1);
+INSERT INTO sys_function VALUES ('ureport_manager', '报表管理', 0, '/ureport/designer', 'sys', '网站后台管理', 0, 'layui-icon-app', 2, NULL, 1);
+INSERT INTO sys_function VALUES ('ureport_preview', '报表预览', 0, NULL, 'ureport_manager', '报表管理', 0, NULL, 5, NULL, 1);
+INSERT INTO sys_function VALUES ('ureport_preview_import', '导入报表', 0, '/ureport/preview?_u=file:import.ureport.xml', 'ureport_preview', '报表预览', 0, NULL, 6, NULL, 1);
+INSERT INTO sys_function VALUES ('ureport_preview_sys_log', '日志报表', 0, '/ureport/preview?_u=file:sysLog.ureport.xml', 'ureport_preview', '报表预览', 0, NULL, 4, NULL, 1);
+INSERT INTO sys_function VALUES ('ureport_preview_user', '用户报表', 0, '/ureport/preview?_u=file:user.ureport.xml', 'ureport_preview', '报表预览', 0, NULL, 5, NULL, 1);
+-- 可编辑表格
+INSERT INTO sys_function VALUES ('table_edit', '可编辑表格', 0, '/portal/go/common/demo/layuiTableEdit', 'sys', '网站后台管理', 0, 'layui-icon-table', 50, NULL, 1);
 
 -- ----------------------------
 -- Table structure for sys_log
@@ -534,6 +546,32 @@ INSERT INTO sys_role_function VALUES ('sys_generator_manager', 'generator_manage
 INSERT INTO sys_role_function VALUES ('admin-select_more_demo', 'select_more_demo', 'admin');
 INSERT INTO sys_role_function VALUES ('superadmin_select_more_demo', 'select_more_demo', 'superadmin');
 INSERT INTO sys_role_function VALUES ('sys_select_more_demo', 'select_more_demo', 'sys');
+-- 报表管理
+INSERT INTO sys_role_function VALUES ('admin-table_edit', 'table_edit', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-ureport_course', 'ureport_course', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-ureport_designer', 'ureport_designer', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-ureport_manager', 'ureport_manager', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-ureport_preview', 'ureport_preview', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-ureport_preview_import', 'ureport_preview_import', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-ureport_preview_sys_log', 'ureport_preview_sys_log', 'admin');
+INSERT INTO sys_role_function VALUES ('admin-ureport_preview_user', 'ureport_preview_user', 'admin');
+INSERT INTO sys_role_function VALUES ('superadmin_table_edit', 'table_edit', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_ureport_course', 'ureport_course', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_ureport_designer', 'ureport_designer', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_ureport_manager', 'ureport_manager', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_ureport_preview', 'ureport_preview', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_ureport_preview_import', 'ureport_preview_import', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_ureport_preview_sys_log', 'ureport_preview_sys_log', 'superadmin');
+INSERT INTO sys_role_function VALUES ('superadmin_ureport_preview_user', 'ureport_preview_user', 'superadmin');
+INSERT INTO sys_role_function VALUES ('sys_table_edit', 'table_edit', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_ureport_course', 'ureport_course', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_ureport_designer', 'ureport_designer', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_ureport_manager', 'ureport_manager', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_ureport_preview', 'ureport_preview', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_ureport_preview_import', 'ureport_preview_import', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_ureport_preview_sys_log', 'ureport_preview_sys_log', 'sys');
+INSERT INTO sys_role_function VALUES ('sys_ureport_preview_user', 'ureport_preview_user', 'sys');
+
 
 -- ----------------------------
 -- Table structure for sys_user

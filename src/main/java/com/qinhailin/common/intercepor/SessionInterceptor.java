@@ -50,6 +50,7 @@ public class SessionInterceptor implements Interceptor {
 		String actionKey = inv.getActionKey();
 		HttpSession session = controller.getSession();
 		Visitor vs = VisitorUtil.getVisitor(session);
+		boolean isAjax="XMLHttpRequest".equalsIgnoreCase(controller.getHeader("X-Requested-With"));
 		
 		//需要身份认证的地址
 		if (actionKey.startsWith("/portal")||actionKey.equals("/")) {
@@ -78,13 +79,22 @@ public class SessionInterceptor implements Interceptor {
 					actionKey+="/"+controller.getRequest().getAttribute("view");
 				}
 				//重新登录，携带重定向地址
+				if(isAjax){
+					controller.renderJson(Ret.fail("msg", "身份失效，请重新登录！"));
+					return;
+				}
 				controller.redirect("/pub/login?returnUrl="+actionKey+para);
 				return;
 			}
 			
 			//验证用户权限
 			if(sysRoleFuncService.getSysPermissions().get(actionKey)!=null
-					&&sysRoleFuncService.getUserPermissions(vs.getCode()).get(actionKey)==null) {								
+					&&sysRoleFuncService.getUserPermissions(vs.getCode()).get(actionKey)==null) {	
+				
+				if(isAjax){
+					controller.renderJson(Ret.fail("msg", "没有访问权限，请联系管理员！"));
+					return;
+				}
 				controller.getResponse().setStatus(403);
 				controller.renderError(403);
 				return;
