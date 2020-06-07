@@ -41,6 +41,8 @@ import com.qinhailin.common.routes.AutoBindRoutes;
 import com.qinhailin.common.safe.XssHandler;
 import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
+import com.jfinal.json.FastJsonFactory;
+import com.jfinal.json.JFinalJson;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.server.undertow.UndertowServer;
@@ -94,7 +96,8 @@ public class MainConfig extends JFinalConfig {
 		me.setError403View(WebContant.error403View);
 		me.setError404View(WebContant.error404View);
 		me.setError500View(WebContant.error500View);
-
+		//
+		me.setJsonFactory(FastJsonFactory.me());
 		//开启依赖注入
 		me.setInjectDependency(true);
 		//附件上传大小设置100M

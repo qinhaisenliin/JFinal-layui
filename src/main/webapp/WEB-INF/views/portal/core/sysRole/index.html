@@ -350,7 +350,8 @@ function rightTree(){
 
              }
         });
-
+        
+       #if(vs.funcMap.get("sys_role_save_function"))
         document.getElementById('saveRoleFunc').onclick = function () {
         	if(roleCode==null||roleCode=="sys"){
         		layer.msg("请选择角色");
@@ -375,6 +376,7 @@ function rightTree(){
            	}
            });
         } 
+     #end
 	})
 }
 
