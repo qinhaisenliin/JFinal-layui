@@ -197,7 +197,7 @@ public class SysUserService extends BaseService {
 			if(isExist(userCode)){
 				user.update();
 			}else{
-				user.setPasswd(Md5Kit.md5(userCode)+"123");
+				user.setPasswd(Md5Kit.md5(userCode+"123"));
 				user.save();
 			}
 		}

@@ -159,8 +159,6 @@ INSERT INTO sys_function VALUES ('ureport_preview_sys_log', '日志报表', 0, '
 INSERT INTO sys_function VALUES ('ureport_preview_user', '用户报表', 0, '/ureport/preview?_u=file:user.ureport.xml', 'ureport_preview', '报表预览', 0, NULL, 5, NULL, 1);
 -- 可编辑表格
 INSERT INTO sys_function VALUES ('table_edit', '可编辑表格', 0, '/portal/go/common/demo/layuiTableEdit', 'sys', '网站后台管理', 0, 'layui-icon-table', 50, NULL, 1);
---权限分配按钮
-INSERT INTO sys_function VALUES ('sys_role_save_function', '权限分配按钮', 0, '/portal/core/sysRole/saveRoleFunction', 'sys_role_manager', '角色管理', 1, NULL, 4, NULL, 1);
 
 -- ----------------------------
 -- Table structure for sys_log
