@@ -154,7 +154,6 @@ INSERT INTO sys_function VALUES ('ureport_course', '报表教程', 0, 'https://w
 INSERT INTO sys_function VALUES ('ureport_designer', '报表设计', 0, '/ureport/designer', 'ureport_manager', '报表管理', 0, NULL, 3, NULL, 1);
 INSERT INTO sys_function VALUES ('ureport_manager', '报表管理', 0, '/ureport/designer', 'sys', '网站后台管理', 0, 'layui-icon-app', 2, NULL, 1);
 INSERT INTO sys_function VALUES ('ureport_preview', '报表预览', 0, NULL, 'ureport_manager', '报表管理', 0, NULL, 5, NULL, 1);
-INSERT INTO sys_function VALUES ('ureport_preview_import', '导入报表', 0, '/ureport/preview?_u=file:import.ureport.xml', 'ureport_preview', '报表预览', 0, NULL, 6, NULL, 1);
 INSERT INTO sys_function VALUES ('ureport_preview_sys_log', '日志报表', 0, '/ureport/preview?_u=file:sysLog.ureport.xml', 'ureport_preview', '报表预览', 0, NULL, 4, NULL, 1);
 INSERT INTO sys_function VALUES ('ureport_preview_user', '用户报表', 0, '/ureport/preview?_u=file:user.ureport.xml', 'ureport_preview', '报表预览', 0, NULL, 5, NULL, 1);
 -- 可编辑表格
@@ -552,7 +551,6 @@ INSERT INTO sys_role_function VALUES ('admin-ureport_course', 'ureport_course', 
 INSERT INTO sys_role_function VALUES ('admin-ureport_designer', 'ureport_designer', 'admin');
 INSERT INTO sys_role_function VALUES ('admin-ureport_manager', 'ureport_manager', 'admin');
 INSERT INTO sys_role_function VALUES ('admin-ureport_preview', 'ureport_preview', 'admin');
-INSERT INTO sys_role_function VALUES ('admin-ureport_preview_import', 'ureport_preview_import', 'admin');
 INSERT INTO sys_role_function VALUES ('admin-ureport_preview_sys_log', 'ureport_preview_sys_log', 'admin');
 INSERT INTO sys_role_function VALUES ('admin-ureport_preview_user', 'ureport_preview_user', 'admin');
 INSERT INTO sys_role_function VALUES ('superadmin_table_edit', 'table_edit', 'superadmin');
@@ -560,7 +558,6 @@ INSERT INTO sys_role_function VALUES ('superadmin_ureport_course', 'ureport_cour
 INSERT INTO sys_role_function VALUES ('superadmin_ureport_designer', 'ureport_designer', 'superadmin');
 INSERT INTO sys_role_function VALUES ('superadmin_ureport_manager', 'ureport_manager', 'superadmin');
 INSERT INTO sys_role_function VALUES ('superadmin_ureport_preview', 'ureport_preview', 'superadmin');
-INSERT INTO sys_role_function VALUES ('superadmin_ureport_preview_import', 'ureport_preview_import', 'superadmin');
 INSERT INTO sys_role_function VALUES ('superadmin_ureport_preview_sys_log', 'ureport_preview_sys_log', 'superadmin');
 INSERT INTO sys_role_function VALUES ('superadmin_ureport_preview_user', 'ureport_preview_user', 'superadmin');
 INSERT INTO sys_role_function VALUES ('sys_table_edit', 'table_edit', 'sys');
@@ -568,7 +565,6 @@ INSERT INTO sys_role_function VALUES ('sys_ureport_course', 'ureport_course', 's
 INSERT INTO sys_role_function VALUES ('sys_ureport_designer', 'ureport_designer', 'sys');
 INSERT INTO sys_role_function VALUES ('sys_ureport_manager', 'ureport_manager', 'sys');
 INSERT INTO sys_role_function VALUES ('sys_ureport_preview', 'ureport_preview', 'sys');
-INSERT INTO sys_role_function VALUES ('sys_ureport_preview_import', 'ureport_preview_import', 'sys');
 INSERT INTO sys_role_function VALUES ('sys_ureport_preview_sys_log', 'ureport_preview_sys_log', 'sys');
 INSERT INTO sys_role_function VALUES ('sys_ureport_preview_user', 'ureport_preview_user', 'sys');
 -- 分配按钮权限
